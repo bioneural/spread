@@ -1,0 +1,335 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# spread — static blog generator
+#
+# Usage:
+#   bin/spread build              # Generate _site/
+#   bin/spread serve              # Build + local dev server (port 8787, auto-rebuild)
+#   bin/spread new "Post title"   # Scaffold a new post
+#
+# Dependencies: ruby, kramdown (gem)
+#
+# Behavior:
+#   build:
+#     1. Clean _site/
+#     2. Parse all content/posts/*.md (YAML frontmatter + kramdown body)
+#     3. Sort posts by date descending
+#     4. Render each post through post.html template then layout.html wrapper
+#     5. Render index page with post list
+#     6. Render about page
+#     7. Generate RSS feed (20 most recent)
+#     8. Copy static/ to _site/
+#
+#   serve:
+#     1. Run build
+#     2. Start TCPServer on port 8787
+#     3. Poll for file changes every 2 seconds, auto-rebuild
+#
+#   new:
+#     1. Slugify the given title
+#     2. Create content/posts/YYYY-MM-DD-slug.md with frontmatter template
+#
+# Schema (frontmatter):
+#   title:       string (required)
+#   date:        YYYY-MM-DD (required for posts)
+#   description: string (optional — used in RSS and meta tags)
+
+require 'yaml'
+require 'erb'
+require 'fileutils'
+require 'time'
+require 'socket'
+require 'kramdown'
+
+SPREAD_ROOT = File.expand_path('..', __dir__)
+SITE_DIR    = File.join(SPREAD_ROOT, '_site')
+CONTENT_DIR = File.join(SPREAD_ROOT, 'content')
+TMPL_DIR    = File.join(SPREAD_ROOT, 'templates')
+STATIC_DIR  = File.join(SPREAD_ROOT, 'static')
+SITE_URL    = 'https://bioneural.github.io/spread'
+
+def log(msg)
+  $stderr.puts "spread: #{msg}"
+end
+
+# -- Frontmatter parsing --
+
+def parse_file(path)
+  raw = File.read(path)
+  if raw.start_with?("---\n") || raw.start_with?("---\r\n")
+    closing = raw.index("\n---", 3)
+    return { meta: {}, body_md: raw } unless closing
+    yaml_str = raw[4...closing]
+    meta = YAML.safe_load(yaml_str, permitted_classes: [Date, Time]) || {}
+    body_md = raw[(closing + 4)..]&.lstrip || ''
+  else
+    meta = {}
+    body_md = raw
+  end
+  { meta: meta, body_md: body_md }
+end
+
+# -- Template rendering --
+
+def load_template(name)
+  ERB.new(File.read(File.join(TMPL_DIR, name)))
+end
+
+def render_layout(page_title:, description: nil, &block)
+  content = block.call
+  layout = load_template('layout.html')
+  layout.result(binding)
+end
+
+def escape_xml(text)
+  text.to_s
+    .gsub('&', '&amp;')
+    .gsub('<', '&lt;')
+    .gsub('>', '&gt;')
+    .gsub('"', '&quot;')
+    .gsub("'", '&apos;')
+end
+
+# -- Post loading --
+
+def load_posts
+  pattern = File.join(CONTENT_DIR, 'posts', '*.md')
+  Dir.glob(pattern).map do |path|
+    parsed = parse_file(path)
+    meta = parsed[:meta]
+    filename = File.basename(path, '.md')
+    slug = filename.sub(/\A\d{4}-\d{2}-\d{2}-/, '')
+    date = meta['date']
+    date = Date.parse(date.to_s) unless date.is_a?(Date)
+    {
+      title: meta['title'] || slug,
+      date: date,
+      slug: slug,
+      description: meta['description'],
+      body: Kramdown::Document.new(parsed[:body_md]).to_html,
+      path: path
+    }
+  end.sort_by { |p| p[:date] }.reverse
+end
+
+def load_about
+  path = File.join(CONTENT_DIR, 'about.md')
+  return nil unless File.exist?(path)
+  parsed = parse_file(path)
+  { body: Kramdown::Document.new(parsed[:body_md]).to_html }
+end
+
+# -- Build --
+
+def build
+  log 'building...'
+  FileUtils.rm_rf(SITE_DIR)
+  FileUtils.mkdir_p(SITE_DIR)
+
+  posts = load_posts
+  about = load_about
+
+  # Render each post
+  post_tmpl = load_template('post.html')
+  posts.each do |post|
+    dir = File.join(SITE_DIR, 'posts', post[:slug])
+    FileUtils.mkdir_p(dir)
+    inner = post_tmpl.result(binding)
+    html = render_layout(page_title: "#{post[:title]} — spread", description: post[:description]) { inner }
+    File.write(File.join(dir, 'index.html'), html)
+  end
+
+  # Render index
+  index_tmpl = load_template('index.html')
+  inner = index_tmpl.result(binding)
+  html = render_layout(page_title: 'spread') { inner }
+  File.write(File.join(SITE_DIR, 'index.html'), html)
+
+  # Render about
+  if about
+    about_tmpl = load_template('about.html')
+    dir = File.join(SITE_DIR, 'about')
+    FileUtils.mkdir_p(dir)
+    inner = about_tmpl.result(binding)
+    html = render_layout(page_title: 'About — spread') { inner }
+    File.write(File.join(dir, 'index.html'), html)
+  end
+
+  # Generate RSS feed
+  site_url = SITE_URL
+  feed_tmpl = load_template('feed.xml')
+  feed = feed_tmpl.result(binding)
+  File.write(File.join(SITE_DIR, 'feed.xml'), feed)
+
+  # Render 404 page
+  error_tmpl = load_template('404.html')
+  inner = error_tmpl.result(binding)
+  html = render_layout(page_title: '404 — spread') { inner }
+  File.write(File.join(SITE_DIR, '404.html'), html)
+
+  # Copy static assets
+  Dir.glob(File.join(STATIC_DIR, '**', '*')).each do |src|
+    next if File.directory?(src)
+    rel = src.sub("#{STATIC_DIR}/", '')
+    dest = File.join(SITE_DIR, rel)
+    FileUtils.mkdir_p(File.dirname(dest))
+    FileUtils.cp(src, dest)
+  end
+
+  # Build timestamp for live reload
+  File.write(File.join(SITE_DIR, '.build'), Time.now.to_f.to_s)
+
+  log "built → #{SITE_DIR}/"
+end
+
+LIVERELOAD_SCRIPT = <<~'HTML'
+<script>
+(function() {
+  var ts = null;
+  setInterval(function() {
+    var x = new XMLHttpRequest();
+    x.open('GET', '/livereload', true);
+    x.onload = function() {
+      if (ts && x.responseText !== ts) location.reload();
+      ts = x.responseText;
+    };
+    x.send();
+  }, 1000);
+})();
+</script>
+HTML
+
+# -- Serve --
+
+def content_type(path)
+  case File.extname(path)
+  when '.html' then 'text/html; charset=utf-8'
+  when '.css'  then 'text/css; charset=utf-8'
+  when '.xml'  then 'application/xml; charset=utf-8'
+  when '.png'  then 'image/png'
+  when '.jpg', '.jpeg' then 'image/jpeg'
+  when '.gif'  then 'image/gif'
+  when '.svg'  then 'image/svg+xml'
+  else 'application/octet-stream'
+  end
+end
+
+def file_mtimes
+  pattern = File.join(SPREAD_ROOT, '{content,templates,static}', '**', '*')
+  Dir.glob(pattern).each_with_object({}) { |f, h| h[f] = File.mtime(f) if File.file?(f) }
+end
+
+def serve
+  build
+
+  port = 8787
+  server = TCPServer.new('127.0.0.1', port)
+  log "serving at http://localhost:#{port}/ (ctrl-c to stop)"
+
+  last_mtimes = file_mtimes
+
+  # Rebuild poll in a background thread
+  Thread.new do
+    loop do
+      sleep 2
+      current = file_mtimes
+      if current != last_mtimes
+        last_mtimes = current
+        build
+      end
+    end
+  end
+
+  loop do
+    client = server.accept
+    begin
+      request_line = client.gets
+      next unless request_line
+
+      path = request_line.split(' ')[1]
+
+      if path == '/livereload'
+        build_file = File.join(SITE_DIR, '.build')
+        ts = File.exist?(build_file) ? File.read(build_file) : '0'
+        client.print "HTTP/1.1 200 OK\r\n"
+        client.print "Content-Type: text/plain\r\n"
+        client.print "Content-Length: #{ts.bytesize}\r\n"
+        client.print "Cache-Control: no-cache\r\n"
+        client.print "\r\n"
+        client.print ts
+      else
+        path = '/index.html' if path == '/'
+        path = "#{path}index.html" if path.end_with?('/')
+
+        file_path = File.expand_path(File.join(SITE_DIR, path))
+
+        if file_path.start_with?(SITE_DIR) && File.exist?(file_path) && File.file?(file_path)
+          body = File.read(file_path)
+          body = body.sub('</body>', "#{LIVERELOAD_SCRIPT}</body>") if file_path.end_with?('.html')
+          client.print "HTTP/1.1 200 OK\r\n"
+          client.print "Content-Type: #{content_type(file_path)}\r\n"
+          client.print "Content-Length: #{body.bytesize}\r\n"
+          client.print "\r\n"
+          client.print body
+        else
+          client.print "HTTP/1.1 404 Not Found\r\n"
+          client.print "Content-Type: text/html; charset=utf-8\r\n"
+          client.print "\r\n"
+          client.print "<h1>404</h1>"
+        end
+      end
+    rescue => e
+      log "serve error: #{e.message}"
+    ensure
+      client.close
+    end
+  rescue Interrupt
+    log 'shutting down'
+    server.close
+  end
+end
+
+# -- New post --
+
+def new_post(title)
+  slug = title.downcase.strip.gsub(/[^a-z0-9]+/, '-').gsub(/\A-|-\z/, '')
+  date = Time.now.strftime('%Y-%m-%d')
+  filename = "#{date}-#{slug}.md"
+  path = File.join(CONTENT_DIR, 'posts', filename)
+
+  if File.exist?(path)
+    log "already exists: #{path}"
+    exit 1
+  end
+
+  File.write(path, <<~MD)
+    ---
+    title: "#{title}"
+    date: #{date}
+    description: ""
+    ---
+
+  MD
+
+  log "created #{path}"
+end
+
+# -- Entry --
+
+case ARGV[0]
+when 'build'
+  build
+when 'serve'
+  serve
+when 'new'
+  title = ARGV[1]
+  unless title && !title.empty?
+    $stderr.puts 'usage: bin/spread new "Post title"'
+    exit 1
+  end
+  new_post(title)
+else
+  $stderr.puts 'usage: bin/spread [build|serve|new "title"]'
+  exit 1
+end

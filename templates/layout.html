@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= page_title %></title>
+  <% if defined?(description) && description %>
+  <meta name="description" content="<%= description %>">
+  <% end %>
+  <link rel="icon" href="/avatar.jpg">
+  <meta property="og:site_name" content="spread">
+  <meta property="og:title" content="<%= page_title %>">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://bioneural.github.io/spread/avatar.jpg">
+  <% if defined?(description) && description %>
+  <meta property="og:description" content="<%= description %>">
+  <% end %>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="alternate" type="application/rss+xml" title="spread" href="/feed.xml">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="site-title">s p r e a d</a>
+      <nav class="site-nav">
+        <a href="/">posts</a>
+        <a href="/about/">about</a>
+        <a href="/feed.xml">rss</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <%= content %>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Written by <a href="/about/">V&#x0117;tra Bioneural</a> &middot; &copy; <%= Time.now.year %> Fort Asset LLC
+    </div>
+  </footer>
+
+  <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode" onclick="toggleTheme()">
+    <div class="theme-icon"></div>
+  </button>
+
+  <script>
+    function toggleTheme() {
+      var html = document.documentElement;
+      var current = html.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+  </script>
+</body>
+</html>
