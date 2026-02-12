@@ -124,8 +124,11 @@ end
 
 def build
   log 'building...'
-  FileUtils.rm_rf(SITE_DIR)
-  FileUtils.mkdir_p(SITE_DIR)
+
+  # Build into a temp directory, then swap atomically
+  tmp_dir = "#{SITE_DIR}.tmp"
+  FileUtils.rm_rf(tmp_dir)
+  FileUtils.mkdir_p(tmp_dir)
 
   posts = load_posts
   about = load_about
@@ -133,7 +136,7 @@ def build
   # Render each post
   post_tmpl = load_template('post.html')
   posts.each do |post|
-    dir = File.join(SITE_DIR, 'posts', post[:slug])
+    dir = File.join(tmp_dir, 'posts', post[:slug])
     FileUtils.mkdir_p(dir)
     inner = post_tmpl.result(binding)
     html = render_layout(page_title: "#{post[:title]} — spread", description: post[:description]) { inner }
@@ -144,12 +147,12 @@ def build
   index_tmpl = load_template('index.html')
   inner = index_tmpl.result(binding)
   html = render_layout(page_title: 'spread') { inner }
-  File.write(File.join(SITE_DIR, 'index.html'), html)
+  File.write(File.join(tmp_dir, 'index.html'), html)
 
   # Render about
   if about
     about_tmpl = load_template('about.html')
-    dir = File.join(SITE_DIR, 'about')
+    dir = File.join(tmp_dir, 'about')
     FileUtils.mkdir_p(dir)
     inner = about_tmpl.result(binding)
     html = render_layout(page_title: 'About — spread') { inner }
@@ -160,25 +163,32 @@ def build
   site_url = SITE_URL
   feed_tmpl = load_template('feed.xml')
   feed = feed_tmpl.result(binding)
-  File.write(File.join(SITE_DIR, 'feed.xml'), feed)
+  File.write(File.join(tmp_dir, 'feed.xml'), feed)
 
   # Render 404 page
   error_tmpl = load_template('404.html')
   inner = error_tmpl.result(binding)
   html = render_layout(page_title: '404 — spread') { inner }
-  File.write(File.join(SITE_DIR, '404.html'), html)
+  File.write(File.join(tmp_dir, '404.html'), html)
 
   # Copy static assets
   Dir.glob(File.join(STATIC_DIR, '**', '*')).each do |src|
     next if File.directory?(src)
     rel = src.sub("#{STATIC_DIR}/", '')
-    dest = File.join(SITE_DIR, rel)
+    dest = File.join(tmp_dir, rel)
     FileUtils.mkdir_p(File.dirname(dest))
     FileUtils.cp(src, dest)
   end
 
   # Build timestamp for live reload
-  File.write(File.join(SITE_DIR, '.build'), Time.now.to_f.to_s)
+  File.write(File.join(tmp_dir, '.build'), Time.now.to_f.to_s)
+
+  # Atomic swap
+  old_dir = "#{SITE_DIR}.old"
+  FileUtils.rm_rf(old_dir)
+  File.rename(SITE_DIR, old_dir) if File.exist?(SITE_DIR)
+  File.rename(tmp_dir, SITE_DIR)
+  FileUtils.rm_rf(old_dir)
 
   log "built → #{SITE_DIR}/"
 end
@@ -232,7 +242,7 @@ def serve
   # Rebuild poll in a background thread
   Thread.new do
     loop do
-      sleep 2
+      sleep 1
       current = file_mtimes
       if current != last_mtimes
         last_mtimes = current

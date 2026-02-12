@@ -36,7 +36,7 @@ Filename format: `YYYY-MM-DD-slug.md`
 
 ## Design
 
-Playercard design system — system fonts, near-black/white palette, dark mode toggle, responsive at 768px.
+System fonts, near-black/white palette, dark mode toggle, 65ch prose width, responsive at 768px.
 
 ## Deployment
 
@@ -46,4 +46,4 @@ Push to `main`. GitHub Actions builds and deploys to Pages.
 
 ## License
 
-Proprietary — Fort Asset LLC
+Software: MIT — Fort Asset LLC. Content: All rights reserved.
