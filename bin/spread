@@ -4,42 +4,16 @@
 # spread — static blog generator
 #
 # Usage:
-#   bin/spread build              # Generate _site/
-#   bin/spread serve              # Build + local dev server (port 8787, auto-rebuild)
+#   bin/spread build              # Generate _site/ for deployment
+#   bin/spread preview            # Build for local file:// browsing, open in browser
 #   bin/spread new "Post title"   # Scaffold a new post
 #
 # Dependencies: ruby, kramdown (gem)
-#
-# Behavior:
-#   build:
-#     1. Clean _site/
-#     2. Parse all content/posts/*.md (YAML frontmatter + kramdown body)
-#     3. Sort posts by date descending
-#     4. Render each post through post.html template then layout.html wrapper
-#     5. Render index page with post list
-#     6. Render about page
-#     7. Generate RSS feed (20 most recent)
-#     8. Copy static/ to _site/
-#
-#   serve:
-#     1. Run build
-#     2. Start TCPServer on port 8787
-#     3. Poll for file changes every 2 seconds, auto-rebuild
-#
-#   new:
-#     1. Slugify the given title
-#     2. Create content/posts/YYYY-MM-DD-slug.md with frontmatter template
-#
-# Schema (frontmatter):
-#   title:       string (required)
-#   date:        YYYY-MM-DD (required for posts)
-#   description: string (optional — used in RSS and meta tags)
 
 require 'yaml'
 require 'erb'
 require 'fileutils'
 require 'time'
-require 'socket'
 require 'kramdown'
 require 'uri'
 
@@ -48,8 +22,8 @@ SITE_DIR    = File.join(SPREAD_ROOT, '_site')
 CONTENT_DIR = File.join(SPREAD_ROOT, 'content')
 TMPL_DIR    = File.join(SPREAD_ROOT, 'templates')
 STATIC_DIR  = File.join(SPREAD_ROOT, 'static')
-SITE_URL    = 'https://bioneural.github.io/spread'
-PROD_BASE   = URI.parse(SITE_URL).path.chomp('/')  # '/spread'
+SITE_URL    = 'https://bioneural.com'
+PROD_BASE   = URI.parse(SITE_URL).path.chomp('/')  # '' (root domain)
 
 def log(msg)
   $stderr.puts "spread: #{msg}"
@@ -78,10 +52,17 @@ def load_template(name)
   ERB.new(File.read(File.join(TMPL_DIR, name)))
 end
 
+# In deploy mode, base_path is '/spread' (absolute).
+# In preview mode, base_path is a relative root like '.', '..', or '../..'.
 $base_path = PROD_BASE
 
 def base_path
   $base_path
+end
+
+# file:// needs explicit index.html; webservers resolve directories automatically
+def idx
+  @preview ? 'index.html' : ''
 end
 
 def render_layout(page_title:, description: nil, &block)
@@ -133,7 +114,8 @@ end
 def build
   log 'building...'
 
-  # Build into a temp directory, then swap atomically
+  @build_stamp = Time.now.to_f.to_s
+
   tmp_dir = "#{SITE_DIR}.tmp"
   FileUtils.rm_rf(tmp_dir)
   FileUtils.mkdir_p(tmp_dir)
@@ -141,9 +123,10 @@ def build
   posts = load_posts
   about = load_about
 
-  # Render each post
+  # Render each post (depth 2: posts/slug/index.html)
   post_tmpl = load_template('post.html')
   posts.each do |post|
+    $base_path = @preview ? '../..' : PROD_BASE
     dir = File.join(tmp_dir, 'posts', post[:slug])
     FileUtils.mkdir_p(dir)
     inner = post_tmpl.result(binding)
@@ -151,14 +134,16 @@ def build
     File.write(File.join(dir, 'index.html'), html)
   end
 
-  # Render index
+  # Render index (depth 0: index.html)
+  $base_path = @preview ? '.' : PROD_BASE
   index_tmpl = load_template('index.html')
   inner = index_tmpl.result(binding)
   html = render_layout(page_title: 'spread') { inner }
   File.write(File.join(tmp_dir, 'index.html'), html)
 
-  # Render about
+  # Render about (depth 1: about/index.html)
   if about
+    $base_path = @preview ? '..' : PROD_BASE
     about_tmpl = load_template('about.html')
     dir = File.join(tmp_dir, 'about')
     FileUtils.mkdir_p(dir)
@@ -167,13 +152,15 @@ def build
     File.write(File.join(dir, 'index.html'), html)
   end
 
-  # Generate RSS feed
+  # Generate RSS feed (always uses absolute URLs)
+  $base_path = PROD_BASE
   site_url = SITE_URL
   feed_tmpl = load_template('feed.xml')
   feed = feed_tmpl.result(binding)
   File.write(File.join(tmp_dir, 'feed.xml'), feed)
 
-  # Render 404 page
+  # Render 404 page (depth 0)
+  $base_path = @preview ? '.' : PROD_BASE
   error_tmpl = load_template('404.html')
   inner = error_tmpl.result(binding)
   html = render_layout(page_title: '404 — spread') { inner }
@@ -188,8 +175,12 @@ def build
     FileUtils.cp(src, dest)
   end
 
-  # Build timestamp for live reload
-  File.write(File.join(tmp_dir, '.build'), Time.now.to_f.to_s)
+  # Copy CNAME for GitHub Pages custom domain
+  cname = File.join(SPREAD_ROOT, 'CNAME')
+  FileUtils.cp(cname, tmp_dir) if File.exist?(cname)
+
+  # Write build timestamp for hot-reload polling
+  File.write(File.join(tmp_dir, '.build'), @build_stamp) if @preview
 
   # Atomic swap
   old_dir = "#{SITE_DIR}.old"
@@ -201,112 +192,22 @@ def build
   log "built → #{SITE_DIR}/"
 end
 
-LIVERELOAD_SCRIPT = <<~'HTML'
-<script>
-(function() {
-  var ts = null;
-  setInterval(function() {
-    var x = new XMLHttpRequest();
-    x.open('GET', '/livereload', true);
-    x.onload = function() {
-      if (ts && x.responseText !== ts) location.reload();
-      ts = x.responseText;
-    };
-    x.send();
-  }, 1000);
-})();
-</script>
-HTML
+# -- Local build --
 
-# -- Serve --
-
-def content_type(path)
-  case File.extname(path)
-  when '.html' then 'text/html; charset=utf-8'
-  when '.css'  then 'text/css; charset=utf-8'
-  when '.xml'  then 'application/xml; charset=utf-8'
-  when '.png'  then 'image/png'
-  when '.jpg', '.jpeg' then 'image/jpeg'
-  when '.gif'  then 'image/gif'
-  when '.svg'  then 'image/svg+xml'
-  else 'application/octet-stream'
-  end
-end
-
-def file_mtimes
-  pattern = File.join(SPREAD_ROOT, '{content,templates,static}', '**', '*')
-  Dir.glob(pattern).each_with_object({}) { |f, h| h[f] = File.mtime(f) if File.file?(f) }
-end
-
-def serve
-  $base_path = ''
+def local_build
+  @preview = true
   build
+end
 
-  port = 8787
-  server = TCPServer.new('127.0.0.1', port)
-  log "serving at http://localhost:#{port}/ (ctrl-c to stop)"
+# -- Preview --
 
-  last_mtimes = file_mtimes
-
-  # Rebuild poll in a background thread
-  Thread.new do
-    loop do
-      sleep 1
-      current = file_mtimes
-      if current != last_mtimes
-        last_mtimes = current
-        build
-      end
-    end
-  end
-
-  loop do
-    client = server.accept
-    begin
-      request_line = client.gets
-      next unless request_line
-
-      path = request_line.split(' ')[1]
-
-      if path == '/livereload'
-        build_file = File.join(SITE_DIR, '.build')
-        ts = File.exist?(build_file) ? File.read(build_file) : '0'
-        client.print "HTTP/1.1 200 OK\r\n"
-        client.print "Content-Type: text/plain\r\n"
-        client.print "Content-Length: #{ts.bytesize}\r\n"
-        client.print "Cache-Control: no-cache\r\n"
-        client.print "\r\n"
-        client.print ts
-      else
-        path = '/index.html' if path == '/'
-        path = "#{path}index.html" if path.end_with?('/')
-
-        file_path = File.expand_path(File.join(SITE_DIR, path))
-
-        if file_path.start_with?(SITE_DIR) && File.exist?(file_path) && File.file?(file_path)
-          body = File.read(file_path)
-          body = body.sub('</body>', "#{LIVERELOAD_SCRIPT}</body>") if file_path.end_with?('.html')
-          client.print "HTTP/1.1 200 OK\r\n"
-          client.print "Content-Type: #{content_type(file_path)}\r\n"
-          client.print "Content-Length: #{body.bytesize}\r\n"
-          client.print "\r\n"
-          client.print body
-        else
-          client.print "HTTP/1.1 404 Not Found\r\n"
-          client.print "Content-Type: text/html; charset=utf-8\r\n"
-          client.print "\r\n"
-          client.print "<h1>404</h1>"
-        end
-      end
-    rescue => e
-      log "serve error: #{e.message}"
-    ensure
-      client.close
-    end
-  rescue Interrupt
-    log 'shutting down'
-    server.close
-  end
+def preview
+  @preview = true
+  build
+  index = File.join(SITE_DIR, 'index.html')
+  system('open', index)
+  log "opened #{index}"
+  log "pages auto-refresh every 2s — run 'bin/spread build local' after edits"
 end
 
 # -- New post --
@@ -338,9 +239,13 @@ end
 
 case ARGV[0]
 when 'build'
-  build
-when 'serve'
-  serve
+  if ARGV[1] == 'local'
+    local_build
+  else
+    build
+  end
+when 'preview'
+  preview
 when 'new'
   title = ARGV[1]
   unless title && !title.empty?
@@ -349,6 +254,6 @@ when 'new'
   end
   new_post(title)
 else
-  $stderr.puts 'usage: bin/spread [build|serve|new "title"]'
+  $stderr.puts 'usage: bin/spread [build|preview|new "title"]'
   exit 1
 end

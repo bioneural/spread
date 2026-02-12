@@ -1,7 +1,7 @@
 <ul class="post-list">
   <% posts.each do |post| %>
   <li>
-    <a href="<%= base_path %>/posts/<%= post[:slug] %>/"><%= post[:title] %></a>
+    <a href="<%= base_path %>/posts/<%= post[:slug] %>/<%= idx %>"><%= post[:title] %></a>
     <span class="post-date"><%= post[:date].strftime('%B %-d, %Y') %></span>
     <% if post[:description] && !post[:description].empty? %>
     <p class="post-description"><%= post[:description] %></p>

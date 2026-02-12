@@ -13,8 +13,8 @@ Static blog built on kramdown and system fonts. No JavaScript frameworks, no cli
 ```sh
 gem install kramdown
 
-bin/spread build              # Generate _site/
-bin/spread serve              # Build + local dev server (port 8787)
+bin/spread build              # Generate _site/ for deployment
+bin/spread preview            # Build for local browsing, open in browser
 bin/spread new "Post title"   # Scaffold a new post
 ```
 

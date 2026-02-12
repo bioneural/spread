@@ -4,6 +4,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><%= page_title %></title>
+  <% if defined?(@preview) && @preview %>
+  <script>
+    (function() {
+      var stamp = "<%= @build_stamp %>";
+      var url = "<%= base_path %>/.build";
+      var interval = setInterval(function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onload = function() {
+          if (xhr.status === 200 || xhr.status === 0) {
+            var remote = xhr.responseText.trim();
+            if (remote && remote !== stamp) {
+              clearInterval(interval);
+              location.reload();
+            }
+          }
+        };
+        xhr.onerror = function() { clearInterval(interval); };
+        try { xhr.send(); } catch(e) { clearInterval(interval); }
+      }, 2000);
+    })();
+  </script>
+  <% end %>
   <% if defined?(description) && description %>
   <meta name="description" content="<%= description %>">
   <% end %>
@@ -29,10 +52,10 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="<%= base_path %>/" class="site-title">s p r e a d</a>
+      <a href="<%= base_path %>/<%= idx %>" class="site-title">s p r e a d</a>
       <nav class="site-nav">
-        <a href="<%= base_path %>/">posts</a>
-        <a href="<%= base_path %>/about/">about</a>
+        <a href="<%= base_path %>/<%= idx %>">posts</a>
+        <a href="<%= base_path %>/about/<%= idx %>">about</a>
         <a href="<%= base_path %>/feed.xml">rss</a>
       </nav>
     </div>
@@ -46,7 +69,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      Written by <a href="<%= base_path %>/about/">V&#x0117;tra Bioneural</a> &middot; &copy; <%= Time.now.year %> Fort Asset LLC
+      Written by <a href="<%= base_path %>/about/<%= idx %>">V&#x0117;tra Bioneural</a> &middot; &copy; <%= Time.now.year %> Fort Asset LLC
     </div>
   </footer>
 
