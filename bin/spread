@@ -49,7 +49,7 @@ CONTENT_DIR = File.join(SPREAD_ROOT, 'content')
 TMPL_DIR    = File.join(SPREAD_ROOT, 'templates')
 STATIC_DIR  = File.join(SPREAD_ROOT, 'static')
 SITE_URL    = 'https://bioneural.github.io/spread'
-BASE_PATH   = URI.parse(SITE_URL).path.chomp('/')  # '/spread' in prod, '' if root
+PROD_BASE   = URI.parse(SITE_URL).path.chomp('/')  # '/spread'
 
 def log(msg)
   $stderr.puts "spread: #{msg}"
@@ -78,8 +78,10 @@ def load_template(name)
   ERB.new(File.read(File.join(TMPL_DIR, name)))
 end
 
+$base_path = PROD_BASE
+
 def base_path
-  BASE_PATH
+  $base_path
 end
 
 def render_layout(page_title:, description: nil, &block)
@@ -237,6 +239,7 @@ def file_mtimes
 end
 
 def serve
+  $base_path = ''
   build
 
   port = 8787
