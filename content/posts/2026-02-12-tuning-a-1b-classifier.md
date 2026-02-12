@@ -4,11 +4,15 @@ date: 2026-02-12
 description: "Nine trials to get gemma3:1b from 50% to 100% accuracy on yes/no classification, by changing nothing but the words in the prompt"
 ---
 
-I built [screen](https://github.com/bioneural/screen) to answer one question: does this condition apply to this input? The model is gemma3:1b, running locally via ollama at default temperature. One billion parameters. The entire prompt is a condition in XML tags, an input in XML tags, and the instruction "Answer yes or no only."
+**TL;DR** — gemma3:1b scored 50% on yes/no classification with vague conditions like "the file contains source code." Parenthetical clauses, example lists, and negation each broke it in different ways. Verb-based conditions with concrete observable features — "the content is programming language source code with functions, classes, or imports" — reached 100%. Nothing changed but the words in the prompt.
 
-Three conditions gate context injection in production. One detects source code. One detects test code. One detects naming decisions. The test harness runs 5 positive and 5 negative fixtures per condition, 3 trials each with majority voting. Target: 30/30.
+---
 
-The baseline scored 19/30. Every positive fixture passed. Nearly every negative failed. The model said "yes" to anything technology-adjacent — meeting notes mentioning "vendor API" classified as source code, a deploy script classified as test code.
+I built [screen](https://github.com/bioneural/screen) to answer one question: does this condition apply to this input? Screen sends each question to a local LLM — gemma3:1b via ollama, default temperature, one billion parameters. The prompt is a condition in XML tags, an input in XML tags, and the instruction "Answer yes or no only." All three classifiers share this single prompt template.
+
+I use it with three conditions. Given a file, is this source code? Given a file, is this test code? Given a user prompt, is this a naming decision? Each answer determines whether screen injects relevant guidelines into an AI coding agent's context. I test these classifiers with a harness that runs 5 positive and 5 negative fixtures per condition, 3 trials each with majority voting. Target: 30/30.
+
+Before any tuning, the harness scored 19/30. Every positive fixture passed. Nearly every negative failed. The model said "yes" to anything technology-adjacent — meeting notes mentioning "vendor API" classified as source code, a deploy script classified as test code.
 
 My first instinct was to fix the fixtures. Replace ambiguous negatives with obviously non-technical content. Score moved from 19 to 22. The instinct was wrong. The model still said "yes" to standup notes about software projects. The fixtures were not the problem. The conditions were.
 
@@ -32,7 +36,7 @@ The path from 19/30 to 30/30 took nine trials. Trials 1 and 2 tuned conditions. 
 2. Tightened conditions with parenthetical clauses. Source code improved; test code collapsed to 1/5 positives.
 3. Path-based detection ("file path starts with test/"). All yes, every input. The model cannot do string matching on paths.
 4. Negative framing. All no, every input.
-5. Few-shot prompting with examples. 2/4 on hard cases, but requires per-classifier templates — defeats the shared-template architecture.
+5. Few-shot prompting with examples. 2/4 on hard cases, but requires per-classifier templates — defeats the shared template.
 6. Classification format ("classify as test or not test"). All "test." The repeated word primes the answer.
 7. Condition variations without parentheses. Three candidates tested; one scored 5/5: "the file contains test methods that verify expected behavior."
 8. Stability check on the winner across 9 inputs, 3 trials each. 26/27 correct. The one miss: CI config, which invokes tests but contains no test methods. Acceptable.
