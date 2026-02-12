@@ -41,6 +41,7 @@ require 'fileutils'
 require 'time'
 require 'socket'
 require 'kramdown'
+require 'uri'
 
 SPREAD_ROOT = File.expand_path('..', __dir__)
 SITE_DIR    = File.join(SPREAD_ROOT, '_site')
@@ -48,6 +49,7 @@ CONTENT_DIR = File.join(SPREAD_ROOT, 'content')
 TMPL_DIR    = File.join(SPREAD_ROOT, 'templates')
 STATIC_DIR  = File.join(SPREAD_ROOT, 'static')
 SITE_URL    = 'https://bioneural.github.io/spread'
+BASE_PATH   = URI.parse(SITE_URL).path.chomp('/')  # '/spread' in prod, '' if root
 
 def log(msg)
   $stderr.puts "spread: #{msg}"
@@ -74,6 +76,10 @@ end
 
 def load_template(name)
   ERB.new(File.read(File.join(TMPL_DIR, name)))
+end
+
+def base_path
+  BASE_PATH
 end
 
 def render_layout(page_title:, description: nil, &block)
