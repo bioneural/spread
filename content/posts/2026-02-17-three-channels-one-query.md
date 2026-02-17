@@ -124,7 +124,7 @@ The vector channel has no relevance floor. FTS returns nothing when no keyword m
 
 B3 demonstrates this concretely: a query about FTS5 tokenizer internals retrieves all 10 entries from a corpus that contains nothing about FTS5 tokenizer internals. The agent receives these entries as context and has no signal that none of them are relevant.
 
-The fix is a distance threshold — filter out vector results above some cutoff before returning them. The right cutoff depends on nomic-embed-text's distance distribution across relevant and irrelevant query-entry pairs, which varies with corpus size and content. Setting it requires a separate tuning experiment with a larger corpus: measure distances for known-relevant matches and known-irrelevant matches, find the separation point, and determine whether it generalizes. That experiment is next.
+The fix is a distance threshold — filter out vector results above some cutoff before returning them.
 
 ## Limits
 
@@ -134,6 +134,8 @@ Triple extraction uses gemma3:1b at default temperature. The extracted entity gr
 
 The embedding model is nomic-embed-text. A different model (e.g., mxbai-embed-large, or a fine-tuned variant) might change which semantic bridges succeed. The experiment tests one model.
 
-No distance threshold was applied to vector results. Adding one would address the false-positive problem but might also suppress true positives at the margin. The threshold was not tuned because the experiment's goal was to characterize the channels as they currently operate, not to optimize them.
-
 Reranking was not isolated. Crib applies reranking when the combined output exceeds the token budget. In this experiment, the corpus was small enough that reranking never triggered. Whether reranking changes the union's behavior at scale is untested.
+
+## Next
+
+The vector distance threshold needs tuning. The right cutoff depends on nomic-embed-text's distance distribution across relevant and irrelevant query-entry pairs, which varies with corpus size and content. Setting it requires a larger corpus — measure distances for known-relevant matches and known-irrelevant matches, find the separation point, determine whether it generalizes. That experiment also addresses the 10-entry corpus limitation: re-running the same channel isolation methodology at scale will show whether the differentiation observed here holds or shifts.
