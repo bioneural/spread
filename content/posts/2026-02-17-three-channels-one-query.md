@@ -1,7 +1,7 @@
 ---
 title: "Three channels, one query"
 date: 2026-02-17
-description: "Crib retrieves memories through fact triples, full-text search, and vector similarity. Each channel fails on queries the others handle. The union is necessary, not redundant."
+description: "An AI agent's memory module retrieves through fact triples, full-text search, and vector similarity. Each channel fails on queries the others handle. The union is necessary, not redundant."
 ---
 
 **TL;DR** — Crib is the memory module for prophet, my AI agent tool system. I seeded it with 10 memory entries and ran 13 test queries through each retrieval channel in isolation. Three queries produced results from vector search alone — FTS and triples returned nothing. One query shifted between hit and miss on triples across runs, depending on what the extraction model happened to produce. No single channel covered all 13 queries. Removing any one creates a class of queries that goes dark. The experiment also surfaced a concrete defect: vector search has no distance threshold, so it returns results even when nothing in the corpus is relevant. Tuning that threshold is the next piece of work.
