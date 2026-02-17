@@ -4,7 +4,7 @@ date: 2026-02-17
 description: "An AI agent's memory module retrieves through three independent channels: fact triples, full-text search, and vector similarity. Each fails on queries the others handle, so all three are necessary."
 ---
 
-**TL;DR** — Crib is the memory module for prophet, my AI agent tool system. I seeded it with 10 memory entries and ran 13 test queries through each retrieval channel in isolation. Three queries produced results from vector search alone — FTS and triples returned nothing. One query shifted between hit and miss on triples across runs, depending on what the extraction model happened to produce. No single channel covered all 13 queries. Removing any one creates a class of queries that goes dark. The experiment also surfaced a concrete defect: vector search has no distance threshold, so it returns results even when nothing in the corpus is relevant. Tuning that threshold is the next piece of work.
+**TL;DR** — [Crib](https://github.com/bioneural/crib) is the memory module for my AI agent tool system. I seeded it with 10 memory entries and ran 13 test queries through each retrieval channel in isolation. Three queries produced results from vector search alone — FTS and triples returned nothing. One query shifted between hit and miss on triples across runs, depending on what the extraction model happened to produce. No single channel covered all 13 queries. Removing any one creates a class of queries that goes dark. The experiment also surfaced a concrete defect: vector search has no distance threshold, so it returns results even when nothing in the corpus is relevant. Tuning that threshold is the next piece of work.
 
 ---
 
@@ -12,7 +12,7 @@ description: "An AI agent's memory module retrieves through three independent ch
 
 AI coding agents lose context between sessions. The conversation ends, and everything the agent learned — which architectural decisions were made, what bugs were fixed, what patterns the codebase follows — evaporates. The next session starts from zero.
 
-[Crib](https://github.com/bioneural/crib) is the memory module for [prophet](https://github.com/bioneural/prophet), a system of cooperating tools that augment an AI coding agent. Prophet discovers its tools — hooker (policy hooks), screen (classification), spill (logging), book (task management), trick (memory extraction), and crib — as sibling directories at runtime. Each tool handles one concern. Crib's concern is persistence: it stores what the agent has learned and retrieves what is relevant to the current prompt.
+[Crib](https://github.com/bioneural/crib) is the memory module for a system of cooperating tools that augment an AI coding agent. The system includes tools for policy hooks, classification, logging, task management, and memory extraction — each in its own repo, discovered at runtime as sibling directories. Crib's concern is persistence: it stores what the agent has learned and retrieves what is relevant to the current prompt.
 
 Entries are stored via `crib write` — plain text with an optional type prefix (`decision`, `correction`, `note`, `error`). Retrieval happens via `crib retrieve`, which takes a prompt on stdin and returns relevant memories wrapped in XML tags. The agent sees these memories as context injected before its response.
 
@@ -32,7 +32,7 @@ The results are merged, deduplicated by entry ID, and wrapped in `<memory>` tags
 
 I added a `CRIB_CHANNEL` environment variable to crib's retrieve path. When set to `triples`, `fts`, or `vector`, only that channel runs. When unset, existing behavior is preserved. This tests the actual code paths — no reimplementation, no external queries.
 
-The seed corpus: 10 entries written via `crib write`, covering decisions, notes, corrections, and errors about prophet's tools — the same sibling tools described above. Each entry was embedded and had fact triples extracted by gemma3:1b.
+The seed corpus: 10 entries written via `crib write`, covering decisions, notes, corrections, and errors about the system's tools — the same sibling tools described above. Each entry was embedded and had fact triples extracted by gemma3:1b.
 
 The extraction produced 47–49 active relations across 63–67 entities per run. Examples from the extracted graph:
 
