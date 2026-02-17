@@ -36,13 +36,11 @@ The seed corpus: 10 entries written via `crib write`, covering decisions, notes,
 
 The extraction produced 47–49 active relations across 63–67 entities per run. Examples from the extracted graph:
 
-```
-crib        → uses        → consolidation-on-write
-prophet     → does not    → vendor
-gsub        → ran         → all user-supplied strings
-nomic-embed-text → produces → 768-dimensional float vectors
-persona     → evolves     → in one place
-```
+    crib             → uses     → consolidation-on-write
+    prophet          → does not → vendor
+    gsub             → ran      → all user-supplied strings
+    nomic-embed-text → produces → 768-dimensional float vectors
+    persona          → evolves  → in one place
 
 13 queries across four categories, each run through all four modes (triples only, FTS only, vector only, union). Three full runs to check stability.
 
