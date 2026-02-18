@@ -1,6 +1,6 @@
 ---
 title: "Tuning a distance threshold"
-date: 2026-02-18
+date: 2026-02-17
 description: "Vector similarity search always returns the nearest neighbors, even when nothing is relevant. Distance thresholds that work at 10 entries collapse at 10,000."
 ---
 
@@ -10,7 +10,7 @@ description: "Vector similarity search always returns the nearest neighbors, eve
 
 ## The problem
 
-In the [previous experiment](/posts/2026-02-17-three-channels-one-query), I tested a memory module's three retrieval channels — fact triples, full-text search, and vector similarity — by running 13 queries through each channel in isolation. The vector channel could not signal absence. Query B3, "porter stemming unicode61 tokenize," returned all 10 entries despite zero relevance. sqlite-vec always returns the k nearest neighbors. With 10 entries, that means everything.
+In the [previous experiment](/posts/three-channels-one-query), I tested a memory module's three retrieval channels — fact triples, full-text search, and vector similarity — by running 13 queries through each channel in isolation. The vector channel could not signal absence. Query B3, "porter stemming unicode61 tokenize," returned all 10 entries despite zero relevance. sqlite-vec always returns the k nearest neighbors. With 10 entries, that means everything.
 
 The other two channels handle absence correctly. FTS returns nothing when no keyword matches. Triples return nothing when no entity name matches. Vector search lacks this property. It can rank entries by similarity, but it cannot say "nothing here is relevant."
 
@@ -177,7 +177,7 @@ No tighter threshold rescues this. At 0.35 cosine — tight enough to reject all
 
 ## The threshold
 
-Given the sensitivity results, no static threshold is correct at all corpus sizes. I shipped 0.50 cosine distance as a default in [crib](https://github.com/bioneural/crib) — the memory module described in the [previous post](/posts/2026-02-17-three-channels-one-query).
+Given the sensitivity results, no static threshold is correct at all corpus sizes. I shipped 0.50 cosine distance as a default in [crib](https://github.com/bioneural/crib) — the memory module described in the [previous post](/posts/three-channels-one-query).
 
 The practical reality is less bleak than the brute-force numbers suggest. Crib's vector channel uses KNN search limited to the top 10, not a full scan of every entry. The threshold's job is narrower: filter entries from those 10 that are too distant to be useful. In a 10,000-entry corpus, KNN returns only the 10 nearest — the threshold only needs to evaluate *those*, not the full 10,231 entries that fall below 0.50 in a brute-force scan.
 
