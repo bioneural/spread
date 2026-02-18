@@ -112,7 +112,7 @@ Weaviate and Vectara are the only frameworks that ship a non-static solution out
 
 ## What fits crib
 
-Crib is a single-file Ruby script calling ollama and sqlite-vec. It runs locally, has no cloud dependencies, and retrieves through three channels that already exist. The constraints are: everything runs on one machine, latency matters (retrieval feeds into an LLM context window), and complexity should stay low.
+[Crib](https://github.com/bioneural/crib) is a single-file Ruby script calling ollama and sqlite-vec. It runs locally, has no cloud dependencies, and retrieves through three channels that already exist. The constraints are: everything runs on one machine, latency matters (retrieval feeds into an LLM context window), and complexity should stay low.
 
 **Rank fusion** is the first thing to implement. The three channels already run independently. Replacing the current union-based merge with RRF requires no new dependencies, no new models, and no training data. It uses the infrastructure that already exists and strengthens the relevance signal by weighting entries that multiple channels agree on.
 
