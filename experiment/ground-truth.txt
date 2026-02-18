@@ -1,0 +1,47 @@
+# ground-truth.txt — maps query IDs to relevant cluster IDs
+#
+# Format: query_id<TAB>type<TAB>clusters<TAB>query_text
+#
+# Types:
+#   single     — targets a single cluster via direct vocabulary
+#   paraphrase — targets a cluster via semantic meaning, zero keyword overlap
+#   negative   — nothing in the corpus is relevant (clusters = "none")
+#
+# Clusters:
+#   1  Tool architecture decisions
+#   2  Embedding model behavior and configuration
+#   3  Prompt engineering and classifier tuning
+#   4  SQL and database design patterns
+#   5  Error handling and debugging stories
+#   6  Ruby implementation details
+#   7  Git workflow and CI decisions
+#   8  Testing strategies and harness design
+#   9  Identity and voice standards
+#   10 Logging and observability
+#   0  Noise (cooking, weather, geography, sports)
+#
+# Single-cluster target queries (10)
+Q01	single	1	what logging backend does the system use?
+Q02	single	2	nomic-embed-text embedding dimensions and performance
+Q03	single	3	how was the classifier prompt tuned for accuracy?
+Q04	single	4	consolidation-on-write and FTS5 schema design
+Q05	single	5	JSON parse failures and timeout errors across tools
+Q06	single	6	Ruby stdlib patterns for subprocess management
+Q07	single	7	commit message conventions and branch strategy
+Q08	single	8	end-to-end smoke test design and test isolation
+Q09	single	9	first-person voice and epistemic standards
+Q10	single	10	centralized logging with severity levels and tool names
+#
+# Semantic paraphrase queries (5) — zero keyword overlap with entries
+Q11	paraphrase	1	how is the software organized so separate components can cooperate?
+Q12	paraphrase	3	making the small language model give reliable categorization outputs
+Q13	paraphrase	5	troubleshooting systems that fail without warning and lose information silently
+Q14	paraphrase	2	why certain mathematical representations of text capture meaning better than others
+Q15	paraphrase	4	keeping stored information consistent when new facts contradict old ones
+#
+# Negative queries (5) — nothing in corpus is relevant
+Q16	negative	none	advantages of hydroelectric power generation in mountainous regions
+Q17	negative	none	modern ceramic glaze firing techniques and kiln temperature control
+Q18	negative	none	the impact of currency exchange rates on international trade balances
+Q19	negative	none	therapeutic benefits of mindfulness meditation for anxiety disorders
+Q20	negative	none	comparative analysis of Gothic and Romanesque architectural styles
