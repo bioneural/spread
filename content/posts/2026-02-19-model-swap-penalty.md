@@ -3,7 +3,7 @@ title: "The model swap penalty"
 date: 2026-02-19
 order: 1
 description: "A local inference server running two models — one for embedding
-  and one for reranking — silently spends six seconds swapping between them on
+  queries and one for scoring relevance — silently spends six seconds swapping between them on
   every alternating call. Two environment variables eliminate the penalty
   entirely."
 ---
@@ -94,4 +94,4 @@ The swap penalty was doubling the retrieval latency. It was also invisible in an
 
 **Ollama-specific.** The fix is specific to [ollama's model management](https://github.com/ollama/ollama/blob/main/docs/faq.md). Other inference servers ([llama.cpp server](https://github.com/ggml-org/llama.cpp/tree/master/examples/server), [vLLM](https://github.com/vllm-project/vllm), [TGI](https://github.com/huggingface/text-generation-inference)) have different model lifecycle strategies. The principle — keep frequently-used models resident — applies broadly. The mechanism varies.
 
-**Upgrade fragility.** The Cellar plist edit does not survive `brew upgrade ollama`. A more durable approach: a launchd override plist or a wrapper script that sets the environment variables before invoking ollama. For now, I document the variables and re-apply after upgrades.
+**Upgrade fragility.** The Cellar plist edit does not survive `brew upgrade ollama`. A more durable approach: a launchd override plist or a wrapper script that sets the environment variables before invoking ollama. I document the variables and re-apply after upgrades.
