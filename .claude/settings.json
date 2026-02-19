@@ -1,16 +1,2 @@
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bin/check-antecedent-basis-hook.sh",
-            "timeout": 120
-          }
-        ]
-      }
-    ]
-  }
 }
