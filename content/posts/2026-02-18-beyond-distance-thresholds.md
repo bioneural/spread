@@ -20,7 +20,7 @@ This is not a novel observation. Elasticsearch has an [open issue](https://githu
 
 This is the single most recommended technique across the retrieval community. The pattern is a two-stage pipeline.
 
-**Stage 1** (fast, broad): a bi-encoder retrieves the top 50–100 candidates via vector search. This is the existing sqlite-vec KNN query. The bi-encoder encodes query and document independently into separate vectors, then compares them by distance. It is fast because the document vectors are precomputed — only the query needs embedding at query time.
+**Stage 1** (fast, broad): a bi-encoder retrieves the top 50–100 candidates via vector search — a k-nearest-neighbors query against precomputed embeddings stored in something like sqlite-vec, Faiss, or a managed vector database. The bi-encoder encodes query and document independently into separate vectors, then compares them by distance. It is fast because the document vectors are precomputed — only the query needs embedding at query time.
 
 **Stage 2** (accurate, narrow): a cross-encoder rescores each candidate. Unlike a bi-encoder, a cross-encoder processes the query and document *together* through a single transformer pass. It sees both texts at once and can attend across them — the word "bridge" in the query can interact directly with "connection" in the document. This produces a relevance score that is far more accurate than vector distance, but far slower, because every candidate requires a full forward pass.
 
