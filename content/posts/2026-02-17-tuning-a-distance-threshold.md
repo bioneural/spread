@@ -1,6 +1,7 @@
 ---
 title: "Tuning a distance threshold"
 date: 2026-02-17
+order: 2
 description: "Vector similarity search always returns the nearest neighbors, even when nothing is relevant. Distance thresholds that work at 10 entries collapse at 10,000."
 ---
 

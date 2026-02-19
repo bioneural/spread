@@ -1,6 +1,7 @@
 ---
 title: "Cross-encoder reranking"
 date: 2026-02-18
+order: 4
 description: "A memory module merges keyword search and vector similarity
   results using a formula called Reciprocal Rank Fusion, but the formula
   cannot filter noise — it faithfully promotes whatever the channels return.

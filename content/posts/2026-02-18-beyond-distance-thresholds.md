@@ -1,6 +1,7 @@
 ---
 title: "Beyond distance thresholds"
 date: 2026-02-18
+order: 1
 description: "A static distance cutoff cannot distinguish relevant from irrelevant vector search results at scale. The retrieval community has known this for years. Here is what they built instead."
 ---
 

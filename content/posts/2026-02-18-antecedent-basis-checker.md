@@ -1,6 +1,7 @@
 ---
 title: "Antecedent basis checker"
 date: 2026-02-18
+order: 3
 description: "In technical writing, every reference to a module, concept, or prior change must be introduced before it appears — a rule called antecedent basis. An automated checker that calls a language model enforces this rule at commit time, catching violations that the author keeps missing despite having written the rule."
 ---
 
@@ -60,7 +61,7 @@ The filtering is important. The hook fires on every Bash tool call. Without the 
 
 The hook configuration lives in `.claude/settings.json`:
 
-```json
+~~~ json
 {
   "hooks": {
     "PreToolUse": [
@@ -77,7 +78,7 @@ The hook configuration lives in `.claude/settings.json`:
     ]
   }
 }
-```
+~~~
 
 ## The command
 

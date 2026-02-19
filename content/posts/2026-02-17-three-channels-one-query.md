@@ -1,6 +1,7 @@
 ---
 title: "Three channels, one query"
 date: 2026-02-17
+order: 1
 description: "An AI agent's memory module retrieves through three independent channels: fact triples, full-text search, and vector similarity. Each fails on queries the others handle, so all three are necessary."
 ---
 

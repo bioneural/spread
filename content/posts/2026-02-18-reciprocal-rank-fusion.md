@@ -1,6 +1,7 @@
 ---
 title: "Reciprocal rank fusion"
 date: 2026-02-18
+order: 2
 description: "A memory module retrieves through full-text search and vector
   similarity independently. Reciprocal Rank Fusion scores entries found by
   both channels higher than entries found by one, improving precision without
@@ -101,7 +102,7 @@ All five negative queries returned results from at least one channel. FTS matche
 
 The `rrf_merge` method in [crib](https://github.com/bioneural/crib) (commit [`2fe6d15`](https://github.com/bioneural/crib/commit/2fe6d15)):
 
-```ruby
+~~~ ruby
 def rrf_merge(fts_entries, vector_entries, k: RRF_K, limit: RRF_LIMIT)
   scores = Hash.new(0.0)
   entry_by_id = {}
@@ -121,7 +122,7 @@ def rrf_merge(fts_entries, vector_entries, k: RRF_K, limit: RRF_LIMIT)
   sorted = scores.sort_by { |_id, score| -score }
   sorted.first(limit).map { |id, _score| entry_by_id[id] }
 end
-```
+~~~
 
 Integration: `rrf_merge` replaces the union in the retrieve command. When only one channel returns results, it falls back to returning that channel's top 10 directly. Triples remain separate — they pass through outside the fusion step.
 

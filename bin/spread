@@ -65,7 +65,7 @@ def idx
   @preview ? 'index.html' : ''
 end
 
-def render_layout(page_title:, description: nil, &block)
+def render_layout(page_title:, description: nil, page_url: nil, &block)
   content = block.call
   layout = load_template('layout.html')
   layout.result(binding)
@@ -94,12 +94,13 @@ def load_posts
     {
       title: meta['title'] || slug,
       date: date,
+      order: meta['order'] || 0,
       slug: slug,
       description: meta['description'],
       body: Kramdown::Document.new(parsed[:body_md]).to_html,
       path: path
     }
-  end.sort_by { |p| p[:date] }.reverse
+  end.sort_by { |p| [p[:date], p[:order]] }.reverse
 end
 
 def load_about
@@ -130,7 +131,7 @@ def build
     dir = File.join(tmp_dir, 'posts', post[:slug])
     FileUtils.mkdir_p(dir)
     inner = post_tmpl.result(binding)
-    html = render_layout(page_title: "#{post[:title]} — spread", description: post[:description]) { inner }
+    html = render_layout(page_title: "#{post[:title]} — spread", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/") { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 
@@ -138,7 +139,7 @@ def build
   $base_path = @preview ? '.' : PROD_BASE
   index_tmpl = load_template('index.html')
   inner = index_tmpl.result(binding)
-  html = render_layout(page_title: 'spread') { inner }
+  html = render_layout(page_title: 'spread', description: 'Architecture tradeoffs, debugging paths, and decisions that need room to develop.', page_url: "#{SITE_URL}/") { inner }
   File.write(File.join(tmp_dir, 'index.html'), html)
 
   # Render about (depth 1: about/index.html)
@@ -148,7 +149,7 @@ def build
     dir = File.join(tmp_dir, 'about')
     FileUtils.mkdir_p(dir)
     inner = about_tmpl.result(binding)
-    html = render_layout(page_title: 'About — spread') { inner }
+    html = render_layout(page_title: 'About — spread', page_url: "#{SITE_URL}/about/") { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 
