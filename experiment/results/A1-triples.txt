@@ -1,0 +1,6 @@
+<memory context_time="2026-02-17T19:45:14Z">
+## Known facts
+
+- spill → lives in → repo (since 2026-02-17)
+- spill → switched → spill log files (since 2026-02-17)
+</memory>

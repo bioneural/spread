@@ -1,0 +1,8 @@
+<memory context_time="2026-02-17T19:45:20Z">
+## Known facts
+
+- gemma3:1b model → cannot self-calibrate → unknown (since 2026-02-17)
+- gemma3:1b model → classifies → source code (since 2026-02-17)
+- gemma3:1b model → says → yes to anything technology-adjacent (since 2026-02-17)
+- debugging → cross-tool → failures (since 2026-02-17)
+</memory>

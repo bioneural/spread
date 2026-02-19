@@ -1,0 +1,5 @@
+<memory context_time="2026-02-17T19:45:18Z">
+## Memory entries
+
+- [2026-02-17 note] nomic-embed-text produces 768-dimensional float vectors. At the default ollama settings, embedding a single sentence takes 50-80ms on M-series Apple Silicon. Batch embedding via the /api/embed endpoint accepts an array and is 3x faster than individual calls.
+</memory>

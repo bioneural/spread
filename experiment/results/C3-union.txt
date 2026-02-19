@@ -1,0 +1,6 @@
+<memory context_time="2026-02-17T19:45:20Z">
+## Memory entries
+
+- [2026-02-17 note] The gemma3:1b model says yes to anything technology-adjacent when given vague conditions. A meeting agenda mentioning "vendor API" classified as source code. Specificity in the condition wording is the only fix — the model cannot self-calibrate.
+- [2026-02-17 error] trick extracted 14 memories from a single transcript but 9 were trivial operational details like "edited file X" and "ran test suite." The extraction prompt needed stronger filtering language. Changed to: "Do not extract trivial operational details (file edits, command outputs, routine code changes)."
+</memory>

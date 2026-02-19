@@ -1,0 +1,14 @@
+<memory context_time="2026-02-17T19:45:16Z">
+## Known facts
+
+- gsub → running → all (since 2026-02-17)
+- task → contained → single quote (since 2026-02-17)
+- SQLite database → to → single SQLite database (since 2026-02-17)
+
+## Memory entries
+
+- [2026-02-17 error] trick extracted 14 memories from a single transcript but 9 were trivial operational details like "edited file X" and "ran test suite." The extraction prompt needed stronger filtering language. Changed to: "Do not extract trivial operational details (file edits, command outputs, routine code changes)."
+- [2026-02-17 note] nomic-embed-text produces 768-dimensional float vectors. At the default ollama settings, embedding a single sentence takes 50-80ms on M-series Apple Silicon. Batch embedding via the /api/embed endpoint accepts an array and is 3x faster than individual calls.
+- [2026-02-17 error] book dispatcher crashed when a task payload contained a single quote. The SQL interpolation in store_result did not escape it. Fixed by running gsub("'", "''") on all user-supplied strings before interpolation.
+- [2026-02-17 decision] Switched spill from per-tool log files to a single SQLite database. Centralized logging means one place to query when debugging cross-tool failures at 3 AM.
+</memory>

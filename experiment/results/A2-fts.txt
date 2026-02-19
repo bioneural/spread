@@ -1,0 +1,5 @@
+<memory context_time="2026-02-17T19:45:15Z">
+## Memory entries
+
+- [2026-02-17 decision] prophet does not vendor its dependencies. Each tool — hooker, crib, screen, trick, spill, book — lives in its own repo as a sibling directory. prophet discovers them at runtime via relative paths.
+</memory>

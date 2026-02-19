@@ -1,0 +1,9 @@
+<memory context_time="2026-02-17T19:45:16Z">
+## Memory entries
+
+- [2026-02-17 decision] core holds identity and voice standards in IDENTITY.md. Every repo references core as the canonical source. When the persona evolves, it evolves in one place. No copies. No drift.
+- [2026-02-17 note] The gemma3:1b model says yes to anything technology-adjacent when given vague conditions. A meeting agenda mentioning "vendor API" classified as source code. Specificity in the condition wording is the only fix — the model cannot self-calibrate.
+- [2026-02-17 decision] crib uses consolidation-on-write rather than periodic garbage collection. When a new triple contradicts an existing one, the old relation gets valid_until set to now. No background jobs. No scheduled cleanup. The write path keeps the archive clean.
+- [2026-02-17 decision] prophet does not vendor its dependencies. Each tool — hooker, crib, screen, trick, spill, book — lives in its own repo as a sibling directory. prophet discovers them at runtime via relative paths.
+- [2026-02-17 note] hooker evaluates policies in priority order: gates first, then transforms, then injects. A gate halt stops the chain. Transforms and injects both fire on the same event.
+</memory>

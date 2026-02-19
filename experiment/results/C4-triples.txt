@@ -1,0 +1,5 @@
+<memory context_time="2026-02-17T19:45:20Z">
+## Known facts
+
+- persona → evolves → one (since 2026-02-17)
+</memory>

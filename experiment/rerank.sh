@@ -13,10 +13,13 @@
 # first generated token.
 #
 # Usage:
-#   experiment/rerank.sh
+#   experiment/rerank.sh                   # scale 1 (120 entries)
+#   experiment/rerank.sh --scale 5         # scale 5 (~480 entries)
+#   experiment/rerank.sh --scale 10        # scale 10 (~960 entries)
 #
 # Output:
-#   experiment/results/rerank/*.tsv  — per-query retrieval details
+#   experiment/results/rerank/*.tsv  — per-query retrieval details (scale 1)
+#   experiment/results/rerank-s5/*.tsv — per-query retrieval details (scale 5)
 #   experiment/results/rerank/summary.md — markdown summary table
 #
 # Dependencies: crib, ollama, sqlite3 (with sqlite-vec), jq, ruby
@@ -40,9 +43,22 @@ RRF_K=60
 RERANK_CANDIDATES=20
 RERANK_MODEL="${CRIB_RERANK_MODEL:-gemma3:1b}"
 
+# Parse --scale flag
+SCALE=1
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --scale) SCALE="$2"; shift 2 ;;
+    *) echo "error: unknown flag $1" >&2; exit 1 ;;
+  esac
+done
+
 GROUND_TRUTH="$SCRIPT_DIR/ground-truth.txt"
 CORPUS_SCRIPT="$SCRIPT_DIR/corpus.sh"
-RESULTS="$SCRIPT_DIR/results/rerank"
+if [[ "$SCALE" -eq 1 ]]; then
+  RESULTS="$SCRIPT_DIR/results/rerank"
+else
+  RESULTS="$SCRIPT_DIR/results/rerank-s${SCALE}"
+fi
 
 if [[ ! -x "$CRIB" ]]; then
   echo "error: crib not found at $CRIB" >&2
@@ -235,12 +251,13 @@ rerank_score() {
 # Phase 1 — Seed corpus
 # ---------------------------------------------------------------------------
 
-printf "\033[1m=== Reranking Experiment ===\033[0m\n"
+printf "\033[1m=== Reranking Experiment (scale %s) ===\033[0m\n" "$SCALE"
 printf "Embedding model: %s\n" "$EMBEDDING_MODEL"
 printf "Distance threshold: %s\n" "$VECTOR_DISTANCE_THRESHOLD"
 printf "RRF k: %d\n" "$RRF_K"
 printf "Rerank model: %s\n" "$RERANK_MODEL"
 printf "RRF candidates for reranking: %d\n" "$RERANK_CANDIDATES"
+printf "Corpus scale: %s\n" "$SCALE"
 
 STARTED_AT=$(date +%s)
 
@@ -250,8 +267,12 @@ CLUSTER_MAP="$TMPDIR/cluster-map.txt"
 
 trap 'rm -rf "$TMPDIR"' EXIT
 
-printf "\n\033[1mPhase 1: Seeding corpus...\033[0m\n"
-ENTRY_COUNT=$(CRIB_DB="$DB" "$CORPUS_SCRIPT")
+printf "\n\033[1mPhase 1: Seeding corpus (scale %s)...\033[0m\n" "$SCALE"
+if [[ "$SCALE" -eq 1 ]]; then
+  ENTRY_COUNT=$(CRIB_DB="$DB" "$CORPUS_SCRIPT")
+else
+  ENTRY_COUNT=$(CRIB_DB="$DB" "$CORPUS_SCRIPT" --scale "$SCALE")
+fi
 printf "Seeded %s entries\n" "$ENTRY_COUNT"
 
 if [[ ! -f "$CLUSTER_MAP" ]]; then
@@ -493,13 +514,14 @@ done < <(load_queries)
 printf "\n\033[1mPhase 3: Analysis...\033[0m\n"
 
 {
-  printf "# Cross-Encoder Reranking — Experiment Results\n\n"
+  printf "# Cross-Encoder Reranking — Experiment Results (Scale %s)\n\n" "$SCALE"
   printf "Date: %s\n" "$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
   printf "Embedding model: %s\n" "$EMBEDDING_MODEL"
   printf "Distance threshold: %s\n" "$VECTOR_DISTANCE_THRESHOLD"
   printf "RRF k: %d\n" "$RRF_K"
   printf "Rerank model: %s\n" "$RERANK_MODEL"
   printf "RRF candidates for reranking: %d → top 10\n" "$RERANK_CANDIDATES"
+  printf "Scale: %s\n" "$SCALE"
   printf "Corpus: %s entries\n\n" "$DB_COUNT"
 
   # --- Per-query comparison table: direct ---

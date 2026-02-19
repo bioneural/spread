@@ -1,0 +1,7 @@
+<memory context_time="2026-02-17T19:45:15Z">
+## Memory entries
+
+- [2026-02-17 decision] crib uses consolidation-on-write rather than periodic garbage collection. When a new triple contradicts an existing one, the old relation gets valid_until set to now. No background jobs. No scheduled cleanup. The write path keeps the archive clean.
+- [2026-02-17 decision] prophet does not vendor its dependencies. Each tool — hooker, crib, screen, trick, spill, book — lives in its own repo as a sibling directory. prophet discovers them at runtime via relative paths.
+- [2026-02-17 decision] Switched spill from per-tool log files to a single SQLite database. Centralized logging means one place to query when debugging cross-tool failures at 3 AM.
+</memory>

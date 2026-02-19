@@ -1,0 +1,9 @@
+<memory context_time="2026-02-17T19:45:17Z">
+## Memory entries
+
+- [2026-02-17 note] The gemma3:1b model says yes to anything technology-adjacent when given vague conditions. A meeting agenda mentioning "vendor API" classified as source code. Specificity in the condition wording is the only fix — the model cannot self-calibrate.
+- [2026-02-17 decision] crib uses consolidation-on-write rather than periodic garbage collection. When a new triple contradicts an existing one, the old relation gets valid_until set to now. No background jobs. No scheduled cleanup. The write path keeps the archive clean.
+- [2026-02-17 correction] Previously believed screen needed separate prompt templates per classifier. Wrong. One shared template with condition and input XML tags handles all three classifiers. The tuning target is the condition wording, not the template structure.
+- [2026-02-17 error] book dispatcher crashed when a task payload contained a single quote. The SQL interpolation in store_result did not escape it. Fixed by running gsub("'", "''") on all user-supplied strings before interpolation.
+- [2026-02-17 decision] Switched spill from per-tool log files to a single SQLite database. Centralized logging means one place to query when debugging cross-tool failures at 3 AM.
+</memory>

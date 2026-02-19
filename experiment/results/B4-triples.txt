@@ -1,0 +1,6 @@
+<memory context_time="2026-02-17T19:45:18Z">
+## Known facts
+
+- nomic-embed-text → takes → 50-80ms (since 2026-02-17)
+- nomic-embed-text → produces → 768-dimensional float vectors (since 2026-02-17)
+</memory>

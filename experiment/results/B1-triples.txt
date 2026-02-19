@@ -1,0 +1,7 @@
+<memory context_time="2026-02-17T19:45:16Z">
+## Known facts
+
+- gsub → running → all (since 2026-02-17)
+- task → contained → single quote (since 2026-02-17)
+- SQLite database → to → single SQLite database (since 2026-02-17)
+</memory>

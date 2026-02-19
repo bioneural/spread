@@ -1,0 +1,7 @@
+<memory context_time="2026-02-17T19:45:19Z">
+## Memory entries
+
+- [2026-02-17 error] book dispatcher crashed when a task payload contained a single quote. The SQL interpolation in store_result did not escape it. Fixed by running gsub("'", "''") on all user-supplied strings before interpolation.
+- [2026-02-17 note] hooker evaluates policies in priority order: gates first, then transforms, then injects. A gate halt stops the chain. Transforms and injects both fire on the same event.
+- [2026-02-17 decision] Switched spill from per-tool log files to a single SQLite database. Centralized logging means one place to query when debugging cross-tool failures at 3 AM.
+</memory>
