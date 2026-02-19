@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	937	-1	0.029762	fts+vec	Proto-Indo-European had a relatively stable grammatical structure compared to ma 
+2	934	-1	0.029211	fts+vec	The Proto-Indo-European language possessed a consistent phonetic system, shaping 
+3	942	-1	0.028373	fts+vec	The evolution of Indo-European languages demonstrated the potential for language 
+4	930	-1	0.028083	fts+vec	The Proto-Indo-European language evolved into several branches, including German 
+5	109	9	0.016393	vec	type=note Writing should prefer active voice and concrete nouns. The model class 
+6	970	-1	0.016393	fts	Latin’s grammatical structure was remarkably flexible, allowing for a wide range 
+7	93	8	0.016129	vec	type=note Testing classifier accuracy requires a labeled dataset. The gemma3 1b  
+8	941	-1	0.016129	fts	The linguistic connections between Indo-European languages demonstrate a histori 
+9	45	3	0.015625	vec	type=note Prompt templates should avoid negation. Do not classify X as Y is less 
+10	945	-1	0.015625	fts	The study of Indo-European language provides valuable clues about human history  

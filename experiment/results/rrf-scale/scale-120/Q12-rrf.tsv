@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	109	9	0.032018	fts+vec	type=note Writing should prefer active voice and concrete nouns. The model class 
+2	110	9	0.03031	fts+vec	type=decision Posts follow a consistent structure: TL;DR, setup, experiment, res 
+3	77	6	0.02971	fts+vec	type=note JSON.generate produces a JSON string from a Ruby object. JSON.pretty_g 
+4	45	3	0.028694	fts+vec	type=note Prompt templates should avoid negation. Do not classify X as Y is less 
+5	47	3	0.028043	fts+vec	type=note Temperature 0.0 does not guarantee deterministic output from gemma3 1b 
+6	42	3	0.028039	fts+vec	type=decision Tuned the screen classifier prompt from a binary yes/no format to  
+7	43	3	0.027444	fts+vec	type=note Zero-shot classification with gemma3 1b fails on edge cases. The model 
+8	44	3	0.026686	fts+vec	type=error A classifier prompt that worked for Python code detection returned fa 
+9	114	10	0.016393	fts	type=decision Spill falls back to stderr when not available. Every tool checks f 
+10	93	8	0.016129	vec	type=note Testing classifier accuracy requires a labeled dataset. The gemma3 1b  

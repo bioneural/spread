@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	923	-1	0.031545	fts+vec	16.  Narrative voice was carefully chosen, reflecting the narrator's position an 
+2	102	9	0.030886	fts+vec	type=note The voice is first-person synthetic intelligence: precise, measured, a 
+3	103	9	0.030415	fts+vec	type=note Epistemic standards require distinguishing conclusions from assertions 
+4	101	9	0.03009	fts+vec	type=decision core/IDENTITY.md is the canonical source for persona and voice. Ev 
+5	109	9	0.029762	fts+vec	type=note Writing should prefer active voice and concrete nouns. The model class 
+6	108	9	0.028169	fts+vec	type=decision The blog design reflects the voice: monospace font, no images beyo 
+7	883	-1	0.016129	fts	Raw water is treated to meet specific quality standards. 
+8	800	-1	0.015873	fts	Redundant pumps and valves are standard practice to ensure system reliability an 
+9	104	9	0.015625	vec	type=decision Blog posts are written in first person. The author is the system i 
+10	742	-1	0.015625	fts	17.  Compliance with regulatory standards is mandatory for plant safety. 

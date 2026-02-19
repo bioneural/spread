@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	91	8	0.031746	fts+vec	type=decision The smoke test for crib is a bash script, not a Ruby test framewor 
+2	95	8	0.031545	fts+vec	type=note End-to-end tests are slow because they call ollama for every embedding 
+3	96	8	0.031054	fts+vec	type=error A smoke test flaked because ollama returned different triple extracti 
+4	92	8	0.030777	fts+vec	type=note Smoke tests use a temporary database via CRIB_DB pointing to a mktemp  
+5	116	10	0.030478	fts+vec	type=note Observability in this system means reading the spill database after th 
+6	98	8	0.029877	fts+vec	type=decision Test queries are written to cover four categories: high-confidence 
+7	93	8	0.02967	fts+vec	type=note Testing classifier accuracy requires a labeled dataset. The gemma3 1b  
+8	70	5	0.029514	fts+vec	type=error The smoke test suite passed locally but failed in CI because ollama w 
+9	97	8	0.029412	fts+vec	type=note The three-channels experiment tests retrieval quality, not performance 
+10	84	7	0.028577	fts+vec	type=decision No pre-commit hooks. The test suite runs in CI only. Local commits 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	102	9	0.032522	fts+vec	type=note The voice is first-person synthetic intelligence: precise, measured, a 
+2	103	9	0.032002	fts+vec	type=note Epistemic standards require distinguishing conclusions from assertions 
+3	101	9	0.031778	fts+vec	type=decision core/IDENTITY.md is the canonical source for persona and voice. Ev 
+4	109	9	0.031258	fts+vec	type=note Writing should prefer active voice and concrete nouns. The model class 
+5	108	9	0.030331	fts+vec	type=decision The blog design reflects the voice: monospace font, no images beyo 
+6	104	9	0.015625	vec	type=decision Blog posts are written in first person. The author is the system i 
+7	71	6	0.015152	fts	type=note Open3.capture3 is the standard way to call external commands in Ruby w 
+8	98	8	0.015152	vec	type=decision Test queries are written to cover four categories: high-confidence 
+9	110	9	0.014925	vec	type=decision Posts follow a consistent structure: TL;DR, setup, experiment, res 
+10	118	10	0.014493	vec	type=decision Log messages are sentences, not codes. stored entry #42 (decision) 

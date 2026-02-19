@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	31	2	0.028629	fts+vec	type=note nomic-embed-text produces 768-dimensional float vectors. At default ol 
+2	95	8	0.028219	fts+vec	type=note End-to-end tests are slow because they call ollama for every embedding 
+3	97	8	0.027619	fts+vec	type=note The three-channels experiment tests retrieval quality, not performance 
+4	57	4	0.025978	fts+vec	type=note sqlite-vec vec0 virtual table does not support UPDATE. To change an em 
+5	58	4	0.025479	fts+vec	type=decision Entries table uses AUTOINCREMENT for the primary key despite the p 
+6	33	2	0.016393	vec	type=decision Chose nomic-embed-text over mxbai-embed-large because it runs unde 
+7	871	-1	0.016393	fts	pH adjustment is often performed to optimize treatment processes. 
+8	858	-1	0.016129	fts	Thermodynamic cycles like the Rankine cycle are used to optimize engine performa 
+9	34	2	0.015873	vec	type=note The embedding API returns a JSON response with an embeddings key conta 
+10	822	-1	0.015873	fts	15.  Machine learning algorithms are used to predict failures and optimize robot 

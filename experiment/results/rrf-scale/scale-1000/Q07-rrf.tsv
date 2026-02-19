@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	840	-1	0.031746	fts+vec	12.  Load sharing strategies prioritize certain areas or sectors to prevent over 
+2	84	7	0.029828	fts+vec	type=decision No pre-commit hooks. The test suite runs in CI only. Local commits 
+3	87	7	0.029727	fts+vec	type=note Rebasing is preferred over merge commits for keeping history linear. I 
+4	82	7	0.028175	fts+vec	type=decision Commit messages use a tool-name prefix followed by a colon: crib:  
+5	26	1	0.027972	fts+vec	type=decision book uses a SQLite task queue rather than Redis or a message broke 
+6	81	7	0.027864	fts+vec	type=decision Each tool repo uses a single main branch with no feature branches. 
+7	85	7	0.027598	fts+vec	type=note Git tags are not used for versioning. Tools are pinned by commit hash  
+8	118	10	0.027598	fts+vec	type=decision Log messages are sentences, not codes. stored entry #42 (decision) 
+9	30	1	0.027584	fts+vec	type=decision The system does not use a message bus. Tools communicate through f 
+10	112	10	0.02748	fts+vec	type=note Spill provides three severity levels: info, warn, error. There is no d 

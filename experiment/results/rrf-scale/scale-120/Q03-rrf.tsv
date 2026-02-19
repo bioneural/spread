@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	93	8	0.032522	fts+vec	type=note Testing classifier accuracy requires a labeled dataset. The gemma3 1b  
+2	42	3	0.031746	fts+vec	type=decision Tuned the screen classifier prompt from a binary yes/no format to  
+3	44	3	0.03125	fts+vec	type=error A classifier prompt that worked for Python code detection returned fa 
+4	109	9	0.031099	fts+vec	type=note Writing should prefer active voice and concrete nouns. The model class 
+5	48	3	0.031054	fts+vec	type=decision Set all classifier prompts to temperature 0.0 despite non-determin 
+6	46	3	0.030077	fts+vec	type=correction The extraction prompt for trick originally said extract all impo 
+7	49	3	0.028992	fts+vec	type=note System prompts are less effective than user prompts for gemma3 1b. Mov 
+8	50	3	0.028577	fts+vec	type=decision Classifier prompts include a machine-readable output format: respo 
+9	24	1	0.026905	fts+vec	type=decision screen runs as a standalone classifier behind a Unix pipe interfac 
+10	98	8	0.015385	vec	type=decision Test queries are written to cover four categories: high-confidence 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	87	7	0.016393	vec	type=note Rebasing is preferred over merge commits for keeping history linear. I 
+2	9994	-1	0.016393	fts	33.  Modeling helps determine the best quarantine strategies. 
+3	84	7	0.016129	vec	type=decision No pre-commit hooks. The test suite runs in CI only. Local commits 
+4	9980	-1	0.016129	fts	19. Modeling can identify optimal vaccination strategies. 
+5	840	-1	0.015873	vec	12.  Load sharing strategies prioritize certain areas or sectors to prevent over 
+6	9898	-1	0.015873	fts	191.  Metabolic pathways dramatically influence drug treatment strategies. 
+7	41	3	0.015625	vec	type=note The gemma3 1b model says yes to anything technology-adjacent when give 
+8	9802	-1	0.015625	fts	95.  Metabolic pathways adjust drug levels, impacting treatment strategies. 
+9	23	1	0.015385	vec	type=note hooker evaluates policies in priority order: gates first, then transfo 
+10	9577	-1	0.015385	fts	122.  Immunotherapy strategies are designed to enhance efficacy. 

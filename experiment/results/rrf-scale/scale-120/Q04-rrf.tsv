@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	116	10	0.030679	fts+vec	type=note Observability in this system means reading the spill database after th 
+2	100	8	0.028531	fts+vec	type=decision Experiments are designed to be re-runnable from scratch. The scrip 
+3	51	4	0.016393	vec	type=decision crib uses consolidation-on-write rather than periodic garbage coll 
+4	108	9	0.016129	fts	type=decision The blog design reflects the voice: monospace font, no images beyo 
+5	82	7	0.016129	vec	type=decision Commit messages use a tool-name prefix followed by a colon: crib:  
+6	87	7	0.015873	vec	type=note Rebasing is preferred over merge commits for keeping history linear. I 
+7	55	4	0.015625	fts	type=note The FTS5 tokenizer configuration porter unicode61 handles English morp 
+8	53	4	0.015625	vec	type=note SQLite WAL mode is enabled by default for crib database. This allows c 
+9	60	4	0.015385	fts	type=decision Foreign keys are declared in the schema but not enforced at runtim 
+10	117	10	0.015385	vec	type=note Log rotation is manual: when the database exceeds a size threshold, ar 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	117	10	0.031498	fts+vec	type=note Log rotation is manual: when the database exceeds a size threshold, ar 
+2	110	9	0.030798	fts+vec	type=decision Posts follow a consistent structure: TL;DR, setup, experiment, res 
+3	120	10	0.029469	fts+vec	type=correction Originally logged full entry content in spill on every retrieval 
+4	51	4	0.028893	fts+vec	type=decision crib uses consolidation-on-write rather than periodic garbage coll 
+5	87	7	0.028219	fts+vec	type=note Rebasing is preferred over merge commits for keeping history linear. I 
+6	115	10	0.016393	fts	type=error Spill SQLite writes blocked under high concurrency when multiple tool 
+7	116	10	0.016129	fts	type=note Observability in this system means reading the spill database after th 
+8	25	1	0.016129	vec	type=note trick processes transcripts in reverse chronological order so recent c 
+9	118	10	0.015625	fts	type=decision Log messages are sentences, not codes. stored entry #42 (decision) 
+10	100	8	0.015385	vec	type=decision Experiments are designed to be re-runnable from scratch. The scrip 

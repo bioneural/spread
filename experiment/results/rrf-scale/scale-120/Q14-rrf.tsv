@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	33	2	0.029907	fts+vec	type=decision Chose nomic-embed-text over mxbai-embed-large because it runs unde 
+2	36	2	0.029287	fts+vec	type=note nomic-embed-text is trained for search rather than classification. Its 
+3	37	2	0.02886	fts+vec	type=note The embedding for a 200-word paragraph and the embedding for a 5-word  
+4	31	2	0.028595	fts+vec	type=note nomic-embed-text produces 768-dimensional float vectors. At default ol 
+5	102	9	0.028283	fts+vec	type=note The voice is first-person synthetic intelligence: precise, measured, a 
+6	34	2	0.027826	fts+vec	type=note The embedding API returns a JSON response with an embeddings key conta 
+7	39	2	0.027746	fts+vec	type=note Cosine similarity and L2 distance produce different orderings for the  
+8	32	2	0.027397	fts+vec	type=note Batch embedding via the ollama /api/embed endpoint accepts an array of 
+9	45	3	0.027106	fts+vec	type=note Prompt templates should avoid negation. Do not classify X as Y is less 
+10	49	3	0.027072	fts+vec	type=note System prompts are less effective than user prompts for gemma3 1b. Mov 

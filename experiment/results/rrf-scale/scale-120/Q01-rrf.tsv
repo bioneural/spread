@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	111	10	0.031778	fts+vec	type=decision spill logs to a single SQLite database shared across all tools. Ea 
+2	116	10	0.031514	fts+vec	type=note Observability in this system means reading the spill database after th 
+3	119	10	0.030579	fts+vec	type=note When crib logs a retrieval, it records which channels returned results 
+4	115	10	0.03055	fts+vec	type=error Spill SQLite writes blocked under high concurrency when multiple tool 
+5	112	10	0.030018	fts+vec	type=note Spill provides three severity levels: info, warn, error. There is no d 
+6	120	10	0.029199	fts+vec	type=correction Originally logged full entry content in spill on every retrieval 
+7	82	7	0.027619	fts+vec	type=decision Commit messages use a tool-name prefix followed by a colon: crib:  
+8	87	7	0.026686	fts+vec	type=note Rebasing is preferred over merge commits for keeping history linear. I 
+9	21	1	0.016393	vec	type=decision Switched spill from per-tool log files to a single SQLite database 
+10	113	10	0.015873	fts	type=note Log entries include the tool name as a structured field, not embedded  

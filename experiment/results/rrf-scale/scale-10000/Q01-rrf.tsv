@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	21	1	0.016393	vec	type=decision Switched spill from per-tool log files to a single SQLite database 
+2	9987	-1	0.016393	fts	26. Modeling’s use of historical data is fundamental. 
+3	116	10	0.016129	vec	type=note Observability in this system means reading the spill database after th 
+4	9993	-1	0.016129	fts	32.  Modeling can be used to simulate pandemic scenarios. 
+5	119	10	0.015873	vec	type=note When crib logs a retrieval, it records which channels returned results 
+6	9999	-1	0.015873	fts	38.  Using zoonotic disease modeling addresses wildlife threats. 
+7	63	5	0.015625	vec	type=note When debugging cross-tool failures, check spill log first. All tools l 
+8	9969	-1	0.015625	fts	8. Surveillance systems monitor disease prevalence and incidence. 
+9	5486	-1	0.015385	vec	96.  Data logging records performance data. 
+10	9979	-1	0.015385	fts	18. Spatial Epidemiology uses geographic data to analyze disease. 

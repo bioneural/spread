@@ -1,0 +1,6 @@
+rank	entry_id	cluster	score	channels	content
+1	107	9	0.016393	fts	type=note Antecedent basis rule: never reference internal module names or jargon 
+2	18	0	0.016393	vec	type=note Tectonic plates move at roughly 2-10 centimeters per year. The Pacific 
+3	33	2	0.016129	fts	type=decision Chose nomic-embed-text over mxbai-embed-large because it runs unde 
+4	7	0	0.016129	vec	type=note The Danube flows through ten countries, more than any other river in t 
+5	14	0	0.015873	vec	type=note Barometric pressure drops of more than 24 millibars in 24 hours indica 

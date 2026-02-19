@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	116	10	0.032002	fts+vec	type=note Observability in this system means reading the spill database after th 
+2	112	10	0.030478	fts+vec	type=note Spill provides three severity levels: info, warn, error. There is no d 
+3	114	10	0.029287	fts+vec	type=decision Spill falls back to stderr when not available. Every tool checks f 
+4	78	6	0.028992	fts+vec	type=decision Error handling follows fail-open semantics: if a non-critical oper 
+5	70	5	0.028814	fts+vec	type=error The smoke test suite passed locally but failed in CI because ollama w 
+6	65	5	0.028778	fts+vec	type=error trick silently dropped memories when the extraction model returned ma 
+7	30	1	0.028205	fts+vec	type=decision The system does not use a message bus. Tools communicate through f 
+8	62	5	0.027151	fts+vec	type=error spill log rotation failed silently when the log directory did not exi 
+9	66	5	0.016393	vec	type=note The most common failure mode across all tools is ollama timing out. Em 
+10	63	5	0.015873	vec	type=note When debugging cross-tool failures, check spill log first. All tools l 
