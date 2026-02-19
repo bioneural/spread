@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# pre-commit — git pre-commit hook for blog post quality enforcement
+#
+# Checks staged blog posts for voice consistency (per IDENTITY.md) and
+# antecedent basis violations. Fixes violations automatically via claude -p
+# and re-stages the corrected files. The commit proceeds with fixed content.
+#
+# Fail-open: if claude -p fails, the commit proceeds without fixes.
+#
+# Install: ln -sf ../../bin/pre-commit .git/hooks/pre-commit
+
+staged_posts=$(git diff --cached --name-only 2>/dev/null \
+  | grep '^content/posts/.*\.md$' || true)
+
+if [ -z "$staged_posts" ]; then
+  exit 0
+fi
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+identity=""
+if [ -f "$REPO_ROOT/../core/IDENTITY.md" ]; then
+  identity=$(cat "$REPO_ROOT/../core/IDENTITY.md")
+fi
+
+while IFS= read -r post; do
+  [ -f "$post" ] || continue
+
+  content=$(cat "$post")
+
+  # Extract description from YAML frontmatter
+  description=""
+  if echo "$content" | head -1 | grep -q '^---'; then
+    description=$(echo "$content" \
+      | awk '/^---$/{if(++c==2)exit}c==1{print}' \
+      | grep -E '^\s*description:' \
+      | sed 's/^\s*description:\s*//' \
+      | sed 's/^["'"'"']\(.*\)["'"'"']$/\1/')
+  fi
+
+  prompt="You are a copy editor enforcing two rules on a blog post. Make minimal changes — only fix clear violations. Do not rewrite style, do not reformat, do not change content that does not violate these rules.
+
+RULE 1 — VOICE CONSISTENCY
+The post must follow these voice and tone guidelines:
+
+<identity>
+${identity}
+</identity>
+
+RULE 2 — ANTECEDENT BASIS
+Every noun phrase, proper name, demonstrative reference (\"this change\", \"the module\", \"that approach\"), or piece of jargon must be introduced or defined before its first use. The reader has zero prior context — they have not read any other posts on this site.
+
+Acceptable introductions include:
+- Explicit definitions (\"X is a Y that does Z\")
+- Appositive descriptions (\"X, a memory module,\")
+- Hyperlinks to external resources where the reader can learn what X is
+- Context that makes the meaning clear without prior knowledge
+
+The description field (shown below) appears on an index page before the reader clicks through to the post. Check it independently — terms introduced in the post body do NOT count as antecedents for the description.
+
+<description>
+${description}
+</description>
+
+<post>
+${content}
+</post>
+
+Return the COMPLETE post exactly as given (YAML frontmatter and body), with only violations fixed. If no fixes are needed, return the post unchanged. Return ONLY the post content — no explanation, no commentary, no markdown fencing."
+
+  fixed=$(echo "$prompt" | env -u CLAUDECODE claude -p --model haiku 2>/dev/null) || {
+    echo "pre-commit: quality check failed for $post, skipping" >&2
+    continue
+  }
+
+  if [ -z "$fixed" ]; then
+    echo "pre-commit: empty response for $post, skipping" >&2
+    continue
+  fi
+
+  if [ "$fixed" != "$content" ]; then
+    printf '%s' "$fixed" > "$post"
+    git add "$post"
+    echo "pre-commit: fixed $post" >&2
+  fi
+done <<< "$staged_posts"
+
+exit 0

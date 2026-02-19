@@ -7,4 +7,4 @@
 - **Post pattern:** TL;DR, setup, experiment, results, dead ends, limits.
 - **Filenames:** `YYYY-MM-DD-slug.md` in `content/posts/`.
 - **Commit style:** `post:` or `spread:` prefix, lowercase, semicolon-separated clauses.
-- **Pre-commit check:** Run `/check-post` on any blog post before committing. The PreToolUse hook enforces this automatically, but running the check during drafting catches violations earlier.
+- **Pre-commit hook:** A git pre-commit hook auto-fixes voice and antecedent basis violations in staged posts. No manual check needed before committing.
