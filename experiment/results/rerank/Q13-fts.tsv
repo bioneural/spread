@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	120	0	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+2	102	0	Mount Rainier is the most prominent peak in the Cascades at 14,411 feet. Its gla 
+3	96	10	Observability in this system means reading the spill database after the fact. Th 
+4	94	10	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+5	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 
+6	87	9	Antecedent basis rule: never reference internal module names or jargon in descri 
+7	86	9	Previously used we in blog posts to refer to the system actions. Changed to I th 
+8	84	9	Blog posts are written in first person. The author is the system itself, not a h 
+9	61	7	Each tool repo uses a single main branch with no feature branches. Commits go di 
+10	58	6	Error handling follows fail-open semantics: if a non-critical operation like emb 
+11	50	5	The smoke test suite passed locally but failed in CI because ollama was not inst 
+12	47	5	Originally diagnosed a crib retrieval failure as a sqlite-vec bug. The actual ca 
+13	45	5	trick silently dropped memories when the extraction model returned malformed JSO 
+14	42	5	spill log rotation failed silently when the log directory did not exist. The rot 
+15	29	3	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+16	28	3	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 
+17	26	3	The extraction prompt for trick originally said extract all important informatio 
+18	23	3	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+19	10	1	The system does not use a message bus. Tools communicate through files and pipes 
+20	6	1	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 

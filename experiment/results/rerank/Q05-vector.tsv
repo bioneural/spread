@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	46	5	0.2317602187395095826	The most common failure mode across all tools is ollama timing out. Embedding ca 
+2	58	6	0.2681362628936767578	Error handling follows fail-open semantics: if a non-critical operation like emb 
+3	43	5	0.2792115211486816406	When debugging cross-tool failures, check spill log first. All tools log to the  
+4	95	10	0.3310336172580718995	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+5	48	5	0.3345050513744354249	book task queue deadlocked when two tasks tried to update the same row simultane 
+6	15	2	0.3346511721611022949	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+7	1	1	0.3436154723167419433	Switched spill from per-tool log files to a single SQLite database. Centralized  
+8	91	10	0.3446129262447357177	spill logs to a single SQLite database shared across all tools. Each log entry r 
+9	61	7	0.3605393171310424804	Each tool repo uses a single main branch with no feature branches. Commits go di 
+10	45	5	0.3649141788482666015	trick silently dropped memories when the extraction model returned malformed JSO 
+11	41	5	0.3672507405281066895	crib retrieve crashed with a JSON parse error when ollama returned an HTML error 
+12	32	4	0.3824535012245178223	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+13	34	4	0.3856859207153320313	Chose SQLite over PostgreSQL because the deployment target is a single machine.  
+14	94	10	0.3877449631690979003	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+15	49	5	0.3939092159271240234	Stack traces in Ruby omit native extension frames. When sqlite-vec crashes, the  
+16	30	3	0.3966861367225646973	Classifier prompts include a machine-readable output format: respond with exactl 
+17	78	8	0.3969846069812774659	Test queries are written to cover four categories: high-confidence matches, mixe 
+18	72	8	0.4003278613090515136	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+19	54	6	0.4039529263973236084	Ruby frozen_string_literal pragma prevents accidental string mutation. All tool  
+20	60	6	0.4052936136722564697	ENV.fetch with a block provides a default only when the key is missing. ENV.fetc 

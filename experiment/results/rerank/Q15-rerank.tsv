@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	31	4	0.999999	0.016129	vec	crib uses consolidation-on-write rather than periodic garbage collection. When a 
+2	98	10	0.581071	0.014706	fts	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+3	67	7	0.252290	0.027425	fts+vec	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+4	91	10	0.014111	0.014493	vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+5	100	10	0.000280	0.014925	fts	Originally logged full entry content in spill on every retrieval. This bloated t 
+6	39	4	0.000008	0.014286	vec	The entries_fts table uses content sync mode so FTS stays in sync with the entri 
+7	97	10	0.000001	0.030366	fts+vec	Log rotation is manual: when the database exceeds a size threshold, archive the  
+8	90	9	0.000000	0.029514	fts+vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+9	5	1	0.000000	0.016393	vec	trick processes transcripts in reverse chronological order so recent context tak 
+10	118	0	0.000000	0.016393	fts	Tectonic plates move at roughly 2-10 centimeters per year. The Pacific Plate mov 

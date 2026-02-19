@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	90	9	0.3592047095298767089	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+2	51	6	0.3957108557224273682	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+3	70	7	0.4186441600322723388	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+4	9	1	0.4233709275722503663	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+5	59	6	0.4403384923934936524	String interpolation in heredocs works normally. But single-quoted heredocs disa 
+6	33	4	0.4544922411441802978	SQLite WAL mode is enabled by default for crib database. This allows concurrent  
+7	4	1	0.4568396508693695068	screen runs as a standalone classifier behind a Unix pipe interface. Input on st 
+8	58	6	0.4702576100826263428	Error handling follows fail-open semantics: if a non-critical operation like emb 
+9	6	1	0.470539689064025879	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+10	72	8	0.4705821871757507325	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+11	61	7	0.4710682332515716552	Each tool repo uses a single main branch with no feature branches. Commits go di 
+12	87	9	0.4752636551856994628	Antecedent basis rule: never reference internal module names or jargon in descri 
+13	24	3	0.4753846526145935059	A classifier prompt that worked for Python code detection returned false negativ 
+14	52	6	0.4768718183040618896	All tools use Ruby stdlib only — no gems. This eliminates Bundler, gemspec files 
+15	62	7	0.4788483083248138427	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+16	27	3	0.4793686270713806152	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 
+17	46	5	0.4794553518295288085	The most common failure mode across all tools is ollama timing out. Embedding ca 
+18	8	1	0.480375438928604126	spill structured its log entries as JSON lines rather than plain text. Every ent 
+19	91	10	0.4832608103752136231	spill logs to a single SQLite database shared across all tools. Each log entry r 
+20	98	10	0.4832894504070281983	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 

@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	91	10	0.2402593046426773071	spill logs to a single SQLite database shared across all tools. Each log entry r 
+2	1	1	0.2572723925113677978	Switched spill from per-tool log files to a single SQLite database. Centralized  
+3	8	1	0.321515887975692749	spill structured its log entries as JSON lines rather than plain text. Every ent 
+4	92	10	0.3303081095218658447	Spill provides three severity levels: info, warn, error. There is no debug level 
+5	62	7	0.3624061048030853271	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+6	43	5	0.365037381649017334	When debugging cross-tool failures, check spill log first. All tools log to the  
+7	95	10	0.3820755183696746827	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+8	100	10	0.3892996609210968018	Originally logged full entry content in spill on every retrieval. This bloated t 
+9	9	1	0.429759293794631958	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+10	34	4	0.4370696842670440673	Chose SQLite over PostgreSQL because the deployment target is a single machine.  
+11	93	10	0.4520044028759002685	Log entries include the tool name as a structured field, not embedded in the mes 
+12	96	10	0.4548330307006835937	Observability in this system means reading the spill database after the fact. Th 
+13	2	1	0.461994767189025879	prophet does not vendor its dependencies. Each tool lives in its own repo as a s 
+14	61	7	0.4640650749206542969	Each tool repo uses a single main branch with no feature branches. Commits go di 
+15	42	5	0.465434640645980835	spill log rotation failed silently when the log directory did not exist. The rot 
+16	46	5	0.4713012576103210449	The most common failure mode across all tools is ollama timing out. Embedding ca 
+17	58	6	0.4714655280113220215	Error handling follows fail-open semantics: if a non-critical operation like emb 
+18	45	5	0.4728665947914123535	trick silently dropped memories when the extraction model returned malformed JSO 
+19	99	10	0.4768842458724975586	When crib logs a retrieval, it records which channels returned results but not t 
+20	73	8	0.4789078831672668457	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 

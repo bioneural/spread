@@ -1,0 +1,19 @@
+rank	entry_id	cluster	distance	content
+1	78	8	0.4404628872871398925	Test queries are written to cover four categories: high-confidence matches, mixe 
+2	26	3	0.4499981403350830079	The extraction prompt for trick originally said extract all important informatio 
+3	59	6	0.4666344821453094483	String interpolation in heredocs works normally. But single-quoted heredocs disa 
+4	98	10	0.4669962823390960693	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+5	25	3	0.4670230448246002198	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+6	35	4	0.4672609865665435791	The FTS5 tokenizer configuration porter unicode61 handles English morphological  
+7	23	3	0.4681283235549926757	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+8	103	0	0.4698148369789123536	The 2024 Champions League final was held in London at Wembley Stadium. The atmos 
+9	38	4	0.4763789176940917968	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+10	83	9	0.4771760404109954834	Epistemic standards require distinguishing conclusions from assertions. A conclu 
+11	89	9	0.4783610403537750244	Writing should prefer active voice and concrete nouns. The model classified the  
+12	19	2	0.4784418344497680664	Cosine similarity and L2 distance produce different orderings for the same query 
+13	90	9	0.4814813733100891114	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+14	82	9	0.4877437055110931397	The voice is first-person synthetic intelligence: precise, measured, authority t 
+15	88	9	0.4917925596237182618	The blog design reflects the voice: monospace font, no images beyond the avatar, 
+16	17	2	0.4921414852142333984	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+17	24	3	0.494151085615158081	A classifier prompt that worked for Python code detection returned false negativ 
+18	107	0	0.4988706409931182862	The Danube flows through ten countries, more than any other river in the world.  

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	79	8	0.879799	0.014706	fts	Experiment results are stored as plain text files in results/. Each file contain 
+2	25	3	0.012257	0.028531	fts+vec	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+3	90	9	0.007039	0.02971	fts+vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+4	30	3	0.000002	0.025978	fts+vec	Classifier prompts include a machine-readable output format: respond with exactl 
+5	23	3	0.000001	0.015152	vec	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+6	89	9	0.000000	0.031514	fts+vec	Writing should prefer active voice and concrete nouns. The model classified the  
+7	57	6	0.000000	0.029514	fts+vec	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+8	24	3	0.000000	0.027885	fts+vec	A classifier prompt that worked for Python code detection returned false negativ 
+9	27	3	0.000000	0.027313	fts+vec	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 
+10	73	8	0.000000	0.016393	vec	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 

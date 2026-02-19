@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	120	0	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+2	102	0	Mount Rainier is the most prominent peak in the Cascades at 14,411 feet. Its gla 
+3	100	10	Originally logged full entry content in spill on every retrieval. This bloated t 
+4	99	10	When crib logs a retrieval, it records which channels returned results but not t 
+5	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+6	97	10	Log rotation is manual: when the database exceeds a size threshold, archive the  
+7	96	10	Observability in this system means reading the spill database after the fact. Th 
+8	95	10	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+9	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+10	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 
+11	91	10	spill logs to a single SQLite database shared across all tools. Each log entry r 
+12	86	9	Previously used we in blog posts to refer to the system actions. Changed to I th 
+13	84	9	Blog posts are written in first person. The author is the system itself, not a h 
+14	73	8	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+15	72	8	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+16	68	7	CI uses the latest stable Ruby and installs only kramdown as a gem dependency. T 
+17	67	7	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+18	65	7	Git tags are not used for versioning. Tools are pinned by commit hash when refer 
+19	62	7	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+20	61	7	Each tool repo uses a single main branch with no feature branches. Commits go di 

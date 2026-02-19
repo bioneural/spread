@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	41	5	0.980793	0.014085	vec	crib retrieve crashed with a JSON parse error when ollama returned an HTML error 
+2	15	2	0.315132	0.015152	vec	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+3	95	10	0.003199	0.032018	fts+vec	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+4	46	5	0.001825	0.028893	fts+vec	The most common failure mode across all tools is ollama timing out. Embedding ca 
+5	91	10	0.000000	0.03009	fts+vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+6	58	6	0.000000	0.030018	fts+vec	Error handling follows fail-open semantics: if a non-critical operation like emb 
+7	94	10	0.000000	0.029643	fts+vec	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+8	61	7	0.000000	0.028577	fts+vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+9	48	5	0.000000	0.028205	fts+vec	book task queue deadlocked when two tasks tried to update the same row simultane 
+10	78	8	0.000000	0.028139	fts+vec	Test queries are written to cover four categories: high-confidence matches, mixe 

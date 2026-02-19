@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	13	2	0.030018	fts+vec	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+2	11	2	0.029907	fts+vec	nomic-embed-text produces 768-dimensional float vectors. At default ollama setti 
+3	17	2	0.029877	fts+vec	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+4	14	2	0.02971	fts+vec	The embedding API returns a JSON response with an embeddings key containing an a 
+5	18	2	0.029412	fts+vec	Store embeddings as float[768] in sqlite-vec vec0 virtual table. The vec0 format 
+6	75	8	0.029387	fts+vec	End-to-end tests are slow because they call ollama for every embedding and extra 
+7	12	2	0.02885	fts+vec	Batch embedding via the ollama /api/embed endpoint accepts an array of inputs an 
+8	38	4	0.028309	fts+vec	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+9	37	4	0.027912	fts+vec	sqlite-vec vec0 virtual table does not support UPDATE. To change an embedding, y 
+10	93	10	0.016393	fts	Log entries include the tool name as a structured field, not embedded in the mes 

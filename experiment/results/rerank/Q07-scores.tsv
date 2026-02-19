@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	70	7	0.999989	0.013158	vec	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+2	67	7	0.999949	0.031778	fts+vec	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+3	98	10	0.486712	0.031319	fts+vec	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+4	91	10	0.055850	0.015625	fts	spill logs to a single SQLite database shared across all tools. Each log entry r 
+5	69	7	0.005473	0.014085	vec	Force-pushing to main is acceptable because there is one developer. The rebase w 
+6	93	10	0.000350	0.016129	fts	Log entries include the tool name as a structured field, not embedded in the mes 
+7	61	7	0.000331	0.029877	fts+vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+8	62	7	0.000013	0.029412	fts+vec	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+9	92	10	0.000003	0.030366	fts+vec	Spill provides three severity levels: info, warn, error. There is no debug level 
+10	64	7	0.000002	0.031054	fts+vec	No pre-commit hooks. The test suite runs in CI only. Local commits are fast and  
+11	6	1	0.000002	0.029762	fts+vec	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+12	21	3	0.000002	0.015625	vec	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+13	50	5	0.000001	0.014286	fts	The smoke test suite passed locally but failed in CI because ollama was not inst 
+14	65	7	0.000000	0.029437	fts+vec	Git tags are not used for versioning. Tools are pinned by commit hash when refer 
+15	10	1	0.000000	0.027598	fts+vec	The system does not use a message bus. Tools communicate through files and pipes 
+16	3	1	0.000000	0.015152	vec	hooker evaluates policies in priority order: gates first, then transforms, then  
+17	23	3	0.000000	0.013889	vec	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+18	51	6	0.000000	0.013699	vec	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+19	9	1	0.000000	0.013333	vec	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+20	87	9	0.000000	0.012987	vec	Antecedent basis rule: never reference internal module names or jargon in descri 

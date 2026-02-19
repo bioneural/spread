@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	100	10	0.000000	0.031498	fts+vec	Originally logged full entry content in spill on every retrieval. This bloated t 
+2	96	10	0.000000	0.030798	fts+vec	Observability in this system means reading the spill database after the fact. Th 
+3	99	10	0.000000	0.03055	fts+vec	When crib logs a retrieval, it records which channels returned results but not t 
+4	91	10	0.000000	0.030214	fts+vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+5	95	10	0.000000	0.028992	fts+vec	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+6	92	10	0.000000	0.02837	fts+vec	Spill provides three severity levels: info, warn, error. There is no debug level 
+7	62	7	0.000000	0.027151	fts+vec	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+8	61	7	0.000000	0.025658	fts+vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+9	67	7	0.000000	0.025645	fts+vec	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+10	1	1	0.000000	0.016393	vec	Switched spill from per-tool log files to a single SQLite database. Centralized  

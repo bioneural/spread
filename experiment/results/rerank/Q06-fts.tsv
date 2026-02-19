@@ -1,0 +1,13 @@
+rank	entry_id	cluster	content
+1	90	9	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+2	71	8	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+3	70	7	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+4	68	7	CI uses the latest stable Ruby and installs only kramdown as a gem dependency. T 
+5	59	6	String interpolation in heredocs works normally. But single-quoted heredocs disa 
+6	57	6	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+7	55	6	Ruby gsub with a string replacement does not handle backslash sequences. gsub fo 
+8	54	6	Ruby frozen_string_literal pragma prevents accidental string mutation. All tool  
+9	52	6	All tools use Ruby stdlib only — no gems. This eliminates Bundler, gemspec files 
+10	51	6	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+11	49	5	Stack traces in Ruby omit native extension frames. When sqlite-vec crashes, the  
+12	24	3	A classifier prompt that worked for Python code detection returned false negativ 

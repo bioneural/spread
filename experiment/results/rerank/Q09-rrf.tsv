@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	89	9	0.032266	fts+vec	Writing should prefer active voice and concrete nouns. The model classified the  
+2	82	9	0.032018	fts+vec	The voice is first-person synthetic intelligence: precise, measured, authority t 
+3	83	9	0.032002	fts+vec	Epistemic standards require distinguishing conclusions from assertions. A conclu 
+4	81	9	0.030769	fts+vec	core/IDENTITY.md is the canonical source for persona and voice. Every repo refer 
+5	88	9	0.016129	fts	The blog design reflects the voice: monospace font, no images beyond the avatar, 
+6	84	9	0.015625	vec	Blog posts are written in first person. The author is the system itself, not a h 
+7	51	6	0.015152	fts	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+8	78	8	0.015152	vec	Test queries are written to cover four categories: high-confidence matches, mixe 
+9	25	3	0.014925	vec	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+10	90	9	0.014706	vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 

@@ -1,0 +1,12 @@
+rank	entry_id	cluster	content
+1	89	9	Writing should prefer active voice and concrete nouns. The model classified the  
+2	73	8	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+3	30	3	Classifier prompts include a machine-readable output format: respond with exactl 
+4	29	3	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+5	28	3	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 
+6	26	3	The extraction prompt for trick originally said extract all important informatio 
+7	25	3	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+8	24	3	A classifier prompt that worked for Python code detection returned false negativ 
+9	22	3	Tuned the screen classifier prompt from a binary yes/no format to a structured c 
+10	21	3	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+11	4	1	screen runs as a standalone classifier behind a Unix pipe interface. Input on st 

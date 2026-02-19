@@ -1,0 +1,15 @@
+rank	entry_id	cluster	content
+1	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+2	77	8	The three-channels experiment tests retrieval quality, not performance. Timing d 
+3	75	8	End-to-end tests are slow because they call ollama for every embedding and extra 
+4	58	6	Error handling follows fail-open semantics: if a non-critical operation like emb 
+5	46	5	The most common failure mode across all tools is ollama timing out. Embedding ca 
+6	38	4	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+7	37	4	sqlite-vec vec0 virtual table does not support UPDATE. To change an embedding, y 
+8	18	2	Store embeddings as float[768] in sqlite-vec vec0 virtual table. The vec0 format 
+9	17	2	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+10	15	2	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+11	14	2	The embedding API returns a JSON response with an embeddings key containing an a 
+12	13	2	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+13	12	2	Batch embedding via the ollama /api/embed endpoint accepts an array of inputs an 
+14	11	2	nomic-embed-text produces 768-dimensional float vectors. At default ollama setti 

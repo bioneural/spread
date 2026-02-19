@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	22	3	0.998624	0.030118	fts+vec	Tuned the screen classifier prompt from a binary yes/no format to a structured c 
+2	73	8	0.000000	0.032522	fts+vec	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+3	28	3	0.000000	0.031514	fts+vec	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 
+4	89	9	0.000000	0.031319	fts+vec	Writing should prefer active voice and concrete nouns. The model classified the  
+5	29	3	0.000000	0.030777	fts+vec	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+6	24	3	0.000000	0.030579	fts+vec	A classifier prompt that worked for Python code detection returned false negativ 
+7	30	3	0.000000	0.029387	fts+vec	Classifier prompts include a machine-readable output format: respond with exactl 
+8	26	3	0.000000	0.02904	fts+vec	The extraction prompt for trick originally said extract all important informatio 
+9	25	3	0.000000	0.028624	fts+vec	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+10	27	3	0.000000	0.015385	vec	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 

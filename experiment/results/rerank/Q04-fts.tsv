@@ -1,0 +1,6 @@
+rank	entry_id	cluster	content
+1	96	10	Observability in this system means reading the spill database after the fact. Th 
+2	88	9	The blog design reflects the voice: monospace font, no images beyond the avatar, 
+3	80	8	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+4	40	4	Foreign keys are declared in the schema but not enforced at runtime. SQLite requ 
+5	35	4	The FTS5 tokenizer configuration porter unicode61 handles English morphological  

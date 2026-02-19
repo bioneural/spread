@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	96	10	0.000000	0.032002	fts+vec	Observability in this system means reading the spill database after the fact. Th 
+2	92	10	0.000000	0.03009	fts+vec	Spill provides three severity levels: info, warn, error. There is no debug level 
+3	58	6	0.000000	0.029211	fts+vec	Error handling follows fail-open semantics: if a non-critical operation like emb 
+4	94	10	0.000000	0.029139	fts+vec	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+5	45	5	0.000000	0.02885	fts+vec	trick silently dropped memories when the extraction model returned malformed JSO 
+6	50	5	0.000000	0.028169	fts+vec	The smoke test suite passed locally but failed in CI because ollama was not inst 
+7	10	1	0.000000	0.026944	fts+vec	The system does not use a message bus. Tools communicate through files and pipes 
+8	26	3	0.000000	0.025974	fts+vec	The extraction prompt for trick originally said extract all important informatio 
+9	6	1	0.000000	0.025158	fts+vec	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+10	120	0	0.000000	0.016393	fts	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+11	46	5	0.000000	0.016393	vec	The most common failure mode across all tools is ollama timing out. Embedding ca 
+12	102	0	0.000000	0.016129	fts	Mount Rainier is the most prominent peak in the Cascades at 14,411 feet. Its gla 
+13	15	2	0.000000	0.015873	vec	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+14	43	5	0.000000	0.015625	vec	When debugging cross-tool failures, check spill log first. All tools log to the  
+15	32	4	0.000000	0.015385	vec	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+16	87	9	0.000000	0.015152	fts	Antecedent basis rule: never reference internal module names or jargon in descri 
+17	86	9	0.000000	0.014925	fts	Previously used we in blog posts to refer to the system actions. Changed to I th 
+18	84	9	0.000000	0.014706	fts	Blog posts are written in first person. The author is the system itself, not a h 
+19	1	1	0.000000	0.014493	vec	Switched spill from per-tool log files to a single SQLite database. Centralized  
+20	61	7	0.000000	0.014493	fts	Each tool repo uses a single main branch with no feature branches. Commits go di 

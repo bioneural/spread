@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	90	9	0.032787	fts+vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+2	70	7	0.031746	fts+vec	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+3	59	6	0.030769	fts+vec	String interpolation in heredocs works normally. But single-quoted heredocs disa 
+4	51	6	0.030415	fts+vec	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+5	52	6	0.028006	fts+vec	All tools use Ruby stdlib only — no gems. This eliminates Bundler, gemspec files 
+6	24	3	0.027588	fts+vec	A classifier prompt that worked for Python code detection returned false negativ 
+7	71	8	0.016129	fts	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+8	68	7	0.015625	fts	CI uses the latest stable Ruby and installs only kramdown as a gem dependency. T 
+9	9	1	0.015625	vec	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+10	33	4	0.015152	vec	SQLite WAL mode is enabled by default for crib database. This allows concurrent  

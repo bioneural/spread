@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	67	7	0.3659339547157287597	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+2	64	7	0.4012340903282165528	No pre-commit hooks. The test suite runs in CI only. Local commits are fast and  
+3	6	1	0.4137900471687316895	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+4	21	3	0.4248872697353363037	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+5	61	7	0.4397636950016021728	Each tool repo uses a single main branch with no feature branches. Commits go di 
+6	3	1	0.4447633624076843261	hooker evaluates policies in priority order: gates first, then transforms, then  
+7	98	10	0.4457441270351409912	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+8	62	7	0.4468059539794921875	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+9	92	10	0.4469482898712158204	Spill provides three severity levels: info, warn, error. There is no debug level 
+10	65	7	0.4476789236068725586	Git tags are not used for versioning. Tools are pinned by commit hash when refer 
+11	69	7	0.4530509114265441894	Force-pushing to main is acceptable because there is one developer. The rebase w 
+12	23	3	0.4549579918384552001	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+13	51	6	0.4569708704948425292	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+14	10	1	0.4585767388343811036	The system does not use a message bus. Tools communicate through files and pipes 
+15	9	1	0.4600513577461242676	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+16	70	7	0.4604384303092956543	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+17	87	9	0.4614838957786560059	Antecedent basis rule: never reference internal module names or jargon in descri 
+18	90	9	0.4663437604904174804	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+19	63	7	0.4674631059169769288	The GitHub Actions workflow for the blog deploys to GitHub Pages on every push t 
+20	89	9	0.470127791166305542	Writing should prefer active voice and concrete nouns. The model classified the  

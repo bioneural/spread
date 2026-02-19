@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	11	2	0.991747	0.029907	fts+vec	nomic-embed-text produces 768-dimensional float vectors. At default ollama setti 
+2	13	2	0.609866	0.030018	fts+vec	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+3	17	2	0.015370	0.029877	fts+vec	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+4	19	2	0.000077	0.014925	vec	Cosine similarity and L2 distance produce different orderings for the same query 
+5	14	2	0.000015	0.02971	fts+vec	The embedding API returns a JSON response with an embeddings key containing an a 
+6	18	2	0.000000	0.029412	fts+vec	Store embeddings as float[768] in sqlite-vec vec0 virtual table. The vec0 format 
+7	75	8	0.000000	0.029387	fts+vec	End-to-end tests are slow because they call ollama for every embedding and extra 
+8	12	2	0.000000	0.02885	fts+vec	Batch embedding via the ollama /api/embed endpoint accepts an array of inputs an 
+9	38	4	0.000000	0.028309	fts+vec	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+10	37	4	0.000000	0.027912	fts+vec	sqlite-vec vec0 virtual table does not support UPDATE. To change an embedding, y 
+11	93	10	0.000000	0.016393	fts	Log entries include the tool name as a structured field, not embedded in the mes 
+12	77	8	0.000000	0.016129	fts	The three-channels experiment tests retrieval quality, not performance. Timing d 
+13	16	2	0.000000	0.015873	vec	nomic-embed-text is trained for search rather than classification. Its vectors c 
+14	58	6	0.000000	0.015625	fts	Error handling follows fail-open semantics: if a non-critical operation like emb 
+15	46	5	0.000000	0.015385	fts	The most common failure mode across all tools is ollama timing out. Embedding ca 
+16	41	5	0.000000	0.014493	vec	crib retrieve crashed with a JSON parse error when ollama returned an HTML error 
+17	15	2	0.000000	0.014286	fts	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+18	6	1	0.000000	0.014286	vec	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+19	32	4	0.000000	0.014085	vec	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+20	23	3	0.000000	0.013889	vec	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	96	10	0.032002	fts+vec	Observability in this system means reading the spill database after the fact. Th 
+2	92	10	0.03009	fts+vec	Spill provides three severity levels: info, warn, error. There is no debug level 
+3	58	6	0.029211	fts+vec	Error handling follows fail-open semantics: if a non-critical operation like emb 
+4	94	10	0.029139	fts+vec	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+5	45	5	0.02885	fts+vec	trick silently dropped memories when the extraction model returned malformed JSO 
+6	50	5	0.028169	fts+vec	The smoke test suite passed locally but failed in CI because ollama was not inst 
+7	10	1	0.026944	fts+vec	The system does not use a message bus. Tools communicate through files and pipes 
+8	26	3	0.025974	fts+vec	The extraction prompt for trick originally said extract all important informatio 
+9	6	1	0.025158	fts+vec	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+10	120	0	0.016393	fts	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 

@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	100	10	0.000000	0.031498	fts+vec	Originally logged full entry content in spill on every retrieval. This bloated t 
+2	96	10	0.000000	0.030798	fts+vec	Observability in this system means reading the spill database after the fact. Th 
+3	99	10	0.000000	0.03055	fts+vec	When crib logs a retrieval, it records which channels returned results but not t 
+4	91	10	0.000000	0.030214	fts+vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+5	95	10	0.000000	0.028992	fts+vec	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+6	92	10	0.000000	0.02837	fts+vec	Spill provides three severity levels: info, warn, error. There is no debug level 
+7	62	7	0.000000	0.027151	fts+vec	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+8	61	7	0.000000	0.025658	fts+vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+9	67	7	0.000000	0.025645	fts+vec	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+10	1	1	0.000000	0.016393	vec	Switched spill from per-tool log files to a single SQLite database. Centralized  
+11	120	0	0.000000	0.016393	fts	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+12	102	0	0.000000	0.016129	fts	Mount Rainier is the most prominent peak in the Cascades at 14,411 feet. Its gla 
+13	43	5	0.000000	0.015385	vec	When debugging cross-tool failures, check spill log first. All tools log to the  
+14	98	10	0.000000	0.015385	fts	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+15	8	1	0.000000	0.015152	vec	spill structured its log entries as JSON lines rather than plain text. Every ent 
+16	97	10	0.000000	0.015152	fts	Log rotation is manual: when the database exceeds a size threshold, archive the  
+17	49	5	0.000000	0.014706	vec	Stack traces in Ruby omit native extension frames. When sqlite-vec crashes, the  
+18	93	10	0.000000	0.014493	fts	Log entries include the tool name as a structured field, not embedded in the mes 
+19	86	9	0.000000	0.013889	fts	Previously used we in blog posts to refer to the system actions. Changed to I th 
+20	6	1	0.000000	0.013889	vec	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 

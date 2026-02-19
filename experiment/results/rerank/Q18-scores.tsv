@@ -1,0 +1,4 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	87	9	0.000000	0.016393	fts	Antecedent basis rule: never reference internal module names or jargon in descri 
+2	120	0	0.000000	0.016393	vec	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+3	13	2	0.000000	0.016129	fts	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 

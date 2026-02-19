@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	79	8	0.879799	0.014706	fts	Experiment results are stored as plain text files in results/. Each file contain 
+2	25	3	0.012257	0.028531	fts+vec	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+3	90	9	0.007039	0.02971	fts+vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+4	30	3	0.000002	0.025978	fts+vec	Classifier prompts include a machine-readable output format: respond with exactl 
+5	23	3	0.000001	0.015152	vec	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+6	89	9	0.000000	0.031514	fts+vec	Writing should prefer active voice and concrete nouns. The model classified the  
+7	57	6	0.000000	0.029514	fts+vec	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+8	24	3	0.000000	0.027885	fts+vec	A classifier prompt that worked for Python code detection returned false negativ 
+9	27	3	0.000000	0.027313	fts+vec	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 
+10	73	8	0.000000	0.016393	vec	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+11	111	0	0.000000	0.016393	fts	Lake Baikal in Siberia contains roughly 20% of the world unfrozen fresh water. I 
+12	99	10	0.000000	0.016129	fts	When crib logs a retrieval, it records which channels returned results but not t 
+13	94	10	0.000000	0.015873	fts	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+14	85	9	0.000000	0.015152	fts	The tone avoids hedging language: perhaps, might, it seems like. If the claim is 
+15	78	8	0.000000	0.014925	vec	Test queries are written to cover four categories: high-confidence matches, mixe 
+16	80	8	0.000000	0.014925	fts	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+17	35	4	0.000000	0.014706	vec	The FTS5 tokenizer configuration porter unicode61 handles English morphological  
+18	66	7	0.000000	0.014493	fts	The .gitignore is minimal: build output directory and macOS metadata files. No I 
+19	63	7	0.000000	0.014286	fts	The GitHub Actions workflow for the blog deploys to GitHub Pages on every push t 
+20	28	3	0.000000	0.014286	vec	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 

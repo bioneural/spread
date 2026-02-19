@@ -1,0 +1,13 @@
+rank	entry_id	cluster	content
+1	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+2	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+3	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 
+4	91	10	spill logs to a single SQLite database shared across all tools. Each log entry r 
+5	67	7	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+6	65	7	Git tags are not used for versioning. Tools are pinned by commit hash when refer 
+7	64	7	No pre-commit hooks. The test suite runs in CI only. Local commits are fast and  
+8	62	7	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+9	61	7	Each tool repo uses a single main branch with no feature branches. Commits go di 
+10	50	5	The smoke test suite passed locally but failed in CI because ollama was not inst 
+11	10	1	The system does not use a message bus. Tools communicate through files and pipes 
+12	6	1	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 

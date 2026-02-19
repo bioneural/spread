@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	19	2	0.023218	0.027972	fts+vec	Cosine similarity and L2 distance produce different orderings for the same query 
+2	17	2	0.000001	0.028531	fts+vec	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+3	98	10	0.000001	0.016129	vec	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+4	93	10	0.000000	0.028992	fts+vec	Log entries include the tool name as a structured field, not embedded in the mes 
+5	16	2	0.000000	0.028125	fts+vec	nomic-embed-text is trained for search rather than classification. Its vectors c 
+6	25	3	0.000000	0.027242	fts+vec	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+7	29	3	0.000000	0.025992	fts+vec	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+8	13	2	0.000000	0.016393	vec	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+9	114	0	0.000000	0.016393	fts	Barometric pressure drops of more than 24 millibars in 24 hours indicate a bomb  
+10	112	0	0.000000	0.016129	fts	Bread flour has higher protein content than all-purpose flour, typically 12-14%  

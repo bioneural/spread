@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	84	9	0.999993	0.015625	vec	Blog posts are written in first person. The author is the system itself, not a h 
+2	88	9	0.999989	0.016129	fts	The blog design reflects the voice: monospace font, no images beyond the avatar, 
+3	21	3	0.999665	0.014286	vec	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+4	90	9	0.999426	0.014706	vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+5	82	9	0.999168	0.032018	fts+vec	The voice is first-person synthetic intelligence: precise, measured, authority t 
+6	81	9	0.163950	0.030769	fts+vec	core/IDENTITY.md is the canonical source for persona and voice. Every repo refer 
+7	83	9	0.095362	0.032002	fts+vec	Epistemic standards require distinguishing conclusions from assertions. A conclu 
+8	25	3	0.002679	0.014925	vec	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+9	89	9	0.000504	0.032266	fts+vec	Writing should prefer active voice and concrete nouns. The model classified the  
+10	73	8	0.000001	0.014493	vec	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 

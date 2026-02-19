@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	118	0	Tectonic plates move at roughly 2-10 centimeters per year. The Pacific Plate mov 
+2	117	0	The Tour de France covers approximately 3,500 kilometers over 21 stages in July. 
+3	115	0	The Atacama Desert in Chile is the driest non-polar desert on Earth. Some weathe 
+4	113	0	The 2023 Rugby World Cup in France drew record television audiences for the spor 
+5	111	0	Lake Baikal in Siberia contains roughly 20% of the world unfrozen fresh water. I 
+6	102	0	Mount Rainier is the most prominent peak in the Cascades at 14,411 feet. Its gla 
+7	100	10	Originally logged full entry content in spill on every retrieval. This bloated t 
+8	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+9	97	10	Log rotation is manual: when the database exceeds a size threshold, archive the  
+10	96	10	Observability in this system means reading the spill database after the fact. Th 
+11	95	10	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+12	90	9	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+13	81	9	core/IDENTITY.md is the canonical source for persona and voice. Every repo refer 
+14	79	8	Experiment results are stored as plain text files in results/. Each file contain 
+15	76	8	A smoke test flaked because ollama returned different triple extractions on cons 
+16	74	8	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+17	72	8	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+18	69	7	Force-pushing to main is acceptable because there is one developer. The rebase w 
+19	68	7	CI uses the latest stable Ruby and installs only kramdown as a gem dependency. T 
+20	67	7	Rebasing is preferred over merge commits for keeping history linear. Interactive 

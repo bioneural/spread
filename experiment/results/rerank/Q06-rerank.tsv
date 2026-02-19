@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	57	6	0.000077	0.015152	fts	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+2	51	6	0.000036	0.030415	fts+vec	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+3	90	9	0.000000	0.032787	fts+vec	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+4	70	7	0.000000	0.031746	fts+vec	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+5	59	6	0.000000	0.030769	fts+vec	String interpolation in heredocs works normally. But single-quoted heredocs disa 
+6	52	6	0.000000	0.028006	fts+vec	All tools use Ruby stdlib only — no gems. This eliminates Bundler, gemspec files 
+7	24	3	0.000000	0.027588	fts+vec	A classifier prompt that worked for Python code detection returned false negativ 
+8	71	8	0.000000	0.016129	fts	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+9	68	7	0.000000	0.015625	fts	CI uses the latest stable Ruby and installs only kramdown as a gem dependency. T 
+10	9	1	0.000000	0.015625	vec	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  

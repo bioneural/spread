@@ -1,0 +1,12 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	70	7	1.000000	0.016393	vec	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+2	74	8	0.999999	0.030835	fts+vec	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+3	91	10	0.999998	0.014493	vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+4	2	1	0.008764	0.016129	vec	prophet does not vendor its dependencies. Each tool lives in its own repo as a s 
+5	61	7	0.002833	0.015152	vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+6	77	8	0.000000	0.016393	fts	The three-channels experiment tests retrieval quality, not performance. Timing d 
+7	20	2	0.000000	0.015873	fts	Previously assumed sqlite-vec defaults to cosine distance. It actually defaults  
+8	67	7	0.000000	0.015873	vec	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+9	9	1	0.000000	0.015625	vec	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+10	21	3	0.000000	0.015385	vec	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+11	69	7	0.000000	0.014925	vec	Force-pushing to main is acceptable because there is one developer. The rebase w 

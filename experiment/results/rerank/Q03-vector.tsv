@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	73	8	0.2129145860671997071	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+2	28	3	0.2978901863098144532	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 
+3	24	3	0.3109138011932373046	A classifier prompt that worked for Python code detection returned false negativ 
+4	22	3	0.322750091552734375	Tuned the screen classifier prompt from a binary yes/no format to a structured c 
+5	27	3	0.3933192789554595947	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 
+6	29	3	0.4004028141498565673	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+7	89	9	0.4043624103069305419	Writing should prefer active voice and concrete nouns. The model classified the  
+8	78	8	0.4169329404830932617	Test queries are written to cover four categories: high-confidence matches, mixe 
+9	23	3	0.4237909018993377686	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+10	19	2	0.4401758611202239991	Cosine similarity and L2 distance produce different orderings for the same query 
+11	90	9	0.4465874433517456054	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+12	26	3	0.4479346871376037597	The extraction prompt for trick originally said extract all important informatio 
+13	25	3	0.4550756514072418213	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+14	30	3	0.4610523581504821777	Classifier prompts include a machine-readable output format: respond with exactl 
+15	32	4	0.4620243012905120849	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+16	35	4	0.4625155925750732422	The FTS5 tokenizer configuration porter unicode61 handles English morphological  
+17	16	2	0.4626924693584442139	nomic-embed-text is trained for search rather than classification. Its vectors c 
+18	77	8	0.4646486341953277588	The three-channels experiment tests retrieval quality, not performance. Timing d 
+19	45	5	0.4655066430568695068	trick silently dropped memories when the extraction model returned malformed JSO 
+20	54	6	0.4660722613334655762	Ruby frozen_string_literal pragma prevents accidental string mutation. All tool  
