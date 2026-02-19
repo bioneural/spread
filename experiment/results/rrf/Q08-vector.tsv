@@ -1,0 +1,7 @@
+rank	entry_id	cluster	distance	content
+1	75	8	0.3075768351554870606	End-to-end tests are slow because they call ollama for every embedding and extra 
+2	76	8	0.3352994620800018311	A smoke test flaked because ollama returned different triple extractions on cons 
+3	71	8	0.3569575846195220948	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+4	50	5	0.415158301591873169	The smoke test suite passed locally but failed in CI because ollama was not inst 
+5	72	8	0.4433838427066802979	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+6	78	8	0.4636758863925933838	Test queries are written to cover four categories: high-confidence matches, mixe 

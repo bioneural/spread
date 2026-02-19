@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	95	10	0.032018	fts+vec	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+2	91	10	0.03009	fts+vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+3	58	6	0.030018	fts+vec	Error handling follows fail-open semantics: if a non-critical operation like emb 
+4	94	10	0.029643	fts+vec	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+5	46	5	0.028893	fts+vec	The most common failure mode across all tools is ollama timing out. Embedding ca 
+6	61	7	0.028577	fts+vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+7	48	5	0.028205	fts+vec	book task queue deadlocked when two tasks tried to update the same row simultane 
+8	78	8	0.028139	fts+vec	Test queries are written to cover four categories: high-confidence matches, mixe 
+9	54	6	0.025992	fts+vec	Ruby frozen_string_literal pragma prevents accidental string mutation. All tool  
+10	93	10	0.015873	fts	Log entries include the tool name as a structured field, not embedded in the mes 

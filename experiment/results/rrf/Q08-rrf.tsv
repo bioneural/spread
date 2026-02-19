@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	75	8	0.031099	fts+vec	End-to-end tests are slow because they call ollama for every embedding and extra 
+2	76	8	0.031054	fts+vec	A smoke test flaked because ollama returned different triple extractions on cons 
+3	78	8	0.030536	fts+vec	Test queries are written to cover four categories: high-confidence matches, mixe 
+4	71	8	0.029958	fts+vec	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+5	72	8	0.02967	fts+vec	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+6	50	5	0.029324	fts+vec	The smoke test suite passed locally but failed in CI because ollama was not inst 
+7	109	0	0.016393	fts	Cricket test matches can last five days and still end in a draw. The format rewa 
+8	96	10	0.016129	fts	Observability in this system means reading the spill database after the fact. Th 
+9	88	9	0.015873	fts	The blog design reflects the voice: monospace font, no images beyond the avatar, 
+10	80	8	0.015625	fts	Experiments are designed to be re-runnable from scratch. The script creates a fr 

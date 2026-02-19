@@ -1,0 +1,11 @@
+rank	entry_id	cluster	distance	content
+1	82	9	0.2958805561065673828	The voice is first-person synthetic intelligence: precise, measured, authority t 
+2	83	9	0.3444864451885223389	Epistemic standards require distinguishing conclusions from assertions. A conclu 
+3	89	9	0.3853185772895812989	Writing should prefer active voice and concrete nouns. The model classified the  
+4	84	9	0.4417122006416320801	Blog posts are written in first person. The author is the system itself, not a h 
+5	81	9	0.4511060118675231933	core/IDENTITY.md is the canonical source for persona and voice. Every repo refer 
+6	78	8	0.4736679494380950927	Test queries are written to cover four categories: high-confidence matches, mixe 
+7	25	3	0.4784618020057678222	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+8	90	9	0.4842003285884857178	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+9	73	8	0.487886965274810791	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+10	21	3	0.4898332059383392333	The gemma3 1b model says yes to anything technology-adjacent when given vague co 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	111	0	Lake Baikal in Siberia contains roughly 20% of the world unfrozen fresh water. I 
+2	99	10	When crib logs a retrieval, it records which channels returned results but not t 
+3	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+4	94	10	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+5	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+6	90	9	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+7	89	9	Writing should prefer active voice and concrete nouns. The model classified the  
+8	85	9	The tone avoids hedging language: perhaps, might, it seems like. If the claim is 
+9	80	8	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+10	79	8	Experiment results are stored as plain text files in results/. Each file contain 

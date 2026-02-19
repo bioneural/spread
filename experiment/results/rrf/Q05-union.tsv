@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	95	10	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+2	94	10	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+3	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+4	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 
+5	91	10	spill logs to a single SQLite database shared across all tools. Each log entry r 
+6	78	8	Test queries are written to cover four categories: high-confidence matches, mixe 
+7	74	8	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+8	72	8	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+9	71	8	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+10	65	7	Git tags are not used for versioning. Tools are pinned by commit hash when refer 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	90	9	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+2	89	9	Writing should prefer active voice and concrete nouns. The model classified the  
+3	78	8	Test queries are written to cover four categories: high-confidence matches, mixe 
+4	77	8	The three-channels experiment tests retrieval quality, not performance. Timing d 
+5	73	8	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+6	54	6	Ruby frozen_string_literal pragma prevents accidental string mutation. All tool  
+7	45	5	trick silently dropped memories when the extraction model returned malformed JSO 
+8	35	4	The FTS5 tokenizer configuration porter unicode61 handles English morphological  
+9	32	4	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+10	30	3	Classifier prompts include a machine-readable output format: respond with exactl 

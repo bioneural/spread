@@ -1,0 +1,20 @@
+rank	entry_id	cluster	distance	content
+1	11	2	0.1755907982587814332	nomic-embed-text produces 768-dimensional float vectors. At default ollama setti 
+2	13	2	0.1765070855617523194	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+3	16	2	0.2476505935192108154	nomic-embed-text is trained for search rather than classification. Its vectors c 
+4	14	2	0.2649205327033996583	The embedding API returns a JSON response with an embeddings key containing an a 
+5	17	2	0.2786512970924377442	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+6	12	2	0.3248458802700042725	Batch embedding via the ollama /api/embed endpoint accepts an array of inputs an 
+7	19	2	0.3476249873638153077	Cosine similarity and L2 distance produce different orderings for the same query 
+8	18	2	0.4234288334846496583	Store embeddings as float[768] in sqlite-vec vec0 virtual table. The vec0 format 
+9	41	5	0.4775268137454986572	crib retrieve crashed with a JSON parse error when ollama returned an HTML error 
+10	6	1	0.4859666824340820312	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+11	32	4	0.4879792332649230958	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+12	23	3	0.4902336895465850831	Zero-shot classification with gemma3 1b fails on edge cases. The model needs at  
+13	29	3	0.4906253516674041749	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+14	75	8	0.4913915395736694336	End-to-end tests are slow because they call ollama for every embedding and extra 
+15	82	9	0.4964977502822875977	The voice is first-person synthetic intelligence: precise, measured, authority t 
+16	38	4	0.4969201982021331788	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+17	37	4	0.4980038106441497802	sqlite-vec vec0 virtual table does not support UPDATE. To change an embedding, y 
+18	57	6	0.4997049868106842042	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+19	92	10	0.4997064769268035888	Spill provides three severity levels: info, warn, error. There is no debug level 

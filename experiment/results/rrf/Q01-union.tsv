@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	120	0	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+2	102	0	Mount Rainier is the most prominent peak in the Cascades at 14,411 feet. Its gla 
+3	100	10	Originally logged full entry content in spill on every retrieval. This bloated t 
+4	99	10	When crib logs a retrieval, it records which channels returned results but not t 
+5	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+6	97	10	Log rotation is manual: when the database exceeds a size threshold, archive the  
+7	96	10	Observability in this system means reading the spill database after the fact. Th 
+8	95	10	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+9	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+10	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 

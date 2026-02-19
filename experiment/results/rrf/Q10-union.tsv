@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	105	0	The jet stream position determines winter severity in the Pacific Northwest. A n 
+2	100	10	Originally logged full entry content in spill on every retrieval. This bloated t 
+3	99	10	When crib logs a retrieval, it records which channels returned results but not t 
+4	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+5	97	10	Log rotation is manual: when the database exceeds a size threshold, archive the  
+6	96	10	Observability in this system means reading the spill database after the fact. Th 
+7	95	10	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+8	94	10	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+9	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+10	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 

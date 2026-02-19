@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	1	1	0.3441089391708374023	Switched spill from per-tool log files to a single SQLite database. Centralized  
+2	91	10	0.4078114628791809082	spill logs to a single SQLite database shared across all tools. Each log entry r 
+3	96	10	0.4154561758041381836	Observability in this system means reading the spill database after the fact. Th 
+4	100	10	0.4234949350357055664	Originally logged full entry content in spill on every retrieval. This bloated t 
+5	43	5	0.4284244775772094727	When debugging cross-tool failures, check spill log first. All tools log to the  
+6	8	1	0.428589940071105957	spill structured its log entries as JSON lines rather than plain text. Every ent 
+7	99	10	0.4358318448066711426	When crib logs a retrieval, it records which channels returned results but not t 
+8	49	5	0.4399948716163635253	Stack traces in Ruby omit native extension frames. When sqlite-vec crashes, the  
+9	62	7	0.4430135488510131835	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+10	95	10	0.4480124711990356446	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+11	92	10	0.4534571170806884766	Spill provides three severity levels: info, warn, error. There is no debug level 
+12	6	1	0.4562205076217651367	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+13	51	6	0.4614388048648834228	Open3.capture3 is the standard way to call external commands in Ruby when you ne 
+14	4	1	0.4618304073810577393	screen runs as a standalone classifier behind a Unix pipe interface. Input on st 
+15	71	8	0.4655789434909820557	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+16	61	7	0.4679394364356994629	Each tool repo uses a single main branch with no feature branches. Commits go di 
+17	80	8	0.4704210758209228516	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+18	10	1	0.4718626439571380615	The system does not use a message bus. Tools communicate through files and pipes 
+19	67	7	0.4772097766399383545	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+20	2	1	0.4779066443443298339	prophet does not vendor its dependencies. Each tool lives in its own repo as a s 

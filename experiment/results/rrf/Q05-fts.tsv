@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	95	10	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+2	94	10	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+3	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+4	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 
+5	91	10	spill logs to a single SQLite database shared across all tools. Each log entry r 
+6	78	8	Test queries are written to cover four categories: high-confidence matches, mixe 
+7	74	8	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+8	71	8	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+9	65	7	Git tags are not used for versioning. Tools are pinned by commit hash when refer 
+10	62	7	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+11	61	7	Each tool repo uses a single main branch with no feature branches. Commits go di 
+12	58	6	Error handling follows fail-open semantics: if a non-critical operation like emb 
+13	57	6	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+14	56	6	FileUtils.mkdir_p is idempotent — it does not raise an error if the directory al 
+15	54	6	Ruby frozen_string_literal pragma prevents accidental string mutation. All tool  
+16	53	6	Net::HTTP requires explicit URI parsing. Passing a string URL directly raises a  
+17	52	6	All tools use Ruby stdlib only — no gems. This eliminates Bundler, gemspec files 
+18	48	5	book task queue deadlocked when two tasks tried to update the same row simultane 
+19	47	5	Originally diagnosed a crib retrieval failure as a sqlite-vec bug. The actual ca 
+20	46	5	The most common failure mode across all tools is ollama timing out. Embedding ca 

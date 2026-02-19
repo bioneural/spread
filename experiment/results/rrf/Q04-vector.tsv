@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	31	4	0.357064664363861084	crib uses consolidation-on-write rather than periodic garbage collection. When a 
+2	67	7	0.3709628880023956299	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+3	62	7	0.3713504374027252198	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+4	33	4	0.4066310822963714599	SQLite WAL mode is enabled by default for crib database. This allows concurrent  
+5	97	10	0.4268187582492828369	Log rotation is manual: when the database exceeds a size threshold, archive the  
+6	36	4	0.4273413121700286866	A UNIQUE constraint violation crashed crib when two entries extracted the same e 
+7	95	10	0.435507744550704956	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+8	90	9	0.4462836384773254394	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+9	70	7	0.4467835128307342529	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+10	7	1	0.4499594867229461669	crib retrieval merges results from three channels — triples, full-text, and vect 
+11	65	7	0.4511148333549499511	Git tags are not used for versioning. Tools are pinned by commit hash when refer 
+12	6	1	0.4529829919338226318	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+13	91	10	0.4550093114376068115	spill logs to a single SQLite database shared across all tools. Each log entry r 
+14	98	10	0.4609910249710083008	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+15	96	10	0.4624266326427459716	Observability in this system means reading the spill database after the fact. Th 
+16	80	8	0.4624972641468048096	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+17	34	4	0.4628734588623046875	Chose SQLite over PostgreSQL because the deployment target is a single machine.  
+18	1	1	0.4648470878601074219	Switched spill from per-tool log files to a single SQLite database. Centralized  
+19	38	4	0.4681623578071594238	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+20	13	2	0.4682012200355529785	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 

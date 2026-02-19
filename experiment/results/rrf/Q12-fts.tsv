@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	111	0	Lake Baikal in Siberia contains roughly 20% of the world unfrozen fresh water. I 
+2	99	10	When crib logs a retrieval, it records which channels returned results but not t 
+3	94	10	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+4	90	9	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+5	89	9	Writing should prefer active voice and concrete nouns. The model classified the  
+6	85	9	The tone avoids hedging language: perhaps, might, it seems like. If the claim is 
+7	80	8	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+8	79	8	Experiment results are stored as plain text files in results/. Each file contain 
+9	66	7	The .gitignore is minimal: build output directory and macOS metadata files. No I 
+10	63	7	The GitHub Actions workflow for the blog deploys to GitHub Pages on every push t 
+11	62	7	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+12	57	6	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+13	45	5	trick silently dropped memories when the extraction model returned malformed JSO 
+14	38	4	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 
+15	37	4	sqlite-vec vec0 virtual table does not support UPDATE. To change an embedding, y 
+16	30	3	Classifier prompts include a machine-readable output format: respond with exactl 
+17	29	3	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+18	27	3	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 
+19	25	3	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+20	24	3	A classifier prompt that worked for Python code detection returned false negativ 

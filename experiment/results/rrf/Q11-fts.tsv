@@ -1,0 +1,4 @@
+rank	entry_id	cluster	content
+1	77	8	The three-channels experiment tests retrieval quality, not performance. Timing d 
+2	74	8	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+3	20	2	Previously assumed sqlite-vec defaults to cosine distance. It actually defaults  

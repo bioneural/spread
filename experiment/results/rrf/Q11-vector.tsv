@@ -1,0 +1,10 @@
+rank	entry_id	cluster	distance	content
+1	70	7	0.450922846794128418	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+2	2	1	0.4721496105194091796	prophet does not vendor its dependencies. Each tool lives in its own repo as a s 
+3	67	7	0.4758036136627197265	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+4	9	1	0.4771904945373535157	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  
+5	21	3	0.4797778725624084473	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+6	61	7	0.4885350763797760009	Each tool repo uses a single main branch with no feature branches. Commits go di 
+7	69	7	0.4936828911304473876	Force-pushing to main is acceptable because there is one developer. The rebase w 
+8	74	8	0.4969022572040557861	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+9	91	10	0.496990799903869629	spill logs to a single SQLite database shared across all tools. Each log entry r 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	109	0	Cricket test matches can last five days and still end in a draw. The format rewa 
+2	96	10	Observability in this system means reading the spill database after the fact. Th 
+3	88	9	The blog design reflects the voice: monospace font, no images beyond the avatar, 
+4	80	8	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+5	78	8	Test queries are written to cover four categories: high-confidence matches, mixe 
+6	77	8	The three-channels experiment tests retrieval quality, not performance. Timing d 
+7	76	8	A smoke test flaked because ollama returned different triple extractions on cons 
+8	75	8	End-to-end tests are slow because they call ollama for every embedding and extra 
+9	73	8	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+10	72	8	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 

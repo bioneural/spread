@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+2	92	10	Spill provides three severity levels: info, warn, error. There is no debug level 
+3	82	9	The voice is first-person synthetic intelligence: precise, measured, authority t 
+4	77	8	The three-channels experiment tests retrieval quality, not performance. Timing d 
+5	75	8	End-to-end tests are slow because they call ollama for every embedding and extra 
+6	58	6	Error handling follows fail-open semantics: if a non-critical operation like emb 
+7	57	6	JSON.generate produces a JSON string from a Ruby object. JSON.pretty_generate ad 
+8	46	5	The most common failure mode across all tools is ollama timing out. Embedding ca 
+9	41	5	crib retrieve crashed with a JSON parse error when ollama returned an HTML error 
+10	38	4	Entries table uses AUTOINCREMENT for the primary key despite the performance cos 

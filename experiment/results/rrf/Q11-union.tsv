@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	91	10	spill logs to a single SQLite database shared across all tools. Each log entry r 
+2	77	8	The three-channels experiment tests retrieval quality, not performance. Timing d 
+3	74	8	Experiment scripts live in experiment/ within the blog repo, not in the tool rep 
+4	70	7	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+5	69	7	Force-pushing to main is acceptable because there is one developer. The rebase w 
+6	67	7	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+7	61	7	Each tool repo uses a single main branch with no feature branches. Commits go di 
+8	21	3	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+9	20	2	Previously assumed sqlite-vec defaults to cosine distance. It actually defaults  
+10	9	1	Each tool exposes exactly one subcommand interface: tool_name action. No flags,  

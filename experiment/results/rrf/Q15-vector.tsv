@@ -1,0 +1,12 @@
+rank	entry_id	cluster	distance	content
+1	5	1	0.3984583616256713867	trick processes transcripts in reverse chronological order so recent context tak 
+2	31	4	0.404197782278060913	crib uses consolidation-on-write rather than periodic garbage collection. When a 
+3	97	10	0.4383620321750640869	Log rotation is manual: when the database exceeds a size threshold, archive the  
+4	90	9	0.4470810294151306153	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+5	73	8	0.4693872928619384766	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+6	26	3	0.4727133512496948242	The extraction prompt for trick originally said extract all important informatio 
+7	67	7	0.4740217328071594238	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+8	80	8	0.4799259603023529052	Experiments are designed to be re-runnable from scratch. The script creates a fr 
+9	91	10	0.480597466230392456	spill logs to a single SQLite database shared across all tools. Each log entry r 
+10	39	4	0.4889764785766601563	The entries_fts table uses content sync mode so FTS stays in sync with the entri 
+11	28	3	0.4998403787612915039	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 

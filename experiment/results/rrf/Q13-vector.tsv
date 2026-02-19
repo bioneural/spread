@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	46	5	0.3745364844799041748	The most common failure mode across all tools is ollama timing out. Embedding ca 
+2	96	10	0.3798952698707580566	Observability in this system means reading the spill database after the fact. Th 
+3	15	2	0.4041113853454589844	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+4	43	5	0.4051352739334106446	When debugging cross-tool failures, check spill log first. All tools log to the  
+5	32	4	0.4145112633705139161	book dispatcher crashed when a task payload contained a single quote. The SQL in 
+6	45	5	0.4186331331729888916	trick silently dropped memories when the extraction model returned malformed JSO 
+7	58	6	0.4227678179740905762	Error handling follows fail-open semantics: if a non-critical operation like emb 
+8	92	10	0.4255999922752380372	Spill provides three severity levels: info, warn, error. There is no debug level 
+9	1	1	0.4268023073673248291	Switched spill from per-tool log files to a single SQLite database. Centralized  
+10	10	1	0.428172677755355835	The system does not use a message bus. Tools communicate through files and pipes 
+11	50	5	0.4293510019779205322	The smoke test suite passed locally but failed in CI because ollama was not inst 
+12	48	5	0.4458936154842376708	book task queue deadlocked when two tasks tried to update the same row simultane 
+13	21	3	0.4468203783035278321	The gemma3 1b model says yes to anything technology-adjacent when given vague co 
+14	94	10	0.4488904178142547607	Spill falls back to stderr when not available. Every tool checks for SPILL_HOME  
+15	2	1	0.4544033706188201905	prophet does not vendor its dependencies. Each tool lives in its own repo as a s 
+16	91	10	0.4577732682228088378	spill logs to a single SQLite database shared across all tools. Each log entry r 
+17	26	3	0.4610845446586608886	The extraction prompt for trick originally said extract all important informatio 
+18	34	4	0.46407318115234375	Chose SQLite over PostgreSQL because the deployment target is a single machine.  
+19	6	1	0.4641401469707489014	book uses a SQLite task queue rather than Redis or a message broker. Keeps the d 
+20	49	5	0.4674188792705535889	Stack traces in Ruby omit native extension frames. When sqlite-vec crashes, the  

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	content
+1	98	10	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+2	91	10	spill logs to a single SQLite database shared across all tools. Each log entry r 
+3	90	9	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+4	87	9	Antecedent basis rule: never reference internal module names or jargon in descri 
+5	72	8	Smoke tests use a temporary database via CRIB_DB pointing to a mktemp directory. 
+6	71	8	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+7	70	7	Repository layout: bin/ for executables, lib/ for shared code if any, memory/ fo 
+8	68	7	CI uses the latest stable Ruby and installs only kramdown as a gem dependency. T 
+9	62	7	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+10	61	7	Each tool repo uses a single main branch with no feature branches. Commits go di 

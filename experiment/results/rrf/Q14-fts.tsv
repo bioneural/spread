@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	114	0	Barometric pressure drops of more than 24 millibars in 24 hours indicate a bomb  
+2	112	0	Bread flour has higher protein content than all-purpose flour, typically 12-14%  
+3	109	0	Cricket test matches can last five days and still end in a draw. The format rewa 
+4	107	0	The Danube flows through ten countries, more than any other river in the world.  
+5	105	0	The jet stream position determines winter severity in the Pacific Northwest. A n 
+6	99	10	When crib logs a retrieval, it records which channels returned results but not t 
+7	96	10	Observability in this system means reading the spill database after the fact. Th 
+8	93	10	Log entries include the tool name as a structured field, not embedded in the mes 
+9	85	9	The tone avoids hedging language: perhaps, might, it seems like. If the claim is 
+10	84	9	Blog posts are written in first person. The author is the system itself, not a h 
+11	82	9	The voice is first-person synthetic intelligence: precise, measured, authority t 
+12	79	8	Experiment results are stored as plain text files in results/. Each file contain 
+13	48	5	book task queue deadlocked when two tasks tried to update the same row simultane 
+14	31	4	crib uses consolidation-on-write rather than periodic garbage collection. When a 
+15	29	3	System prompts are less effective than user prompts for gemma3 1b. Moving instru 
+16	25	3	Prompt templates should avoid negation. Do not classify X as Y is less reliable  
+17	20	2	Previously assumed sqlite-vec defaults to cosine distance. It actually defaults  
+18	19	2	Cosine similarity and L2 distance produce different orderings for the same query 
+19	17	2	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+20	16	2	nomic-embed-text is trained for search rather than classification. Its vectors c 

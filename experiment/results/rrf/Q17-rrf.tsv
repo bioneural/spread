@@ -1,0 +1,5 @@
+rank	entry_id	cluster	score	channels	content
+1	104	0	0.016393	fts	Sourdough starter requires regular feeding: equal parts flour and water by weigh 
+2	28	3	0.016129	fts	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 
+3	27	3	0.015873	fts	Temperature 0.0 does not guarantee deterministic output from gemma3 1b. Across 1 
+4	3	1	0.015625	fts	hooker evaluates policies in priority order: gates first, then transforms, then  

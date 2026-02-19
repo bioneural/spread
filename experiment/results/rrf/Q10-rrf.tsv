@@ -1,0 +1,11 @@
+rank	entry_id	cluster	score	channels	content
+1	100	10	0.030835	fts+vec	Originally logged full entry content in spill on every retrieval. This bloated t 
+2	91	10	0.030679	fts+vec	spill logs to a single SQLite database shared across all tools. Each log entry r 
+3	92	10	0.030118	fts+vec	Spill provides three severity levels: info, warn, error. There is no debug level 
+4	95	10	0.030077	fts+vec	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+5	93	10	0.02879	fts+vec	Log entries include the tool name as a structured field, not embedded in the mes 
+6	62	7	0.028718	fts+vec	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+7	99	10	0.028531	fts+vec	When crib logs a retrieval, it records which channels returned results but not t 
+8	61	7	0.026671	fts+vec	Each tool repo uses a single main branch with no feature branches. Commits go di 
+9	58	6	0.025974	fts+vec	Error handling follows fail-open semantics: if a non-critical operation like emb 
+10	105	0	0.016393	fts	The jet stream position determines winter severity in the Pacific Northwest. A n 
