@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	213	4	0.3102575242519378662	The system employing a consolidation-on-write strategy instead of traditional pe 
+2	135	1	0.3474431335926055909	The system analyzes records in a specific sequence, beginning with the most rece 
+3	212	4	0.351091623306274414	The system employing consolidation-on-write data management instead of tradition 
+4	133	1	0.3694118261337280274	The system analyzes transcripts in a specific sequence, beginning with the most  
+5	211	4	0.3767279386520385742	The system employs a method of updating data rather than repeatedly clearing the 
+6	409	10	0.3795849382877349854	The process of updating database data is performed manually. Should the database 
+7	134	1	0.3902168869972229004	The system analyzes transcripts by arranging them from newest to oldest, effecti 
+8	5	1	0.3984583616256713867	trick processes transcripts in reverse chronological order so recent context tak 
+9	31	4	0.404197782278060913	crib uses consolidation-on-write rather than periodic garbage collection. When a 
+10	360	8	0.4200248122215270996	The experimental process emphasizes the ability to repeat each trial independent 
+11	201	3	0.4312503039836883544	The temperature setting of 0.0 does not automatically ensure consistent results  
+12	411	10	0.4361893832683563232	Database management involves a manual process of rotation.  If the database reac 
+13	228	4	0.4377588331699371338	Due to a specific issue, the system experienced an error when two distinct data  
+14	97	10	0.4383620321750640869	Log rotation is manual: when the database exceeds a size threshold, archive the  
+15	226	4	0.4395037293434143067	During the operation of the crib, a specific condition arose, resulting in a fai 
+16	410	10	0.4395465850830078125	The database’s rotation process is handled manually. Should the data volume exce 
+17	227	4	0.4436106383800506591	During the processing of a dataset, a specific limitation was triggered, resulti 
+18	90	9	0.4470810294151306153	Posts follow a consistent structure: TL;DR, setup, experiment, results, dead end 
+19	405	10	0.4470899105072021485	SQLite's behavior becomes significantly impacted when several applications are a 
+20	218	4	0.4480375051498413085	Here’s a rewritten version, maintaining the exact meaning while using different   “For the crib database, SQLite utilizes a specific write mode—WAL mode—that faci 

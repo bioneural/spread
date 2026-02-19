@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	339	8	0.032018	fts+vec	To assess the performance of the classifier, a meticulously labeled dataset is e 
+2	338	8	0.032002	fts+vec	To evaluate the performance of the classifier, a comprehensive dataset of labele 
+3	337	8	0.032002	fts+vec	To evaluate the performance of the classifier, a curated dataset of correctly la 
+4	201	3	0.028595	fts+vec	The temperature setting of 0.0 does not automatically ensure consistent results  
+5	204	3	0.028382	fts+vec	To ensure consistent results across all classification tasks, configure all prom 
+6	206	3	0.027746	fts+vec	The effectiveness of system prompts compared to user prompts when utilizing Gemm 
+7	203	3	0.027619	fts+vec	To ensure consistent results across all classification tasks, establish a temper 
+8	186	3	0.027425	fts+vec	The system was modified to convert the screen classification prompt from a simpl 
+9	202	3	0.027242	fts+vec	To ensure consistent output across all classification models, configure the temp 
+10	190	3	0.026944	fts+vec	The system designed to identify Python code was incorrectly classifying Ruby cod 

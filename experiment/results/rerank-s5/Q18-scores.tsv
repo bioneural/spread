@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	474	0	0.000000	0.016393	fts	The Earth’s crust, composed of large plates, shifts at a rate of approximately t 
+2	478	0	0.000000	0.016393	vec	The atmospheric circulation patterns in the Southern Hemisphere follow a particu 
+3	434	0	0.000000	0.016129	fts	The positioning of the jet stream has a significant impact on the severity of wi 
+4	480	0	0.000000	0.016129	vec	The atmospheric circulation patterns in the Southern Hemisphere exhibit a system 
+5	405	10	0.000000	0.015873	fts	SQLite's behavior becomes significantly impacted when several applications are a 
+6	179	2	0.000000	0.015873	vec	The current understanding of SQLite's default calculation method suggests it uti 
+7	120	0	0.000000	0.015625	vec	Low pressure systems in the Southern Hemisphere rotate clockwise, opposite to th 
+8	403	10	0.000000	0.015625	fts	SQLite's performance can be impacted when numerous tools are actively accessing  
+9	384	9	0.000000	0.015385	fts	The blog’s aesthetic is deliberately constructed around a particular typeface –  
+10	380	9	0.000000	0.015152	fts	The established principle of antecedent basis dictates that when detailing or pr 
+11	379	9	0.000000	0.014925	fts	The established guideline emphasizes avoiding the mention of specific internal m 
+12	165	2	0.000000	0.014706	fts	During the execution of embedding operations, the ollama model may occasionally  
+13	163	2	0.000000	0.014493	fts	The ollama model is periodically encountering a 500 Internal Server Error during 
+14	159	2	0.000000	0.014286	fts	We selected nomic-embed-text instead of mxbai-embed-large primarily due to its e 
+15	158	2	0.000000	0.014085	fts	We opted for nomic-embed-text instead of mxbai-embed-large due to its remarkably 
+16	157	2	0.000000	0.013889	fts	We opted for nomic-embed-text instead of mxbai-embed-large due to its relatively 
+17	150	1	0.000000	0.013699	fts	The operational architecture eschews a message bus. Instead, communication is es 
+18	149	1	0.000000	0.013514	fts	The application architecture operates without the utilization of a messaging sys 
+19	148	1	0.000000	0.013333	fts	The current architecture does not employ a message bus. Communication between co 
+20	87	9	0.000000	0.013158	fts	Antecedent basis rule: never reference internal module names or jargon in descri 

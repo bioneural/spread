@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	46	5	0.2317602187395095826	The most common failure mode across all tools is ollama timing out. Embedding ca 
+2	294	6	0.262013554573059082	The mechanism for addressing errors utilizes a fail-open approach.  When a non-e 
+3	58	6	0.2681362628936767578	Error handling follows fail-open semantics: if a non-critical operation like emb 
+4	43	5	0.2792115211486816406	When debugging cross-tool failures, check spill log first. All tools log to the  
+5	293	6	0.2880024015903472901	The method of handling errors explicitly considers a fail-open approach. Should  
+6	248	5	0.3072315454483032226	To effectively resolve issues that arise between different software applications 
+7	264	5	0.307546854019165039	The task queue experienced a standstill when two operations attempted to modify  
+8	256	5	0.3231860995292663575	Across all types of software applications, a significant issue frequently arises 
+9	95	10	0.3310336172580718995	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+10	48	5	0.3345050513744354249	book task queue deadlocked when two tasks tried to update the same row simultane 
+11	15	2	0.3346511721611022949	Embedding calls occasionally return HTTP 500 when ollama model is still loading. 
+12	262	5	0.3382858037948608399	The book task management system experienced a blockage when two concurrent opera 
+13	263	5	0.3394630253314971924	The book task queue experienced a standstill when two concurrent operations atte 
+14	1	1	0.3436154723167419433	Switched spill from per-tool log files to a single SQLite database. Centralized  
+15	91	10	0.3446129262447357177	spill logs to a single SQLite database shared across all tools. Each log entry r 
+16	254	5	0.3517039716243743896	When the extraction model failed to produce valid JSON, the data was presented w 
+17	401	10	0.3520014584064483643	When the SPILL feature is disabled, the output streams back to the standard erro 
+18	403	10	0.3559809029102325439	SQLite's performance can be impacted when numerous tools are actively accessing  
+19	292	6	0.3568706214427947999	The method of managing errors utilizes a fail-open principle: should a critical  
+20	242	5	0.3570246696472167968	Upon attempting to retrieve data using Ollama, a JSON parsing error occurred, re 

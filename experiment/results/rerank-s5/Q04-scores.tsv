@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	218	4	0.996383	0.015152	vec	Here’s a rewritten version, maintaining the exact meaning while using different   “For the crib database, SQLite utilizes a specific write mode—WAL mode—that faci 
+2	397	10	0.007640	0.015152	fts	The records generated within the system are organized by the tool name as a desi 
+3	213	4	0.000056	0.015385	vec	The system employing a consolidation-on-write strategy instead of traditional pe 
+4	306	7	0.000000	0.026172	fts+vec	The `Commit` messages are designated by a prefix associated with a specific tool 
+5	212	4	0.000000	0.016393	vec	The system employing consolidation-on-write data management instead of tradition 
+6	437	0	0.000000	0.016393	fts	The regimen for marathon training generally spans 18 weeks, meticulously structu 
+7	234	4	0.000000	0.016129	vec	The database schema employs AUTOINCREMENT as the primary key, even though it inc 
+8	414	10	0.000000	0.016129	fts	The logging system employs text-based messages, rather than numerical codes. Spe 
+9	217	4	0.000000	0.015873	vec	The SQLite database utilizes a specific write mode, designated as WAL (Write-Ahe 
+10	413	10	0.000000	0.015873	fts	The messages produced by a logging system are typically structured as sentences, 
+11	31	4	0.000000	0.015625	vec	crib uses consolidation-on-write rather than periodic garbage collection. When a 
+12	408	10	0.000000	0.015625	fts	The system's current approach involves examining the spill database after a sign 
+13	406	10	0.000000	0.015385	fts	The system’s inherent ability to understand past events requires examining the s 
+14	67	7	0.000000	0.014925	vec	Rebasing is preferred over merge commits for keeping history linear. Interactive 
+15	383	9	0.000000	0.014925	fts	The blog’s visual aesthetic directly embodies the author’s perspective, utilizin 
+16	363	9	0.000000	0.014706	fts	The core document, designated ‘IDENTITY.md’, serves as the definitive reference  
+17	62	7	0.000000	0.014706	vec	Commit messages use a tool-name prefix followed by a colon: crib: add consolidat 
+18	362	9	0.000000	0.014493	fts	The core document, designated ‘core/IDENTITY.md’, serves as the definitive repos 
+19	233	4	0.000000	0.014493	vec	The database schema employs an auto-incrementing value as the primary key, even  
+20	123	1	0.000000	0.014286	vec	The process of transferring data from per-tool log files to a single SQLite data 

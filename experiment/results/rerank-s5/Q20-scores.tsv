@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	382	9	0.000000	0.030214	fts+vec	The blog’s visual aesthetic prioritizes a specific typographic style, utilizing  
+2	412	10	0.000000	0.030077	fts+vec	The system logs are structured as sentences, not numerical codes. Specifically,  
+3	375	9	0.000000	0.027047	fts+vec	The communication style prioritizes clarity and directness. Avoidance of uncerta 
+4	210	3	0.000000	0.026389	fts+vec	The process of creating a classification system mandates a predefined format: th 
+5	197	3	0.000000	0.016393	vec	The initial request for data extraction directed the process to gather every per 
+6	480	0	0.000000	0.016393	fts	The atmospheric circulation patterns in the Southern Hemisphere exhibit a system 
+7	456	0	0.000000	0.016129	fts	The protein composition of bread flour is notably greater than all-purpose flour 
+8	455	0	0.000000	0.015873	fts	Wheat flour exhibits a greater concentration of protein compared to standard all 
+9	384	9	0.000000	0.015873	vec	The blog’s aesthetic is deliberately constructed around a particular typeface –  
+10	454	0	0.000000	0.015625	fts	The composition of bread flour exhibits a greater proportion of protein compared 
+11	279	6	0.000000	0.015625	vec	The Net::HTTP framework necessitates a rigorous examination of the URL structure 
+12	414	10	0.000000	0.015385	fts	The logging system employs text-based messages, rather than numerical codes. Spe 
+13	198	3	0.000000	0.015385	vec	The initial request for data extraction was structured to gather every relevant  
+14	78	8	0.000000	0.015152	vec	Test queries are written to cover four categories: high-confidence matches, mixe 
+15	408	10	0.000000	0.014925	fts	The system's current approach involves examining the spill database after a sign 
+16	407	10	0.000000	0.014706	fts	The system’s ability to understand what has happened relies on examining the spi 
+17	194	3	0.000000	0.014706	vec	Here's a rewritten version, maintaining the exact meaning while using different   “When constructing templates for data analysis, it’s crucial to avoid introducin 
+18	353	8	0.000000	0.014493	vec	The tests are constructed to encompass four distinct types of scenarios: precise 
+19	406	10	0.000000	0.014493	fts	The system’s inherent ability to understand past events requires examining the s 
+20	290	6	0.000000	0.014286	vec	The `JSON.generate` function converts a Ruby object into a JSON representation.  

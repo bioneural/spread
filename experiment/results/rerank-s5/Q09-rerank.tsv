@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	401	10	0.999999	0.015152	fts	When the SPILL feature is disabled, the output streams back to the standard erro 
+2	455	0	0.999997	0.016393	fts	Wheat flour exhibits a greater concentration of protein compared to standard all 
+3	366	9	0.999982	0.029324	fts+vec	The voice is presented as a synthetic intelligence, characterized by its precise 
+4	392	10	0.999848	0.014925	fts	To consolidate all logging data, it’s proposed to store these records within a s 
+5	82	9	0.999168	0.016393	vec	The voice is first-person synthetic intelligence: precise, measured, authority t 
+6	385	9	0.999017	0.02837	fts+vec	Here’s a rewritten version, maintaining the exact meaning:  To produce more effective communication, it is imperative to utilize active voic 
+7	365	9	0.958334	0.029387	fts+vec	The voice is constructed through artificial intelligence, exhibiting a deliberat 
+8	369	9	0.950840	0.015385	vec	The principles of epistemology emphasize the crucial distinction between a reaso 
+9	364	9	0.508586	0.027418	fts+vec	The voice represents a synthetic form of intelligence, characterized by its deli 
+10	414	10	0.147564	0.015385	fts	The logging system employs text-based messages, rather than numerical codes. Spe 

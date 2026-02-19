@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	203	3	0.000000	0.029287	fts+vec	To ensure consistent results across all classification tasks, establish a temper 
+2	200	3	0.000000	0.029052	fts+vec	The temperature setting of 0.0 does not reliably produce the same results from G 
+3	199	3	0.000000	0.028373	fts+vec	The temperature setting of 0.0 does not consistently produce the same results fr 
+4	432	0	0.000000	0.016393	fts	The sourdough starter needs consistent nourishment: it should be mixed with a ra 
+5	431	0	0.000000	0.016129	fts	The sourdough starter needs to be replenished periodically: it should be mixed w 
+6	430	0	0.000000	0.015873	fts	The sourdough starter necessitates periodic replenishment: approximately equal p 
+7	423	0	0.000000	0.015625	fts	To achieve the optimal texture of caramelized onions, a gentle and prolonged coo 
+8	422	0	0.000000	0.015385	fts	To achieve optimal caramelization of onions, it’s recommended to employ a gradua 
+9	421	0	0.000000	0.015152	fts	To achieve a truly exceptional caramelization of onions, it’s recommended to uti 
+10	365	9	0.000000	0.014925	fts	The voice is constructed through artificial intelligence, exhibiting a deliberat 
+11	364	9	0.000000	0.014706	fts	The voice represents a synthetic form of intelligence, characterized by its deli 
+12	315	7	0.000000	0.014493	fts	Version control systems utilize git tags primarily for identifying specific rele 
+13	314	7	0.000000	0.014286	fts	Here’s a rewritten version of the text, maintaining the exact meaning:  Version control systems, specifically Git tags, are not utilized for establishin 
+14	313	7	0.000000	0.014085	fts	Here’s a rewritten version, maintaining the original meaning with distinct vocab  Version control systems utilize Git tags primarily for identifying distinct rele 
+15	276	6	0.000000	0.013889	fts	The implementation of all software relies solely on the Ruby library; there are  
+16	275	6	0.000000	0.013699	fts	The functionality of every tool is predicated on the Ruby library, with no relia 
+17	274	6	0.000000	0.013514	fts	Ruby is the standard library implementation utilized by all tools, and it does n 
+18	204	3	0.000000	0.013333	fts	To ensure consistent results across all classification tasks, configure all prom 
+19	202	3	0.000000	0.012987	fts	To ensure consistent output across all classification models, configure the temp 
+20	201	3	0.000000	0.012821	fts	The temperature setting of 0.0 does not automatically ensure consistent results  

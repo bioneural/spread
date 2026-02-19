@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	400	10	When the SPILL feature is disabled, the falling-back mechanism returns to stderr 
+2	397	10	The records generated within the system are organized by the tool name as a desi 
+3	388	9	The content presented follows a specific, sequential format: a brief summary, fo 
+4	355	8	The data generated during the experiment is presented as text files within the d 
+5	354	8	The queries designed for testing are organized into four distinct groupings: pre 
+6	353	8	The tests are constructed to encompass four distinct types of scenarios: precise 
+7	351	8	The three-channel study focuses primarily on the quality of information retrieva 
+8	342	8	The scripts used for experimentation are located within the ‘experiment’ folder, 
+9	341	8	The scripts used in the experiment process are located within the experiment dir 
+10	340	8	The scripts used for experimentation are housed within the experiment directory, 
+11	333	8	The smoke test procedure for crib installations is a command-line script, distin 
+12	330	7	The structure of the repository involves organizing files into distinct director 
+13	329	7	The design of the repository involves classifying files into distinct locations: 
+14	328	7	The structure of the repository is organized as follows: executables are stored  
+15	316	7	The .gitignore file contains only the essential components: a directory to hold  
+16	301	7	The core repositories for each tool contain a single, foundational branch, elimi 
+17	276	6	The implementation of all software relies solely on the Ruby library; there are  
+18	271	6	Here’s a rewritten version of the text, maintaining the exact meaning:  Third-party commands should be initiated through the `Open3.capture3` function w 
+19	268	5	During the smoke test evaluation, the results were positive within the immediate 
+20	257	5	Across all types of software, a significant challenge arises: ollama frequently  

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	256	5	0.020625	0.014706	vec	Across all types of software applications, a significant issue frequently arises 
+2	95	10	0.003199	0.014493	vec	Spill SQLite writes blocked under high concurrency when multiple tools logged si 
+3	46	5	0.001825	0.016393	vec	The most common failure mode across all tools is ollama timing out. Embedding ca 
+4	403	10	0.000000	0.028205	fts+vec	SQLite's performance can be impacted when numerous tools are actively accessing  
+5	401	10	0.000000	0.027912	fts+vec	When the SPILL feature is disabled, the output streams back to the standard erro 
+6	471	0	0.000000	0.016393	fts	The grueling Tour de France spans approximately 3,500 kilometers across twenty-o 
+7	470	0	0.000000	0.016129	fts	The grueling Tour de France spans approximately 3,500 kilometers across twenty-o 
+8	294	6	0.000000	0.016129	vec	The mechanism for addressing errors utilizes a fail-open approach.  When a non-e 
+9	469	0	0.000000	0.015873	fts	The Tour de France spans roughly 3,500 kilometers across twenty-one challenging  
+10	58	6	0.000000	0.015873	vec	Error handling follows fail-open semantics: if a non-critical operation like emb 

@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	159	2	0.154387161135673523	We selected nomic-embed-text instead of mxbai-embed-large primarily due to its e 
+2	158	2	0.1608662009239196777	We opted for nomic-embed-text instead of mxbai-embed-large due to its remarkably 
+3	157	2	0.1614310443401336669	We opted for nomic-embed-text instead of mxbai-embed-large due to its relatively 
+4	11	2	0.1755907982587814332	nomic-embed-text produces 768-dimensional float vectors. At default ollama setti 
+5	13	2	0.1765070855617523194	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+6	152	2	0.2357450872659683228	The nomic-embed-text model generates 768-dimensional floating-point vectors. Whe 
+7	161	2	0.2362696975469589233	The embedding API generates a structured output, specifically a JSON document. T 
+8	162	2	0.2447084337472915649	The embedding API generates a structured data payload, specifically a JSON docum 
+9	153	2	0.2461807876825332642	The nomic-embed-text system generates 768-dimensional floating-point vectors. Wh 
+10	16	2	0.2476505935192108154	nomic-embed-text is trained for search rather than classification. Its vectors c 
+11	151	2	0.255479574203491211	The nomic-embed-text tool generates 768-dimensional floating-point vectors. When 
+12	14	2	0.2649205327033996583	The embedding API returns a JSON response with an embeddings key containing an a 
+13	168	2	0.266995251178741455	Nomic-embed-text is specifically designed for tasks centered around information  
+14	166	2	0.2724041342735290527	Nomic-embed-text is designed specifically for the task of locating information t 
+15	17	2	0.2786512970924377442	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+16	167	2	0.2856836020946502685	Nomic-embed-text is specifically designed to facilitate the retrieval of informa 
+17	160	2	0.3056435883045196533	The embedding API generates a structured data format, specifically a JSON payloa 
+18	12	2	0.3248458802700042725	Batch embedding via the ollama /api/embed endpoint accepts an array of inputs an 
+19	176	2	0.3475361764430999755	The technique of cosine similarity and L2 distance can yield varying outputs whe 
+20	19	2	0.3476249873638153077	Cosine similarity and L2 distance produce different orderings for the same query 

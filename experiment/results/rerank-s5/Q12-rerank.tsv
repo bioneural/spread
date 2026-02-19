@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	193	3	0.999382	0.015385	vec	Here’s a rewritten version of the text, maintaining the exact meaning while usin  “When constructing prompt templates, it’s crucial to avoid introducing any negat 
+2	385	9	0.146701	0.026786	fts+vec	Here’s a rewritten version, maintaining the exact meaning:  To produce more effective communication, it is imperative to utilize active voic 
+3	401	10	0.000035	0.014925	fts	When the SPILL feature is disabled, the output streams back to the standard erro 
+4	339	8	0.000000	0.029052	fts+vec	To assess the performance of the classifier, a meticulously labeled dataset is e 
+5	386	9	0.000000	0.028577	fts+vec	The composition should predominantly employ active voice and identifiable nouns. 
+6	338	8	0.000000	0.028373	fts+vec	To evaluate the performance of the classifier, a comprehensive dataset of labele 
+7	387	9	0.000000	0.027364	fts+vec	The practice of writing should predominantly employ active voice and specific no 
+8	352	8	0.000000	0.026686	fts+vec	The queries being generated are designed to evaluate performance across four dis 
+9	417	10	0.000000	0.016393	fts	The process of examining crib logs details which channels yielded data but doesn 
+10	337	8	0.000000	0.016129	vec	To evaluate the performance of the classifier, a curated dataset of correctly la 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	330	7	0.030282	fts+vec	The structure of the repository involves organizing files into distinct director 
+2	328	7	0.029643	fts+vec	The structure of the repository is organized as follows: executables are stored  
+3	388	9	0.028373	fts+vec	The content presented follows a specific, sequential format: a brief summary, fo 
+4	301	7	0.028083	fts+vec	The core repositories for each tool contain a single, foundational branch, elimi 
+5	329	7	0.027984	fts+vec	The design of the repository involves classifying files into distinct locations: 
+6	400	10	0.016393	fts	When the SPILL feature is disabled, the falling-back mechanism returns to stderr 
+7	397	10	0.016129	fts	The records generated within the system are organized by the tool name as a desi 
+8	124	1	0.015873	vec	The prophet entity does not rely on its system's connections. Each individual co 
+9	126	1	0.015625	vec	The prophet system doesn't rely on the external resources of any other software. 
+10	355	8	0.015625	fts	The data generated during the experiment is presented as text files within the d 

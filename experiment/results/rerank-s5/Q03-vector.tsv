@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	73	8	0.2129145860671997071	Testing classifier accuracy requires a labeled dataset. The gemma3 1b tuning exp 
+2	337	8	0.2343094646930694581	To evaluate the performance of the classifier, a curated dataset of correctly la 
+3	338	8	0.2666756212711334229	To evaluate the performance of the classifier, a comprehensive dataset of labele 
+4	339	8	0.2916527092456817627	To assess the performance of the classifier, a meticulously labeled dataset is e 
+5	28	3	0.2978901863098144532	Set all classifier prompts to temperature 0.0 despite non-determinism. Higher te 
+6	24	3	0.3109138011932373046	A classifier prompt that worked for Python code detection returned false negativ 
+7	186	3	0.3122588098049163818	The system was modified to convert the screen classification prompt from a simpl 
+8	201	3	0.3165229260921478271	The temperature setting of 0.0 does not automatically ensure consistent results  
+9	22	3	0.322750091552734375	Tuned the screen classifier prompt from a binary yes/no format to a structured c 
+10	190	3	0.3313881456851959229	The system designed to identify Python code was incorrectly classifying Ruby cod 
+11	199	3	0.3388302624225616455	The temperature setting of 0.0 does not consistently produce the same results fr 
+12	204	3	0.3520600199699401855	To ensure consistent results across all classification tasks, configure all prom 
+13	200	3	0.363192439079284668	The temperature setting of 0.0 does not reliably produce the same results from G 
+14	184	3	0.3667106926441192626	The system was modified to translate a binary response – yes or no – into a defi 
+15	203	3	0.3706186115741729737	To ensure consistent results across all classification tasks, establish a temper 
+16	202	3	0.3741349577903747559	To ensure consistent output across all classification models, configure the temp 
+17	193	3	0.3776499927043914794	Here’s a rewritten version of the text, maintaining the exact meaning while usin  “When constructing prompt templates, it’s crucial to avoid introducing any negat 
+18	206	3	0.3833549320697784423	The effectiveness of system prompts compared to user prompts when utilizing Gemm 
+19	185	3	0.3862396776676177978	The screen analysis system was modified to convert a binary response – yes or no 
+20	192	3	0.3864187598228454589	A system designed to identify Python code was incorrectly classified as Ruby cod 

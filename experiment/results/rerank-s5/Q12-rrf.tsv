@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	339	8	0.029052	fts+vec	To assess the performance of the classifier, a meticulously labeled dataset is e 
+2	386	9	0.028577	fts+vec	The composition should predominantly employ active voice and identifiable nouns. 
+3	338	8	0.028373	fts+vec	To evaluate the performance of the classifier, a comprehensive dataset of labele 
+4	387	9	0.027364	fts+vec	The practice of writing should predominantly employ active voice and specific no 
+5	385	9	0.026786	fts+vec	Here’s a rewritten version, maintaining the exact meaning:  To produce more effective communication, it is imperative to utilize active voic 
+6	352	8	0.026686	fts+vec	The queries being generated are designed to evaluate performance across four dis 
+7	417	10	0.016393	fts	The process of examining crib logs details which channels yielded data but doesn 
+8	337	8	0.016129	vec	To evaluate the performance of the classifier, a curated dataset of correctly la 
+9	416	10	0.016129	fts	The process of analyzing crib logs details which pathways yielded data, but it d 
+10	415	10	0.015873	fts	The process of analyzing crib logs details which pathways yielded data, but it d 

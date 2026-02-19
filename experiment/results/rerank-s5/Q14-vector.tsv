@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	176	2	0.3633011579513549805	The technique of cosine similarity and L2 distance can yield varying outputs whe 
+2	168	2	0.3804230690002441406	Nomic-embed-text is specifically designed for tasks centered around information  
+3	169	2	0.3878028690814971923	The representation generated for a 200-word passage and the representation for a 
+4	177	2	0.3910166919231414794	The process of calculating cosine similarity and the L2 distance can result in v 
+5	171	2	0.3971756696701049805	The representation generated for a 200-word passage and the representation produ 
+6	175	2	0.3974105417728424072	The techniques of cosine similarity and L2 distance exhibit varying results when 
+7	195	3	0.4024444222450256348	Here's a rewritten version of the text, maintaining the exact meaning and avoidi  “When constructing prompt templates, it is imperative to refrain from utilizing  
+8	167	2	0.4039210677146911622	Nomic-embed-text is specifically designed to facilitate the retrieval of informa 
+9	170	2	0.410109877586364746	The representation of a 200-word passage and the representation of a five-word p 
+10	435	0	0.4114752113819122314	Here’s a rewritten version of the text, maintaining the original meaning without  Winter’s intensity in the Pacific Northwest is largely dictated by the positioni 
+11	193	3	0.4144905805587768554	Here’s a rewritten version of the text, maintaining the exact meaning while usin  “When constructing prompt templates, it’s crucial to avoid introducing any negat 
+12	13	2	0.4198677539825439453	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 
+13	98	10	0.4206366539001464843	Log messages are sentences, not codes. stored entry #42 (decision), 3 triples ex 
+14	166	2	0.4212382733821868897	Nomic-embed-text is designed specifically for the task of locating information t 
+15	17	2	0.4214923083782196045	The embedding for a 200-word paragraph and the embedding for a 5-word query live 
+16	16	2	0.4230974912643432617	nomic-embed-text is trained for search rather than classification. Its vectors c 
+17	413	10	0.4234039187431335449	The messages produced by a logging system are typically structured as sentences, 
+18	447	0	0.4251175224781036377	Here's a rewritten version of the text, preserving the original meaning:  Cricket games typically span five days, and the outcome often remains tied. This 
+19	186	3	0.4251542687416076661	The system was modified to convert the screen classification prompt from a simpl 
+20	271	6	0.42536887526512146	Here’s a rewritten version of the text, maintaining the exact meaning:  Third-party commands should be initiated through the `Open3.capture3` function w 

@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	407	10	0.000000	0.028814	fts+vec	The system’s ability to understand what has happened relies on examining the spi 
+2	406	10	0.000000	0.028191	fts+vec	The system’s inherent ability to understand past events requires examining the s 
+3	395	10	0.000000	0.028043	fts+vec	The system utilizes three distinct warning classifications: info, warn, and erro 
+4	408	10	0.000000	0.027783	fts+vec	The system's current approach involves examining the spill database after a sign 
+5	394	10	0.000000	0.027652	fts+vec	The system utilizes three distinct severity classifications: detail, alert, and  
+6	396	10	0.000000	0.027526	fts+vec	The system utilizes three distinct severity classifications: detail, alert, and  
+7	292	6	0.000000	0.016393	vec	The method of managing errors utilizes a fail-open principle: should a critical  
+8	435	0	0.000000	0.016393	fts	Here’s a rewritten version of the text, maintaining the original meaning without  Winter’s intensity in the Pacific Northwest is largely dictated by the positioni 
+9	294	6	0.000000	0.016129	vec	The mechanism for addressing errors utilizes a fail-open approach.  When a non-e 
+10	424	0	0.000000	0.016129	fts	Rainier Mountain stands as the largest and most noticeable peak within the Casca 

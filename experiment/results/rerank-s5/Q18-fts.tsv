@@ -1,0 +1,18 @@
+rank	entry_id	cluster	content
+1	474	0	The Earth’s crust, composed of large plates, shifts at a rate of approximately t 
+2	434	0	The positioning of the jet stream has a significant impact on the severity of wi 
+3	405	10	SQLite's behavior becomes significantly impacted when several applications are a 
+4	403	10	SQLite's performance can be impacted when numerous tools are actively accessing  
+5	384	9	The blog’s aesthetic is deliberately constructed around a particular typeface –  
+6	380	9	The established principle of antecedent basis dictates that when detailing or pr 
+7	379	9	The established guideline emphasizes avoiding the mention of specific internal m 
+8	165	2	During the execution of embedding operations, the ollama model may occasionally  
+9	163	2	The ollama model is periodically encountering a 500 Internal Server Error during 
+10	159	2	We selected nomic-embed-text instead of mxbai-embed-large primarily due to its e 
+11	158	2	We opted for nomic-embed-text instead of mxbai-embed-large due to its remarkably 
+12	157	2	We opted for nomic-embed-text instead of mxbai-embed-large due to its relatively 
+13	150	1	The operational architecture eschews a message bus. Instead, communication is es 
+14	149	1	The application architecture operates without the utilization of a messaging sys 
+15	148	1	The current architecture does not employ a message bus. Communication between co 
+16	87	9	Antecedent basis rule: never reference internal module names or jargon in descri 
+17	13	2	Chose nomic-embed-text over mxbai-embed-large because it runs under 100ms per em 

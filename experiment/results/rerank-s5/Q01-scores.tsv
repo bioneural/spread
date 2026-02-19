@@ -1,0 +1,21 @@
+rank	entry_id	cluster	rerank_score	rrf_score	channels	content
+1	419	10	0.000000	0.031099	fts+vec	The original system recorded every detail of each log entry when retrieving them 
+2	418	10	0.000000	0.030366	fts+vec	The initial method of recording every detail of a retrieval was implemented by l 
+3	420	10	0.000000	0.029418	fts+vec	The initial process of recording every detail of each content item was extensive 
+4	414	10	0.000000	0.028624	fts+vec	The logging system employs text-based messages, rather than numerical codes. Spe 
+5	413	10	0.000000	0.027402	fts+vec	The messages produced by a logging system are typically structured as sentences, 
+6	412	10	0.000000	0.026491	fts+vec	The system logs are structured as sentences, not numerical codes. Specifically,  
+7	415	10	0.000000	0.026389	fts+vec	The process of analyzing crib logs details which pathways yielded data, but it d 
+8	461	0	0.000000	0.016393	fts	Here's a rewritten version, maintaining the original meaning while using differe  A significant decrease in barometric pressure, exceeding 24 millibars, within a  
+9	450	0	0.000000	0.016129	fts	Here’s a rewritten version, maintaining the original meaning and using varied vo  Solar particles emitted from the sun encounter the Earth’s magnetic field, resul 
+10	1	1	0.000000	0.016129	vec	Switched spill from per-tool log files to a single SQLite database. Centralized  
+11	446	0	0.000000	0.015873	fts	Here is the rewritten text, maintaining the original meaning and using varied vo  The duration of cricket test series typically extends to five days, with the out 
+12	445	0	0.000000	0.015625	fts	Here's a rewritten version of the text, maintaining the original meaning while u  The duration of cricket test series typically spans five days, and it’s possible 
+13	391	10	0.000000	0.015625	vec	The collection of log data should be consolidated into a single SQLite database, 
+14	425	0	0.000000	0.015385	fts	Here is the rewritten text, maintaining the original meaning and using varied vo   Rainier Mountain stands as the largest elevation point in the Cascade Range, re 
+15	392	10	0.000000	0.015385	vec	To consolidate all logging data, it’s proposed to store these records within a s 
+16	424	0	0.000000	0.015152	fts	Rainier Mountain stands as the largest and most noticeable peak within the Casca 
+17	393	10	0.000000	0.015152	vec	To consolidate all log data into a single SQLite database, which is accessible b 
+18	123	1	0.000000	0.014706	vec	The process of transferring data from per-tool log files to a single SQLite data 
+19	417	10	0.000000	0.014286	fts	The process of examining crib logs details which channels yielded data but doesn 
+20	121	1	0.000000	0.014286	vec	The process of transferring the log data from per-tool files to a single SQLite  

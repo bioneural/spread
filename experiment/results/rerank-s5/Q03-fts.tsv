@@ -1,0 +1,21 @@
+rank	entry_id	cluster	content
+1	339	8	To assess the performance of the classifier, a meticulously labeled dataset is e 
+2	338	8	To evaluate the performance of the classifier, a comprehensive dataset of labele 
+3	337	8	To evaluate the performance of the classifier, a curated dataset of correctly la 
+4	329	7	The design of the repository involves classifying files into distinct locations: 
+5	237	4	The entries_fts table operates in a content sync mode, prompting automatic synch 
+6	207	3	The effectiveness of system prompts is diminished when utilizing Gemma3 1b. Impl 
+7	206	3	The effectiveness of system prompts compared to user prompts when utilizing Gemm 
+8	205	3	Here's a rewritten version, maintaining the exact meaning and avoiding new infor  Compared to user prompts, system prompts yield less consistent results when appl 
+9	204	3	To ensure consistent results across all classification tasks, configure all prom 
+10	203	3	To ensure consistent results across all classification tasks, establish a temper 
+11	202	3	To ensure consistent output across all classification models, configure the temp 
+12	201	3	The temperature setting of 0.0 does not automatically ensure consistent results  
+13	197	3	The initial request for data extraction directed the process to gather every per 
+14	196	3	Initially, the prompt for data extraction was designed to gather all relevant de 
+15	195	3	Here's a rewritten version of the text, maintaining the exact meaning and avoidi  “When constructing prompt templates, it is imperative to refrain from utilizing  
+16	193	3	Here’s a rewritten version of the text, maintaining the exact meaning while usin  “When constructing prompt templates, it’s crucial to avoid introducing any negat 
+17	192	3	A system designed to identify Python code was incorrectly classified as Ruby cod 
+18	191	3	The automated system used to identify Python code was incorrectly classifying Ru 
+19	190	3	The system designed to identify Python code was incorrectly classifying Ruby cod 
+20	186	3	The system was modified to convert the screen classification prompt from a simpl 

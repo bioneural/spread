@@ -1,0 +1,21 @@
+rank	entry_id	cluster	distance	content
+1	336	8	0.2995570898056030273	During smoke tests, a temporary data storage mechanism is established using a sp 
+2	334	8	0.3015683591365814209	During smoke tests, a specific, temporary database is established using a direct 
+3	343	8	0.3047488331794738769	The execution of end-to-end tests is protracted due to the repeated requests to  
+4	75	8	0.3075768351554870606	End-to-end tests are slow because they call ollama for every embedding and extra 
+5	335	8	0.3170011937618255615	During smoke tests, a system utilizes a temporary data store, named CRIB_DB, whi 
+6	332	8	0.3348883986473083496	The smoke test for crib is a command-line utility, distinct from a Ruby-based te 
+7	76	8	0.3352994620800018311	A smoke test flaked because ollama returned different triple extractions on cons 
+8	333	8	0.3356134891510009766	The smoke test procedure for crib installations is a command-line script, distin 
+9	268	5	0.3465613424777984619	During the smoke test evaluation, the results were positive within the immediate 
+10	347	8	0.3479175865650177002	Due to an inconsistency in the smoke test results, the analysis revealed that ol 
+11	269	5	0.3484803140163421631	During the smoke test evaluation, the results were satisfactory within the immed 
+12	348	8	0.3494624197483062745	Due to an inconsistency in the ollama smoke test results, the output yielded thr 
+13	346	8	0.3528539836406707763	Due to an inconsistency in the smoke test results, ollama produced multiple sets 
+14	71	8	0.3569575846195220948	The smoke test for crib is a bash script, not a Ruby test framework. It exercise 
+15	331	8	0.3572419583797454834	The smoke test procedure for crib configurations is a command-line script, rathe 
+16	270	5	0.4097010791301727294	During the smoke test evaluation, the system operated successfully in its immedi 
+17	50	5	0.415158301591873169	The smoke test suite passed locally but failed in CI because ollama was not inst 
+18	345	8	0.418522655963897705	The execution of end-to-end tests is protracted due to the repeated reliance on  
+19	353	8	0.421644061803817749	The tests are constructed to encompass four distinct types of scenarios: precise 
+20	128	1	0.4336905777454376221	The evaluation of regulations is conducted in a prioritized fashion, beginning w 

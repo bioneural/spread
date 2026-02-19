@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	347	8	0.026786	fts+vec	Due to an inconsistency in the smoke test results, the analysis revealed that ol 
+2	348	8	0.026547	fts+vec	Due to an inconsistency in the ollama smoke test results, the output yielded thr 
+3	353	8	0.025645	fts+vec	The tests are constructed to encompass four distinct types of scenarios: precise 
+4	336	8	0.016393	vec	During smoke tests, a temporary data storage mechanism is established using a sp 
+5	446	0	0.016393	fts	Here is the rewritten text, maintaining the original meaning and using varied vo  The duration of cricket test series typically extends to five days, with the out 
+6	334	8	0.016129	vec	During smoke tests, a specific, temporary database is established using a direct 
+7	445	0	0.016129	fts	Here's a rewritten version of the text, maintaining the original meaning while u  The duration of cricket test series typically spans five days, and it’s possible 
+8	343	8	0.015873	vec	The execution of end-to-end tests is protracted due to the repeated requests to  
+9	437	0	0.015873	fts	The regimen for marathon training generally spans 18 weeks, meticulously structu 
+10	75	8	0.015625	vec	End-to-end tests are slow because they call ollama for every embedding and extra 

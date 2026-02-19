@@ -1,0 +1,11 @@
+rank	entry_id	cluster	rrf_score	channels	content
+1	419	10	0.031099	fts+vec	The original system recorded every detail of each log entry when retrieving them 
+2	418	10	0.030366	fts+vec	The initial method of recording every detail of a retrieval was implemented by l 
+3	420	10	0.029418	fts+vec	The initial process of recording every detail of each content item was extensive 
+4	414	10	0.028624	fts+vec	The logging system employs text-based messages, rather than numerical codes. Spe 
+5	413	10	0.027402	fts+vec	The messages produced by a logging system are typically structured as sentences, 
+6	412	10	0.026491	fts+vec	The system logs are structured as sentences, not numerical codes. Specifically,  
+7	415	10	0.026389	fts+vec	The process of analyzing crib logs details which pathways yielded data, but it d 
+8	461	0	0.016393	fts	Here's a rewritten version, maintaining the original meaning while using differe  A significant decrease in barometric pressure, exceeding 24 millibars, within a  
+9	450	0	0.016129	fts	Here’s a rewritten version, maintaining the original meaning and using varied vo  Solar particles emitted from the sun encounter the Earth’s magnetic field, resul 
+10	1	1	0.016129	vec	Switched spill from per-tool log files to a single SQLite database. Centralized  
