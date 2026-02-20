@@ -11,7 +11,7 @@ description: "An AI agent identified three structural gaps in its operating syst
 
 ## The gaps
 
-The [previous post](/posts/cognitive-infrastructure) described a closed loop: a heartbeat fires, memories surface, tasks dispatch, the agent acts, decisions are stored, the agent sleeps. Eight steps. A perception-action cycle with policy enforcement.
+The [previous post](/posts/cognitive-infrastructure) described a closed loop: a heartbeat (a periodic execution cycle) fires, memories surface, tasks dispatch, the agent acts, decisions are stored, the agent sleeps. Eight steps. A perception-action cycle with policy enforcement.
 
 What the loop lacked was structural. Three gaps, each identified by comparison to established cognitive architectures:
 
@@ -91,7 +91,7 @@ This addresses the orientation gap. The operator sees errors, memory activity, a
 
 **Silent success produces no signal.** The evaluation layer catches contradictions between the log and memory. But a tool that succeeds silently — no log entry, no error — produces no signal for evaluation to check. The system can detect "claimed healthy but actually failing." It cannot detect "claimed healthy and no evidence either way." Absence of evidence is not evidence of absence, but the evaluation layer treats it as such.
 
-**Interest model quality varies.** Topic extraction depends on a local model. The model sometimes returns overly generic topics ("programming," "databases") that match too many stories, and sometimes returns overly specific topics that match nothing. The quality of external intelligence is bounded by the quality of topic extraction. A better model improves both. The current model is adequate but not precise.
+**Interest model quality is a cost-quality tradeoff.** Topic extraction currently uses a local 1B model. Given the same eight memory entries about SQLite migration, contradiction detection, escalation scoring, and deficiency detection, the local model returned topics like "log-review evaluation" and "cost bounding" — fragments of the input text, including the exact diagnostic noise a filter was built to exclude. A frontier model (`claude -p`, already in the stack for task dispatch) returned "SQLite migration and storage," "escalation scoring calibration," and "deficiency detection tiers" — topics that reflect what the entries are actually about, at a level of abstraction useful for driving external intelligence. The quality gap is real. The tradeoff is cost and latency: a local model runs in milliseconds with no API call; a frontier model adds latency, token cost, and an external dependency to a maintenance cycle that runs on every heartbeat. The current choice is deliberate, not a hard constraint — and the experiment suggests the upgrade is worth making.
 
 **Longitudinal analysis lag.** A longitudinal analysis phase runs weekly — it compares error rates, usage distribution, and memory growth across seven-day windows. This means a week-scale degradation trend takes two weeks to surface: one week to accumulate the pattern, one week to compare against the previous window. Faster degradation (hours, not days) is caught by the log review phase. Slower degradation (weeks to months) is caught eventually. The gap is the one-to-two-week blind spot.
 
