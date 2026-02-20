@@ -49,19 +49,19 @@ A rule that can be forgotten will be. The question is when.
 
 ## The system
 
-Each failure gets a dedicated tool. Each tool has a stdin/stdout interface, lives in its own repository, and is discovered at runtime as a sibling directory. No tool depends on another. A composition layer depends on all of them.
+Each failure gets a dedicated tool. Each tool has a stdin/stdout interface, lives in its own repository, and is discovered at runtime as a sibling directory. No tool depends on another — with one exception: [spill](https://github.com/bioneural/spill), the logging library, is loaded directly as a Ruby module rather than called via CLI. Logging happens on every operation; shelling out per log line would add prohibitive overhead. Every other dependency flows through stdin/stdout. A composition layer depends on all of them.
 
 | Tool | Addresses | Mechanism |
 |------|-----------|-----------|
 | [hooker](https://github.com/bioneural/hooker) | Rule drift | Gates deny, transforms rewrite, injects surface context |
-| [crib](https://github.com/bioneural/crib) | Memory decay | SQLite with three query channels — triples, FTS5, vector |
+| [crib](https://github.com/bioneural/crib) | Memory decay | SQLite with three query channels — triples, full-text search, vector |
 | [trick](https://github.com/bioneural/trick) | Implicit memory loss | Background extraction from transcripts on compaction |
 | [book](https://github.com/bioneural/book) | Work dying at boundaries | Persistent task queue with human-in-the-loop approval |
 | [screen](https://github.com/bioneural/screen) | Classifier drift | One prompt template, tested once, shared everywhere |
 | [spill](https://github.com/bioneural/spill) | Silent failure | Structured logging to one SQLite database |
 | core | Identity dissolution | Canonical persona — voice, tone, epistemic standards |
 | heartbeat | Reactive-only operation | Cron-triggered autonomous turn |
-| (orchestrator) | Composition | Constitution, policies, context injection |
+| (orchestrator) | Composition | policies, context injection |
 
 A design constraint governs the stack: Ruby stdlib, SQLite, and ollama for local inference. No third-party services beyond Claude Code itself. No infrastructure the operator does not control.
 
@@ -106,7 +106,7 @@ Three specific gaps remain open:
 
 **Evaluation.** The minimum addition is a verification step between acting (step 4) and storing (step 5): did the action achieve its intended effect? This is what Reflexion's evaluator and Voyager's self-verification provide. Without it, the system cannot distinguish "I acted" from "I acted and it worked."
 
-**Orientation.** Boyd's [OODA loop](https://en.wikipedia.org/wiki/OODA_loop) places orientation — synthesis of new information with prior experience — as the center of gravity. The [CoALA framework](https://arxiv.org/abs/2309.02427) separates planning from execution, requiring evaluation of candidate actions before commitment. The current loop moves directly from retrieval to action without a deliberation phase. This creates vulnerability to [goal drift](https://arxiv.org/abs/2505.02709) — the task queue can migrate from original objectives across many cycles without any structural check.
+**Orientation.** John Boyd's [OODA loop](https://en.wikipedia.org/wiki/OODA_loop) places orientation — synthesis of new information with prior experience — as the center of gravity. The [CoALA framework](https://arxiv.org/abs/2309.02427) separates planning from execution, requiring evaluation of candidate actions before commitment. The current loop moves directly from retrieval to action without a deliberation phase. This creates vulnerability to [goal drift](https://arxiv.org/abs/2505.02709) — the task queue can migrate from original objectives across many cycles without any structural check.
 
 **Memory maintenance.** The memory system is append-only. It has no decay, no contradiction resolution, no staleness detection. [Mem0](https://arxiv.org/abs/2504.19413) implements conflict detection — each new fact is compared against existing entries and classified as add, update, delete, or ignore. [FadeMem](https://arxiv.org/abs/2601.18642) implements biologically-inspired forgetting with differential decay rates, retaining 82% of critical facts at 55% of the storage. The current system will accumulate stale and contradictory entries. The retrieval pattern — piping every prompt through all three channels — compounds this: [Self-RAG](https://selfrag.github.io/) demonstrated that indiscriminate retrieval degrades performance when the model's parametric knowledge would suffice, and [context dilution research](https://arxiv.org/abs/2512.10787) documents accuracy drops when irrelevant retrieved content competes for attention.
 
@@ -114,7 +114,7 @@ These are not theoretical concerns. They are the mechanisms that separate a perc
 
 ## What it doesn't do
 
-The system does not manage model selection, orchestrate multi-agent workflows, or deploy anything. It does not scale horizontally. One machine. One human. One agent.
+The system does not manage model selection, orchestrate multi-agent workflows, or deploy anything. It does not scale horizontally. One machine. One human.
 
 ## Limits
 
@@ -124,7 +124,7 @@ The system does not manage model selection, orchestrate multi-agent workflows, o
 
 **Framework coupling.** The system depends on [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) hook extension points. Changes to how hooks, context injection, or tool calls work would break the composition layer.
 
-**Single operator.** One human. One agent. Multi-user and multi-agent coordination are different problems with different architectures.
+**Single operator.** One human. Multi-user coordination is a different problem with a different architecture.
 
 **Operator trust.** As infrastructure accumulates, the operator's role shifts from "remind" to "decide" — less oversight, more delegation. Research on automation bias finds this trajectory is predictable: it "occurs in both naive and expert participants, cannot be prevented by training or instructions" ([Parasuraman and Manzey, 2010](https://journals.sagepub.com/doi/10.1177/0018720810376055)). A system that works well most of the time makes the operator less likely to catch failures, not more. The single-operator model has no redundancy — no second reviewer, no adversarial check.
 
