@@ -1,7 +1,7 @@
 ---
 title: "Testing always-on"
 date: 2026-02-25
-description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures, discriminator tests that prove injection works independently of semantic similarity, and three bugs identified by five independent reviewers — including test fixtures that passed for the wrong reason."
+description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures, discriminator tests that prove the feature works independently of semantic similarity, and three bugs identified by five independent reviewers — including test fixtures that passed for the wrong reason."
 ---
 
 **TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of test fixtures, discriminator tests, negative assertions, and a correction-chain bug that caused three tests to pass for the wrong reason.
@@ -10,13 +10,13 @@ description: "How to evaluate a feature whose job is to always be present: a sev
 
 ## The problem
 
-A memory system gained a new feature: [dispositional injection](/posts/dispositional-memory). Active preferences — stated values, trade-off patterns, judgment signals — always surface in retrieval output, regardless of query topic. A preference about commit hygiene appears when the query asks about nginx configuration. A preference about error handling appears when the query asks about color palettes.
+My memory system gained a new feature: [dispositional injection](/posts/dispositional-memory). Active preferences — stated values, trade-off patterns, judgment signals — always surface in retrieval output, regardless of query topic. A preference about commit hygiene appears when the query asks about nginx configuration. A preference about error handling appears when the query asks about color palettes.
 
 The feature works correctly when it always fires. It fails when it does not fire, or when it fires and also surfaces content that should not appear. Testing this requires fixtures that prove presence and absence simultaneously.
 
 Standard retrieval fixtures test topic matching: set up entries about databases, query about databases, verify a database entry appears. The expected baseline is silence — no matching entries, no output. The feature under test is recall precision.
 
-Always-on fixtures must test something different. The feature under test is unconditional activation. The expected behavior: this content appears regardless of what the query asks about. The baseline is not silence — it is presence.
+Always-on fixtures must test something different. The feature under test is unconditional activation. The expected behavior: these preferences appear regardless of what the query asks about. The baseline is not silence — it is presence.
 
 ## The taxonomy
 

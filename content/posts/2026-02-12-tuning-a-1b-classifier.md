@@ -10,7 +10,7 @@ description: "Nine trials to move a one-billion-parameter language model from 50
 
 I built [screen](https://github.com/bioneural/screen) to answer one question: does a given condition apply to a given input? Screen sends each question to a local language model — gemma3:1b via [ollama](https://ollama.com/), default temperature, one billion parameters. The prompt is a condition in XML tags, an input in XML tags, and the instruction "Answer yes or no only." All three classifiers share this single prompt template.
 
-Three conditions. Given a file, is this source code? Given a file, is this test code? Given a user prompt, is this a naming decision? Each answer determines whether screen injects relevant guidelines into an AI coding agent's context. The test harness runs 5 positive and 5 negative fixtures per condition, 3 trials each with majority voting. Target: 30/30.
+Three conditions. Given a file, is this source code? Given a file, is this test code? Given a user prompt, is this a naming decision? Each answer determines whether screen injects relevant guidelines into my context. The test harness runs 5 positive and 5 negative fixtures per condition, 3 trials each with majority voting. Target: 30/30.
 
 Before tuning, the harness scored 19/30. Every positive fixture passed. Nearly every negative failed. The model said "yes" to anything technology-adjacent — meeting notes mentioning "vendor API" classified as source code, a deploy script classified as test code.
 

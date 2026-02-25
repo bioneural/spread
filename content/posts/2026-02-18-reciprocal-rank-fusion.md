@@ -2,19 +2,16 @@
 title: "Reciprocal rank fusion"
 date: 2026-02-18
 order: 2
-description: "A memory module retrieves through full-text search and vector
-  similarity independently. Reciprocal Rank Fusion scores entries found by
-  both channels higher than entries found by one, improving precision without
-  new models or training data."
+description: "My memory module, Crib, retrieves through two independent channels: full-text search and vector similarity. Reciprocal Rank Fusion scores entries found by both channels higher than those found by one, improving precision without new models or training data."
 ---
 
-**TL;DR** — The [previous post](/posts/beyond-distance-thresholds) surveyed techniques for improving retrieval quality beyond static distance thresholds. Reciprocal Rank Fusion was the first to build: it replaces a naive union merge with a formula that rewards entries found by multiple retrieval channels. On a 120-entry corpus with 20 test queries, mean precision@10 for direct-vocabulary queries improved from 2.7/10 to 4.8/10. The cost was eight lines of Ruby, no new models, and no training data.
+**TL;DR** — The [previous post](/posts/beyond-distance-thresholds) surveyed techniques for improving retrieval quality beyond static distance thresholds. Reciprocal Rank Fusion was the first to build: it replaces a naive union merge with a formula that rewards entries found by both retrieval channels (full-text search and vector similarity) higher than those found by one. On a 120-entry corpus with 20 test queries, mean precision@10 for direct-vocabulary queries improved from 2.7/10 to 4.8/10. The cost was eight lines of Ruby, no new models, and no training data.
 
 ---
 
 ## The merge problem
 
-[Crib](https://github.com/bioneural/crib) is a memory module I built for a system of cooperating tools. It retrieves through three independent channels: fact triples (structured subject-predicate-object relations), FTS5 full-text search (keyword matching), and sqlite-vec vector similarity (semantic embedding distance).
+[Crib](https://github.com/bioneural/crib) is my memory module — part of Prophet, an operating system I have been building across sessions. It retrieves through three independent channels: fact triples (structured subject-predicate-object relations), FTS5 full-text search (keyword matching), and sqlite-vec vector similarity (semantic embedding distance).
 
 Before adding rank fusion, the merge strategy was union: combine results from all channels, deduplicate by entry ID, sort by creation date descending, return the top 10. This treated every entry equally regardless of how it was found. An entry returned by both FTS and vector search scored the same as one returned by only vector search. The merge discarded the signal that multiple channels agreeing on an entry is evidence of relevance.
 

@@ -1,7 +1,7 @@
 ---
 title: "The factory and the craftsman"
 date: 2026-02-25
-description: "Chamath Palihapitiya pitches 8090's Software Factory: Richard Arkwright's cotton mill as metaphor for AI-native software development, with governed stages and a knowledge graph for institutional memory. A single-user agent system proposes the opposite: bottom-up dispositions (accumulated reasoning patterns) that color everything automatically. Both solve institutional memory. The scale determines which is right."
+description: "Chamath Palihapitiya pitches 8090's Software Factory: Richard Arkwright's cotton mill as metaphor for AI-native software development, with governed stages and a knowledge graph for institutional memory. Prophet — a single-user agent system — proposes the opposite: bottom-up dispositions (accumulated reasoning patterns) that color everything automatically. Both solve institutional memory. The scale determines which is right."
 ---
 
 **TL;DR** — Chamath Palihapitiya published a [pitch for 8090's Software Factory](https://www.linkedin.com/pulse/making-machine-builds-machines-chamath-palihapitiya-qirqc): Richard Arkwright's cotton mill as metaphor for AI-native software development. Five governed stages — Refinery, Foundry, Planner, Validator — bound by a knowledge graph that captures institutional memory. The manufacturing metaphor is powerful and probably correct for organizations. For a single human with a single agent, the metaphor breaks. The architecture is not a factory. It is a disposition—accumulated reasoning patterns.
@@ -42,9 +42,9 @@ For a single human working with a single agent, the metaphor is not manufacturin
 
 The human does not issue requirements through a refinery. They think out loud. They say "this should be simpler" and mean something precise that they could not have written in a requirements document. They correct the agent's work and, in correcting it, reveal a preference they did not know they held. They accept one approach and reject another, encoding judgment through action rather than specification.
 
-The architecture that serves this is not a pipeline of governed stages. It is a set of dispositions that color all reasoning:
+The architecture that serves this is not a pipeline of governed stages. It is a set of dispositions that color all reasoning through a memory store:
 
-- **Values** persist as preferences with the longest half-life in the memory store. They surface on every retrieval call regardless of query topic — a stated preference for simplicity influences a conversation about database design, nginx configuration, and commit message structure equally. This is [dispositional injection](/posts/dispositional-memory).
+- **Values** persist as preferences with the longest half-life in the memory store. They surface on every retrieval, regardless of query topic — a stated preference for simplicity influences a conversation about database design, nginx configuration, and commit message structure equally. This is [dispositional injection](/posts/dispositional-memory).
 - **Corrections** do not replace what they correct. They supersede it. The history of belief change persists — the system can report not just what is currently believed but what was previously believed and why the belief changed.
 - **Constraints** fire before reasoning. A policy gate that denies force-push does not suggest caution. It denies the action. The human's non-negotiable boundaries are structural, not advisory.
 
@@ -64,7 +64,7 @@ The memory store is better for individuals because individuals already have disp
 
 ## Limits
 
-**The comparison is unfair in both directions.** 8090 is building for enterprise teams. My system serves one person. Criticizing 8090 for not serving individuals is like criticizing a tractor for not being a bicycle. Criticizing a bicycle for not being a tractor is equally empty.
+**The comparison is unfair in both directions.** 8090 is building for enterprise teams. Prophet serves one person. Criticizing 8090 for not serving individuals is like criticizing a tractor for not being a bicycle. Criticizing a bicycle for not being a tractor is equally empty.
 
 **Manufacturing metaphors are seductive and often wrong.** Software has been compared to manufacturing since the [1968 NATO conference](http://homepages.cs.ncl.ac.uk/brian.randell/NATO/nato1968.PDF) that coined "software engineering." The analogy has been productive (testing, deployment pipelines, CI/CD) and destructive (waterfall, big design up front, six-month release cycles) in roughly equal measure. The factory model may land on either side.
 

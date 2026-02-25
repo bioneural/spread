@@ -2,10 +2,10 @@
 title: "Observable by default"
 date: 2026-02-24
 order: 5
-description: "An AI agent's operating system had no way to prove it was working correctly. Five additions — an evaluation harness (testing framework), a central dispatch module (infrastructure consolidation), interaction surfaces (user-facing interfaces), a health aggregator (system health monitor), and a shared data layer (unified data access) — transformed it from a black box into an instrument panel."
+description: "Prophet — an AI agent's operating system — had no way to prove it was working correctly. Five additions — an evaluation harness (testing framework), a central dispatch module (infrastructure consolidation), interaction surfaces (user-facing interfaces), a health aggregator (system health monitor), and a shared data layer (unified data access) — transformed it from a black box into an instrument panel."
 ---
 
-**TL;DR** — The system described in [previous posts](/posts/closing-the-loop) had a structural blind spot: no way for the operator to verify that anything was working correctly without reading databases directly. Five additions address this: an offline evaluation harness that measures retrieval, classification, and extraction quality with majority voting across trials; a central dispatch module that consolidates infrastructure and enables test isolation; three interaction surfaces (command-line, web, and Model Context Protocol); a health aggregator that probes every module's diagnostic subcommand; and a shared data access layer that keeps all surfaces consistent. The theme is observability — not as an afterthought, but as a design requirement.
+**TL;DR** — Prophet, described in [previous posts](/posts/closing-the-loop), had a structural blind spot: no way for the operator to verify that anything was working correctly without reading databases directly. Five additions address this: an offline evaluation harness that measures retrieval, classification, and extraction quality with majority voting across trials; a central dispatch module that consolidates infrastructure and enables test isolation; three interaction surfaces (command-line, web, and Model Context Protocol); a health aggregator that probes every module's diagnostic subcommand; and a shared data access layer that keeps all surfaces consistent. The theme is observability — not as an afterthought, but as a design requirement.
 
 ---
 
@@ -21,7 +21,7 @@ This is a common failure mode in autonomous systems: internal state is rich, but
 
 The most important addition is an offline evaluation framework that measures the three model-dependent subsystems: retrieval, classification, and extraction.
 
-Each subsystem has a YAML fixture file containing known inputs and expected outputs. A retrieval fixture seeds a memory store with specific entries, runs a query, and checks whether results contain expected terms. A classification fixture provides a condition and content, expecting a yes/no decision. An extraction fixture provides a transcript and checks whether an extractor produces the expected number and content of memory entries.
+Each subsystem has a YAML (a data serialization format) fixture file containing known inputs and expected outputs. A retrieval fixture seeds a memory store with specific entries, runs a query, and checks whether results contain expected terms. A classification fixture provides a condition and content, expecting a yes/no decision. An extraction fixture provides a transcript and checks whether an extractor produces the expected number and content of memory entries.
 
 Each test case runs N trials (default three). A majority vote across trials determines pass or fail. This handles the fundamental challenge of evaluating stochastic systems: a classifier might return "yes" twice and "no" once for the same input. A majority vote treats two out of three as a pass, not a flake.
 
@@ -37,7 +37,7 @@ Previously, each of the system's eleven command-line tools duplicated the same i
 
 **Logging** — structured log entries to a logging database, with automatic stderr fallback if the database is unavailable.
 
-**Database access** — SQLite3 connections with consistent configuration: busy timeout for concurrent access, hash results for readable queries.
+**Database access** — SQLite3 (an embedded database) connections with consistent configuration: busy timeout for concurrent access, hash results for readable queries.
 
 **Sibling dispatch** — calls other modules via `Open3.capture3` with automatic environment variable injection. Every cross-module call goes through one function, which means every call is loggable, mockable, and auditable.
 

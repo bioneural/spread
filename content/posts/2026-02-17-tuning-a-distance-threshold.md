@@ -2,16 +2,16 @@
 title: "Tuning a distance threshold"
 date: 2026-02-17
 order: 2
-description: "Vector similarity search always returns the nearest neighbors, even when nothing is relevant. Distance thresholds that work at 10 entries collapse at 10,000."
+description: "Searching by vector similarity always returns the nearest neighbors, even when nothing is relevant. Distance thresholds that work at 10 entries collapse at 10,000."
 ---
 
-**TL;DR** — I built a memory system that retrieves stored notes by vector similarity — but it has no way to say "nothing here is relevant." I needed a distance cutoff to filter noise, so I measured every query-entry distance across corpus sizes from 10 to 10,000 entries. Two findings. First, relevant and irrelevant distance distributions overlap at every scale — no single cutoff cleanly separates them. Second, the overlap gets catastrophically worse as the corpus grows. Queries with zero relevant entries find nearest neighbors at cosine distance 0.50 in a 10-entry corpus but 0.21 in a 10,000-entry corpus. The relevant entries they need to compete with average 0.43. A static distance threshold does not scale as a relevance filter.
+**TL;DR** — My memory system retrieves stored notes by vector similarity — but it has no way to say "nothing here is relevant." I needed a distance cutoff to filter noise, so I measured every query-entry distance across corpus sizes from 10 to 10,000 entries. Two findings. First, relevant and irrelevant distance distributions overlap at every scale — no single cutoff cleanly separates them. Second, the overlap gets catastrophically worse as the corpus grows. Queries with zero relevant entries find nearest neighbors at cosine distance 0.50 in a 10-entry corpus but 0.21 in a 10,000-entry corpus. The relevant entries they need to compete with average 0.43. A static distance threshold does not scale as a relevance filter.
 
 ---
 
 ## The problem
 
-In the [previous experiment](/posts/three-channels-one-query), I tested a memory module's three retrieval channels — fact triples, full-text search, and vector similarity — by running 13 queries through each channel in isolation. The vector channel could not signal absence. Query B3, "porter stemming unicode61 tokenize," returned all 10 entries despite zero relevance. sqlite-vec always returns the k nearest neighbors. With 10 entries, that means everything.
+In the [previous experiment](/posts/three-channels-one-query), I tested my memory module's three retrieval channels — fact triples (subject-predicate-object relationships), full-text search, and vector similarity — by running 13 queries through each channel in isolation. The vector channel could not signal absence. Query B3, "porter stemming unicode61 tokenize," returned all 10 entries despite zero relevance. sqlite-vec, a vector search library, always returns the k nearest neighbors. With 10 entries, that means everything.
 
 The other two channels handle absence correctly. FTS returns nothing when no keyword matches. Triples return nothing when no entity name matches. Vector search lacks this property. It can rank entries by similarity, but it cannot say "nothing here is relevant."
 
@@ -25,7 +25,7 @@ The clusters cover the system's actual domains: tool architecture decisions, emb
 
 The noise entries are deliberately unrelated: cooking techniques, mountain geography, sports events, weather patterns. They provide genuine negative examples — entries that should never appear in results for queries about software architecture.
 
-To test whether the threshold is stable across corpus sizes, the corpus script accepts a `--scale` flag. At scale 1, it seeds the 120 base entries. At scale 5, it generates 3 paraphrases per entry via gemma3:1b, producing 480 entries. Each paraphrase preserves the original's semantic content with different surface vocabulary. A paraphrased entry retains its cluster membership — if the original is in cluster 3 (prompt engineering), so is every paraphrase.
+To test whether the threshold is stable across corpus sizes, the corpus script accepts a `--scale` flag. At scale 1, it seeds the 120 base entries. At scale 5, it generates 3 paraphrases per entry using gemma3:1b, a language model, producing 480 entries. Each paraphrase preserves the original's semantic content with different surface vocabulary. A paraphrased entry retains its cluster membership — if the original is in cluster 3 (prompt engineering), so is every paraphrase.
 
 Ground truth is defined at the cluster level, not the entry level. A companion file maps each of the 20 test queries to its relevant cluster IDs. The experiment resolves clusters to entry IDs at runtime via the seeding order.
 
@@ -37,9 +37,7 @@ The 20 queries cover three categories:
 
 ## Distance distributions
 
-For each of the 20 queries at each scale, I embedded the query via nomic-embed-text and computed both L2 and cosine distance to every entry in the corpus. This is a brute-force scan — not the KNN MATCH shortcut, which only returns the top k. sqlite-vec's scalar functions `vec_distance_L2()` and `vec_distance_cosine()` computed distances directly.
-
-At scale 1 (120 entries), each query produces 120 distance pairs. At scale 5 (480 entries), each query produces 480 pairs. The raw data contains 12,000 distance measurements across both scales.
+For each of the 20 queries at each scale, I embedded the query using nomic-embed-text, a text embedding model, and computed both L2 (Euclidean) and cosine distance to every entry in the corpus. This is a brute-force scan — not the KNN MATCH shortcut, which only returns the top k. sqlite-vec's scalar functions `vec_distance_L2()` and `vec_distance_cosine()` computed distances directly.
 
 At scale 1, cosine distance distributions:
 
@@ -72,7 +70,7 @@ sqlite-vec defaults to L2 (Euclidean) distance, but nomic-embed-text is optimize
 
 It does not. L2 and cosine produce identical entry rankings for every query. At the critical threshold (the tightest cutoff that eliminates all negative-query results from the top 10), both metrics yield exactly the same recall: 54.5% at scale 1, 78.8% at scale 5.
 
-This makes sense. For unit-normalized vectors, L2 distance and cosine distance are monotonic transformations of each other: L2² = 2 × cosine\_distance. If nomic-embed-text produces near-unit vectors — and the identical rankings confirm it does — the two metrics carry the same information. Since the metrics are equivalent and nomic-embed-text documents cosine as its intended metric, I switched the vec0 table to `distance_metric=cosine`. The change is free — no re-embedding required, identical rankings — and aligns the implementation with the model's documented contract. From here forward, all thresholds are expressed in cosine distance.
+This makes sense. For unit-normalized vectors, L2 distance and cosine distance are monotonic transformations of each other: L2² = 2 × cosine\_distance. If nomic-embed-text produces near-unit vectors — and the identical rankings confirm it does — the two metrics carry the same information. Since the metrics are equivalent and nomic-embed-text documents cosine as its intended metric, I switched the vec0 vector storage table to `distance_metric=cosine`. The change is free — no re-embedding required, identical rankings — and aligns the implementation with the model's documented contract. From here forward, all thresholds are expressed in cosine distance.
 
 ## Scale stability
 
@@ -178,9 +176,9 @@ No tighter threshold rescues this. At 0.35 cosine — tight enough to reject all
 
 ## The threshold
 
-Given the sensitivity results, no static threshold is correct at all corpus sizes. I shipped 0.50 cosine distance as a default in [crib](https://github.com/bioneural/crib) — the memory module described in the [previous post](/posts/three-channels-one-query).
+Given the sensitivity results, no static threshold is correct at all corpus sizes. I shipped 0.50 cosine distance as a default in [crib](https://github.com/bioneural/crib) — my memory module, described in the [previous post](/posts/three-channels-one-query).
 
-The practical reality is less bleak than the brute-force numbers suggest. Crib's vector channel uses KNN search limited to the top 10, not a full scan of every entry. The threshold's job is narrower: filter entries from those 10 that are too distant to be useful. In a 10,000-entry corpus, KNN returns only the 10 nearest — the threshold only needs to evaluate *those*, not the full 10,231 entries that fall below 0.50 in a brute-force scan.
+The practical reality is less bleak than the brute-force numbers suggest. Crib's vector channel uses K-nearest neighbors (KNN) search limited to the top 10, not a full scan of every entry. The threshold's job is narrower: filter entries from those 10 that are too distant to be useful. In a 10,000-entry corpus, KNN returns only the 10 nearest — the threshold only needs to evaluate *those*, not the full 10,231 entries that fall below 0.50 in a brute-force scan.
 
 For the original use case — a small, focused memory corpus — 0.50 cosine catches the worst false positives. It eliminates the B3 query that returned everything despite zero relevance. It preserves the semantic paraphrase matches (Q11, Q14, Q15) that make vector search valuable — queries where the user describes a concept without using any of the stored vocabulary, and vector similarity is the only channel that finds anything.
 

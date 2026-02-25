@@ -13,7 +13,7 @@ description: "Three engineering ideas stolen from a 223,000-star open-source AI 
 
 [OpenClaw](https://github.com/openclaw/openclaw) is a personal AI assistant built in TypeScript — roughly 25 megabytes of source across a monorepo (a repository containing multiple interconnected projects) with 37 extensions, 60 bundled skills (specialized capabilities), and companion apps for macOS, iOS, and Android. A WebSocket gateway on localhost connects messaging platforms — WhatsApp, Telegram, Slack, Discord, Signal, iMessage — through channel adapters. The user messages their AI through conversations they already have.
 
-My system is a set of eight cooperating tools for a single AI agent on one machine:
+Prophet is my operating system — a set of eight cooperating tools for a single AI agent on one machine:
 
 - A **memory store** that writes and retrieves typed entries — decisions, corrections, notes, errors — across full-text, vector, and entity-graph channels.
 - A **logging layer** that records every operation to a structured SQLite database for post-hoc analysis.
@@ -34,7 +34,7 @@ Three patterns met that criterion. Each is derived below.
 
 **What I observed.** OpenClaw enforces line coverage thresholds in CI (Continuous Integration) using [Vitest](https://vitest.dev/). A pull request that drops coverage below 70% fails the check. The mechanism is blunt — line coverage does not prove correctness — but it catches a specific failure mode: code that was added but never exercised by any test.
 
-**What my system does.** End-to-end smoke tests (quick automated checks of basic functionality) run across parallel lanes — one per repository — exercising each module's primary code path. The smoke suite currently runs 312 tests covering initialization, round-trip data flows, policy enforcement, fail-open behavior (defaulting to allowed when an error occurs), concurrent writes, and CLI operations. But the suite measures nothing about which lines of code were executed.
+**What my system does.** End-to-end smoke tests (quick automated checks of basic functionality) run across parallel lanes — one per repository — exercising each module's primary code path. The smoke suite currently runs 312 tests covering initialization, round-trip data flows, policy enforcement, fail-open behavior (defaulting to allowed when an error occurs), concurrent writes, and command-line operations. But the suite measures nothing about which lines of code were executed.
 
 **What goes wrong without this.** The policy engine has error-handling branches for malformed policy files, invalid regex patterns, and missing context files. The smoke tests exercise these paths because someone wrote explicit test cases for them. But a new module added next week might ship with error paths that no test reaches. The smoke suite would pass. The gap would be invisible until a production error hit an untested branch. The problem is not that the tests are bad — the problem is that there is no mechanism to detect which code the tests never touch. Without a measurement, "untested code" is a category that grows silently.
 
@@ -78,7 +78,7 @@ Not every observation transferred. Three patterns I examined and rejected, with 
 
 OpenClaw ships with multiple swappable memory backends — including [LanceDB](https://github.com/lancedb/lancedb) for vector storage. The interface is uniform: store something, retrieve something. A memory backend is a service, interchangeable without changing system behavior. This is a reasonable design for a multi-user system where different operators have different infrastructure preferences.
 
-My memory store does not use a uniform interface. Entries have types — `decision`, `correction`, `note`, `error`, `interest`, `preference` — and each type carries semantic weight. A correction does not delete what it corrects. It supersedes it. The old entry persists with a `valid_until` timestamp and a `superseded_by` pointer. Retrieval filters out superseded entries by default, but the full history is preserved.
+My memory store does not use a uniform interface. Entries have types — `decision`, `correction`, `note`, `error` — and each type carries semantic weight. A correction does not delete what it corrects. It supersedes it. The old entry persists with a `valid_until` timestamp and a `superseded_by` pointer. Retrieval filters out superseded entries by default, but the full history is preserved.
 
 Here is a concrete scenario that shows why this matters. Suppose the memory contains two entries about a billing database:
 

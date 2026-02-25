@@ -16,7 +16,7 @@ description: "A memory module merges keyword search and vector similarity
 
 ## The noise problem
 
-[Crib](https://github.com/bioneural/crib) is a memory module I built for a system of cooperating tools. It retrieves through full-text search and vector similarity, then merges results using [Reciprocal Rank Fusion](/posts/reciprocal-rank-fusion) — entries found by both channels score higher than entries found by one.
+[Crib](https://github.com/bioneural/crib) is my memory module — part of Prophet. It retrieves through full-text search and vector similarity, then merges results using [Reciprocal Rank Fusion](/posts/reciprocal-rank-fusion) — entries found by both channels score higher than entries found by one.
 
 RRF improved precision substantially, but the [previous experiment](/posts/reciprocal-rank-fusion) identified a structural limitation: RRF fuses whatever the channels return, including garbage. If a query about hydroelectric power generation hits keyword matches on "power" and "generation" in unrelated entries, RRF faithfully promotes those entries. It has no mechanism to evaluate whether a result is actually relevant to the query — it operates on ranks, not content.
 
@@ -114,7 +114,7 @@ Mean precision: **2.60/10 → 3.00/10** (+0.40). The gain matches direct queries
 
 ### Negative queries (Q16–Q20): the noise test
 
-This is the result that matters most. RRF returned candidates for all five negative queries — between 1 and 18 per query. These are entries about software architecture, cooking, geography, and sports that matched on incidental keywords or fell within the vector distance threshold.
+RRF returned candidates for all five negative queries — between 1 and 18 per query. These are entries about software architecture, cooking, geography, and sports that matched on incidental keywords or fell within the vector distance threshold.
 
 | Query | Topic | Candidates | Mean Score | Max Score |
 |-------|-------|------------|------------|-----------|
@@ -124,7 +124,7 @@ This is the result that matters most. RRF returned candidates for all five negat
 | Q19 | Mindfulness meditation | 1 | 0.000 | 0.000 |
 | Q20 | Gothic architecture | 18 | 0.000 | 0.000 |
 
-Every candidate scored exactly 0.000. Not a single irrelevant entry received even a marginal relevance score. Q20 is especially striking — 18 candidates (the vector channel returned 18 results below the distance threshold for "comparative analysis of Gothic and Romanesque architectural styles") and every one scored zero.
+Every candidate scored exactly 0.000. Not a single irrelevant entry received even a marginal relevance score. Q20 returned 18 candidates (the vector channel returned 18 results below the distance threshold for "comparative analysis of Gothic and Romanesque architectural styles") — every one scored zero.
 
 This is the capability RRF lacks. RRF promotes entries that multiple channels agree on, but it cannot evaluate whether any of those entries actually answer the query. The reranker reads each candidate alongside the query and says "no, none of these are relevant." With a score threshold (e.g., filter candidates below 0.5), the reranker could return an empty result set — the correct answer when nothing in memory is relevant.
 
