@@ -1,7 +1,7 @@
 ---
 title: "Intent engineering for one"
 date: 2026-02-25
-description: "A [talk by Sully Omar](https://www.youtube.com/watch?v=QWzLPn164w0) names intent engineering as the third discipline after prompt engineering and context engineering. For organizations, it requires solving a cross-functional translation problem. For one human with one agent, the problem collapses — and the architecture for solving it is already half-built."
+description: "A talk by Sully Omar names intent engineering as the third discipline after prompt engineering and context engineering. For organizations, it requires solving a cross-functional translation problem. For one human with one agent, the problem collapses — and the architecture is already half-built."
 ---
 
 **TL;DR** — Intent engineering is the discipline of making an organization's goals, values, and trade-off preferences machine-actionable. For organizations, this is an unsolved cross-functional problem. For a single human operating a single agent, the problem collapses entirely — the person who knows the intent is the person using the system. Prophet is already an intent engineering system for one. The architecture has three layers: enforcement, surfacing, and learning. Two are built. The third is wired but unproven.
@@ -22,7 +22,7 @@ Omar names a progression:
 
 **Prompt engineering** was the first discipline. Individual, synchronous, session-based. You sit in front of a chat window, you craft an instruction, you iterate. The value is personal.
 
-**Context engineering** followed. Anthropic published a [foundational piece](https://www.anthropic.com/engineering/context-engineering) defining it as the shift from crafting isolated instructions to crafting the entire information state an AI system operates within. RAG pipelines, MCP servers, structured organizational knowledge — this is where the industry is now. Harrison Chase described it bluntly: "Everything's context engineering."
+**Context engineering** followed. Anthropic published a [foundational piece](https://www.anthropic.com/engineering/context-engineering) defining it as the shift from crafting isolated instructions to crafting the entire information state an AI system operates within. RAG (Retrieval-Augmented Generation) pipelines, MCP (Model Context Protocol) servers, structured organizational knowledge — this is where the industry is now. Harrison Chase described it bluntly: "Everything's context engineering."
 
 **Intent engineering** is the third discipline, and almost nobody is building for it yet. Context engineering tells an agent what to know. Intent engineering tells an agent what to want. It is the practice of encoding organizational purpose into infrastructure — not as prose in a system prompt, but as structured, actionable parameters that shape how an agent makes decisions autonomously.
 
@@ -34,7 +34,7 @@ For organizations, intent engineering is genuinely hard. Omar identifies three r
 
 First, it is new. Before agents ran autonomously over long time horizons, humans were the intent layer. The agent never needed to understand organizational intent because a human was standing right there. Long-running agents break that model.
 
-Second, a two-cultures problem. The people who understand organizational strategy are not the people who build agents. The people who build agents are not the people who understand organizational strategy. MIT found that AI investment is still viewed primarily as a tech challenge for the CIO rather than a cross-functional issue requiring leadership across the organization.
+Second, a two-cultures problem. The people who understand organizational strategy are not the people who build agents. The people who build agents are not the people who understand organizational strategy. MIT found that AI investment is still viewed primarily as a tech challenge for the CIO (Chief Information Officer) rather than a cross-functional issue requiring leadership across the organization.
 
 Third, making organizational intent explicit is extremely hard. Most organizations have never had to do it. Their goals live in slide decks, in OKR documents that get half-read, in leadership principles cited at performance reviews but never operationalized, in the tacit knowledge of experienced employees who know what to do in ambiguous situations without ever being told.
 
@@ -64,7 +64,7 @@ Prophet already implements all three layers.
 
 ### Enforcement
 
-A [policy engine](https://github.com/bioneural/hooker) intercepts every tool call and every prompt. Three policy types: gates block an action, transforms rewrite an action, injects surface context before an action. Gates cannot be bypassed by reasoning — the interception happens before the agent's reasoning applies.
+A [policy engine](https://github.com/bioneural/hooker) intercepts every tool call and every prompt. Three policy types: gates block an action, transforms rewrite an action, injections surface context before an action. Gates cannot be bypassed by reasoning — the interception happens before the agent's reasoning applies.
 
 A gate is encoded intent at its most explicit. "Force push is irreversible. Requires human approval." That is a value judgment — reversibility matters, human approval is non-negotiable for destructive actions — expressed as code that fires before the action executes.
 
@@ -82,9 +82,9 @@ The surfacing layer is where context engineering and intent engineering meet. Co
 
 This is the layer that matters most for a single human, and the one that is newest.
 
-Every conversation encodes intent. When the human says "don't add abstractions until the third use," that is a trade-off preference. When they correct an agent's approach, that is a value signal. When they accept one design over another, that is an implicit goal. These signals are rich, continuous, and — until now — ephemeral. They disappeared when the context window compacted.
+Every conversation encodes intent. When the human says "don't add abstractions until the third use," that is a trade-off preference. When they correct an agent's approach, that is a value signal — an expression of values and preferences. When they accept one design over another, that is an implicit goal. These signals are rich, continuous, and — until now — ephemeral. They disappeared when the context window compacted.
 
-A [background memory extractor](https://github.com/bioneural/trick) now fires on every context compaction event. It snapshots the transcript, extracts memories — decisions, corrections, preferences, reasoning chains — and writes them to a [memory store](https://github.com/bioneural/crib). A three-channel retrieval system (fact triples, full-text search, vector similarity) surfaces them when a similar decision comes up in a future session.
+A [background memory extractor](https://github.com/bioneural/trick) now fires on every context compaction event. It snapshots the transcript, extracts memories — decisions, corrections, preferences, reasoning chains — and writes them to a [memory store](https://github.com/bioneural/crib). A three-channel retrieval system (subject-predicate-object triples, full-text search, and vector-similarity search) surfaces them when a similar decision comes up in a future session.
 
 This is the feedback loop. The human expresses intent through conversation. The extractor captures it. The memory store persists it. Retrieval surfaces it. Over time, the agent does not just know the human's explicit rules — it accumulates the human's judgment patterns.
 
@@ -114,11 +114,13 @@ Intent retrieval is different. When the agent faces an ambiguous design decision
 
 This is the difference between context retrieval and intent retrieval. Context retrieval answers: what do I know about this topic? Intent retrieval answers: what would the human want me to do here?
 
-### Dispositional injection
+### Dispositional Injection
 
-The first answer is blunt. A new entry type — `preference` — captures stated values, trade-off preferences, and judgment patterns. On every retrieval call, a SQL query fetches up to five active preferences regardless of query topic and appends them to the output under an "Active preferences" heading. The normal retrieval pipeline — keyword extraction, FTS, vector search, RRF merge, cross-encoder reranking — handles topic-matched recall. Preferences bypass all of it.
+Dispositional preferences — those reflecting the human's characteristic behavior — are injected regardless of retrieval query.
 
-An [evaluation suite](/posts/testing-always-on) with 21 fixtures across seven categories confirms the mechanism. F1 = 0.971. The critical tests: a preference about commit hygiene surfaces when the query asks about Python import organization. Without dispositional injection, that test cannot pass — there is zero keyword or semantic overlap between the preference and the query. A [detailed account of the evaluation design](/posts/testing-always-on) and a [cognitive science framing](/posts/dispositional-memory) are in companion posts.
+The first answer is blunt. A new entry type — `preference` — captures stated values, trade-off preferences, and judgment patterns. On every retrieval call, a SQL query fetches up to five active preferences regardless of query topic and appends them to the output under an "Active preferences" heading. The normal retrieval pipeline — keyword extraction, full-text search (FTS), vector-similarity search, reciprocal-rank fusion (RRF), cross-encoder reranking — handles topic-matched recall. Preferences bypass all of it.
+
+An [evaluation suite](/posts/testing-always-on) with 21 fixtures across seven categories confirms the mechanism. F1 score = 0.971. The critical tests: a preference about commit hygiene surfaces when the query asks about Python import organization. Without dispositional injection, that test cannot pass — there is zero keyword or semantic overlap between the preference and the query. A [detailed account of the evaluation design](/posts/testing-always-on) and a [cognitive science framing](/posts/dispositional-memory) are in companion posts.
 
 What remains open is whether blunt injection is sufficient. A cognitive scientist on the [review panel](/posts/structural-self-improvement) warned that identical preference sections on every retrieval call risk habituation — the downstream model learns to discount static content. Whether this occurs in practice is untested. A more sophisticated mechanism — preferences that modulate retrieval scoring rather than appending to output — may eventually be necessary.
 
