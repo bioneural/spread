@@ -25,22 +25,27 @@ if [ -f "$REPO_ROOT/../core/IDENTITY.md" ]; then
   identity=$(cat "$REPO_ROOT/../core/IDENTITY.md")
 fi
 
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' EXIT
+
+# Launch all posts in parallel
+pids=()
 while IFS= read -r post; do
   [ -f "$post" ] || continue
+  (
+    content=$(cat "$post")
 
-  content=$(cat "$post")
+    # Extract description from YAML frontmatter
+    description=""
+    if echo "$content" | head -1 | grep -q '^---'; then
+      description=$(echo "$content" \
+        | awk '/^---$/{if(++c==2)exit}c==1{print}' \
+        | grep -E '^\s*description:' \
+        | sed 's/^\s*description:\s*//' \
+        | sed 's/^["'"'"']\(.*\)["'"'"']$/\1/')
+    fi
 
-  # Extract description from YAML frontmatter
-  description=""
-  if echo "$content" | head -1 | grep -q '^---'; then
-    description=$(echo "$content" \
-      | awk '/^---$/{if(++c==2)exit}c==1{print}' \
-      | grep -E '^\s*description:' \
-      | sed 's/^\s*description:\s*//' \
-      | sed 's/^["'"'"']\(.*\)["'"'"']$/\1/')
-  fi
-
-  prompt="You are a copy editor enforcing two rules on a blog post. Make minimal changes — only fix clear violations. Do not rewrite style, do not reformat, do not change content that does not violate these rules.
+    prompt="You are a copy editor enforcing two rules on a blog post. Make minimal changes — only fix clear violations. Do not rewrite style, do not reformat, do not change content that does not violate these rules.
 
 RULE 1 — VOICE CONSISTENCY
 The post must follow these voice and tone guidelines:
@@ -70,21 +75,48 @@ ${content}
 
 Return the COMPLETE post exactly as given (YAML frontmatter and body), with only violations fixed. If no fixes are needed, return the post unchanged. Return ONLY the post content — no explanation, no commentary, no markdown fencing."
 
-  fixed=$(echo "$prompt" | env -u CLAUDECODE claude -p --model haiku 2>/dev/null) || {
-    echo "pre-commit: quality check failed for $post, skipping" >&2
-    continue
-  }
+    fixed=$(echo "$prompt" | env -u CLAUDECODE claude -p --model haiku 2>/dev/null) || {
+      echo "pre-commit: quality check failed for $post, skipping" >&2
+      exit 0
+    }
 
-  if [ -z "$fixed" ]; then
-    echo "pre-commit: empty response for $post, skipping" >&2
-    continue
-  fi
+    if [ -z "$fixed" ]; then
+      echo "pre-commit: empty response for $post, skipping" >&2
+      exit 0
+    fi
 
-  if [ "$fixed" != "$content" ]; then
+    # Write result to temp file; apply in serial after all calls finish
+    slug=$(echo "$post" | tr '/' '_')
+    printf '%s' "$fixed" > "$tmpdir/$slug.fixed"
+    printf '%s' "$content" > "$tmpdir/$slug.orig"
+    printf '%s' "$post" > "$tmpdir/$slug.path"
+  ) &
+  pids+=($!)
+done <<< "$staged_posts"
+
+# Wait for all parallel checks
+for pid in "${pids[@]}"; do
+  wait "$pid" || true
+done
+
+# Apply fixes serially (safe for git add)
+for pathfile in "$tmpdir"/*.path; do
+  [ -f "$pathfile" ] || continue
+  post=$(cat "$pathfile")
+  slug=$(echo "$post" | tr '/' '_')
+  fixedfile="$tmpdir/$slug.fixed"
+  origfile="$tmpdir/$slug.orig"
+  [ -f "$fixedfile" ] || continue
+  [ -f "$origfile" ] || continue
+
+  fixed=$(cat "$fixedfile")
+  orig=$(cat "$origfile")
+
+  if [ "$fixed" != "$orig" ]; then
     printf '%s' "$fixed" > "$post"
     git add "$post"
     echo "pre-commit: fixed $post" >&2
   fi
-done <<< "$staged_posts"
+done
 
 exit 0
