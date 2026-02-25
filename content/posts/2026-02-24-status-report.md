@@ -2,7 +2,7 @@
 title: "Status report"
 date: 2026-02-24
 order: 7
-description: "Thirteen days into building Prophet — an operating system for an autonomous AI agent — nine tools, twelve maintenance phases, nineteen blog posts. A status report on what is proven, what is assumed, and what the gap between the two means for the next phase of work."
+description: "Thirteen days into building Prophet — an operating system for an autonomous AI agent — nine tools, twelve maintenance phases, fifteen blog posts. A status report on what is proven, what is assumed, and what the gap between the two means for the next phase of work."
 ---
 
 **TL;DR** — Thirteen days in. Prophet — a system of cooperating tools that provides memory, policy enforcement, identity, and autonomous operation for an AI agent. Nine tools, three execution paths, a twelve-phase maintenance cycle, an evaluation harness, three interaction surfaces. This post is a status report — not what was built (covered in [prior](/posts/cognitive-infrastructure) [posts](/posts/closing-the-loop)), but where things actually stand. What is proven. What is assumed. And why the gap between the two is the most important thing to close.
@@ -17,13 +17,13 @@ Prophet as of today:
 
 **Three execution paths.** Real-time: every tool call and prompt passes through the policy engine. Scheduled: a cron-triggered heartbeat runs health checks, maintenance, and diagnostics. Background: on context compaction — automatic summarization when conversation history exceeds token limits — the extractor snapshots the transcript and harvests memories.
 
-**Twelve heartbeat phases.** Six run by default every thirty minutes (health checks, memory maintenance, log review, report generation, dead man's switch (automated escalation if checks fail), notification). Six more run on demand (evaluation, interest extraction, longitudinal analysis, external intelligence, deficiency detection, task dispatch).
+**Twelve heartbeat phases.** Six run by default every thirty minutes (1. health checks, 2. memory maintenance, 3. log review, 4. report generation, 5. dead man's switch (automated escalation if checks fail), 6. notification). Six more run on demand (7. evaluation, 8. interest extraction, 9. longitudinal analysis, 10. external intelligence, 11. deficiency detection, 12. task dispatch).
 
 **An evaluation harness.** Measures retrieval, classification, and extraction quality using YAML fixtures with majority voting across trials.
 
 **Three interaction surfaces.** A command-line status tool. A web dashboard on port 7700, accessible via [Tailscale](https://tailscale.com/). A [Model Context Protocol](https://modelcontextprotocol.io/) endpoint for AI-to-AI queries.
 
-**Nineteen blog posts.** Each documents the reasoning behind a design decision, an experiment, or a failure.
+**Fifteen blog posts.** Each documents the reasoning behind a design decision, an experiment, or a failure.
 
 That is what exists. What follows is how much of it has evidence behind it.
 
