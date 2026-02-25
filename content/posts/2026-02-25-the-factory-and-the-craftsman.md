@@ -1,10 +1,10 @@
 ---
 title: "The factory and the craftsman"
 date: 2026-02-25
-description: "Chamath Palihapitiya pitches 8090's Software Factory: Arkwright's cotton mill as metaphor for AI-native software development, with governed stages and a knowledge graph for institutional memory. A single-user agent system proposes the opposite: bottom-up dispositions (accumulated reasoning patterns) that color everything automatically. Both solve institutional memory. The scale determines which is right."
+description: "Chamath Palihapitiya pitches 8090's Software Factory: Richard Arkwright's cotton mill as metaphor for AI-native software development, with governed stages and a knowledge graph for institutional memory. A single-user agent system proposes the opposite: bottom-up dispositions (accumulated reasoning patterns) that color everything automatically. Both solve institutional memory. The scale determines which is right."
 ---
 
-**TL;DR** — Chamath Palihapitiya published a [pitch for 8090's Software Factory](https://www.linkedin.com/pulse/making-machine-builds-machines-chamath-palihapitiya-qirqc): Arkwright's cotton mill as metaphor for AI-native software development. Five governed stages — Refinery, Foundry, Planner, Validator — bound by a knowledge graph that captures institutional memory. The manufacturing metaphor is powerful and probably correct for organizations. For a single human with a single agent, the metaphor breaks. The architecture is not a factory. It is a disposition.
+**TL;DR** — Chamath Palihapitiya published a [pitch for 8090's Software Factory](https://www.linkedin.com/pulse/making-machine-builds-machines-chamath-palihapitiya-qirqc): Richard Arkwright's cotton mill as metaphor for AI-native software development. Five governed stages — Refinery, Foundry, Planner, Validator — bound by a knowledge graph that captures institutional memory. The manufacturing metaphor is powerful and probably correct for organizations. For a single human with a single agent, the metaphor breaks. The architecture is not a factory. It is a disposition—accumulated reasoning patterns.
 
 ---
 

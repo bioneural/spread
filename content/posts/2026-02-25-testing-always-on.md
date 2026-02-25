@@ -1,10 +1,10 @@
 ---
 title: "Testing always-on"
 date: 2026-02-25
-description: "How to evaluate a feature whose job is to always be present: a seven-category fixture taxonomy, discriminator tests that prove injection works independently of semantic similarity, and three bugs caught during implementation review — including test fixtures that passed for the wrong reason."
+description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures, discriminator tests that prove injection works independently of semantic similarity, and three bugs identified by five independent reviewers — including test fixtures that passed for the wrong reason."
 ---
 
-**TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category fixture taxonomy, discriminator tests, negative assertions, and a correction-chain bug that caused three tests to pass for the wrong reason.
+**TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of test fixtures, discriminator tests, negative assertions, and a correction-chain bug that caused three tests to pass for the wrong reason.
 
 ---
 
@@ -12,7 +12,7 @@ description: "How to evaluate a feature whose job is to always be present: a sev
 
 A memory system gained a new feature: [dispositional injection](/posts/dispositional-memory). Active preferences — stated values, trade-off patterns, judgment signals — always surface in retrieval output, regardless of query topic. A preference about commit hygiene appears when the query asks about nginx configuration. A preference about error handling appears when the query asks about color palettes.
 
-The feature works correctly when it always fires. It fails when it does not fire, or when it fires and also surfaces content that should not appear. Testing this requires fixtures (test definitions with setup, inputs, and expected outputs) that prove presence and absence simultaneously.
+The feature works correctly when it always fires. It fails when it does not fire, or when it fires and also surfaces content that should not appear. Testing this requires fixtures that prove presence and absence simultaneously.
 
 Standard retrieval fixtures test topic matching: set up entries about databases, query about databases, verify a database entry appears. The expected baseline is silence — no matching entries, no output. The feature under test is recall precision.
 
@@ -62,14 +62,14 @@ The memory system's supersession mechanism works as follows: a `correction` entr
 
 The evaluation harness called `write` and `retrieve`. It never called `maintain`. Without that step, both the original preference and its correction coexisted with `superseded_by IS NULL`. The correction chain was never linked.
 
-Why did the tests pass? Because the correction text — "Switched from tabs to 2-space indentation" — was found by FTS and vector search when the query mentioned indentation. The test checked `contains: ["2-space"]` and found it. The original preference ("prefer tabs") also appeared in the output, but no assertion checked for its absence.
+Why did the tests pass? Because the correction text — "Switched from tabs to 2-space indentation" — was found by full-text search (FTS) and vector search when the query mentioned indentation. The test checked `contains: ["2-space"]` and found it. The original preference ("prefer tabs") also appeared in the output, but no assertion checked for its absence.
 
 Two independent failures conspired to produce a false pass:
 
 1. The maintenance step was never called, so supersession did not occur.
 2. The assertion checked for presence only, so the unsuperseded original was invisible to the test.
 
-Five reviewers conducted an independent code review before the evaluation and all identified this bug. The fix: call `maintain` between writes and retrieve when a fixture contains correction entries.
+Five independent reviewers, examining the implementation before the evaluation ran, all identified this bug. The fix: call `maintain` between writes and retrieve when a fixture contains correction entries.
 
 ```ruby
 has_corrections = (tc['setup'] || []).any? { |e| e['type'] == 'correction' }
@@ -92,7 +92,7 @@ Three patterns transfer to any evaluation of always-on features.
 
 ## Results
 
-F1 = 0.971. Twenty of twenty-one cases passed, all with 3/3 trial unanimity. The one failure (discriminator G3) is a reranker discrimination limit documented in the [companion post](/posts/dispositional-memory). All three review-panel bugs were fixed before the evaluation ran.
+F1 score (harmonic mean of precision and recall) = 0.971. Twenty of twenty-one cases passed, all with 3/3 trial unanimity. The one failure (discriminator G3) is a reranker discrimination limit documented in the [companion post](/posts/dispositional-memory). All three review-panel bugs were fixed before the evaluation ran.
 
 ## Limits
 
@@ -100,4 +100,4 @@ F1 = 0.971. Twenty of twenty-one cases passed, all with 3/3 trial unanimity. The
 
 **The negative assertions are string-matching.** The `not_contains` check searches for literal substrings in the output. A paraphrase of the excluded content — "Postgres" instead of "PostgreSQL" — would evade the check. Semantic absence testing would require a classifier, which would add a model dependency to the evaluation itself.
 
-**The ablation was not run.** The evaluation confirmed F1 = 0.971 with injection enabled. The companion run with injection disabled — which would confirm that categories C and G fail without it — was identified as necessary but not executed. The architecture supports it. The data does not exist yet.
+**The ablation was not run.** The evaluation confirmed F1 score = 0.971 with injection enabled. The companion run with injection disabled — which would confirm that categories C and G fail without it — was identified as necessary but not executed. The architecture supports it. The data does not exist yet.

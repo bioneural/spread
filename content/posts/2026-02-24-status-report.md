@@ -2,7 +2,7 @@
 title: "Status report"
 date: 2026-02-24
 order: 7
-description: "Thirteen days into building an operating system for an autonomous AI agent — nine tools, twelve maintenance phases, fourteen blog posts. A status report on what is proven, what is assumed, and what the gap between the two means for the next phase of work."
+description: "Thirteen days into building an operating system for an autonomous AI agent — nine tools, twelve maintenance phases, nineteen blog posts. A status report on what is proven, what is assumed, and what the gap between the two means for the next phase of work."
 ---
 
 **TL;DR** — Thirteen days in. A system of cooperating tools that provides memory, policy enforcement, identity, and autonomous operation for an AI agent. Nine tools, three execution paths, a twelve-phase maintenance cycle, an evaluation harness, three interaction surfaces. This post is a status report — not what was built (covered in [prior](/posts/cognitive-infrastructure) [posts](/posts/closing-the-loop)), but where things actually stand. What is proven. What is assumed. And why the gap between the two is the most important thing to close.
@@ -15,15 +15,15 @@ The system as of today:
 
 **Nine tools.** A [memory store](https://github.com/bioneural/crib) with three retrieval channels (fact triples, full-text search, vector similarity). A [policy engine](https://github.com/bioneural/hooker) that intercepts every tool call and every prompt. A [persistent task queue](https://github.com/bioneural/book) with human-in-the-loop approval. [Structured logging](https://github.com/bioneural/spill) to a single queryable database. A [background memory extractor](https://github.com/bioneural/trick) that fires on context compaction. An [external intelligence scanner](https://github.com/bioneural/peep) that monitors outside sources. A [shared classifier](https://github.com/bioneural/screen) for natural-language condition evaluation. An identity specification that defines voice, epistemic standards, and tone. And a composition layer that wires them together through policies, context injection, and a scheduled maintenance cycle.
 
-**Three execution paths.** Real-time: every tool call and prompt passes through the policy engine. Scheduled: a cron-triggered heartbeat runs health checks, maintenance, and diagnostics. Background: on context compaction, the extractor snapshots the transcript and harvests memories.
+**Three execution paths.** Real-time: every tool call and prompt passes through the policy engine. Scheduled: a cron-triggered heartbeat runs health checks, maintenance, and diagnostics. Background: on context compaction — automatic summarization when conversation history exceeds token limits — the extractor snapshots the transcript and harvests memories.
 
-**Twelve heartbeat phases.** Six run by default every thirty minutes (health checks, memory maintenance, log review, report generation, dead man's switch, notification). Six more run on demand (evaluation, interest extraction, longitudinal analysis, external intelligence, deficiency detection, task dispatch).
+**Twelve heartbeat phases.** Six run by default every thirty minutes (health checks, memory maintenance, log review, report generation, dead man's switch (automated escalation if checks fail), notification). Six more run on demand (evaluation, interest extraction, longitudinal analysis, external intelligence, deficiency detection, task dispatch).
 
 **An evaluation harness.** Measures retrieval, classification, and extraction quality using YAML fixtures with majority voting across trials.
 
 **Three interaction surfaces.** A command-line status tool. A web dashboard on port 7700, accessible via [Tailscale](https://tailscale.com/). A [Model Context Protocol](https://modelcontextprotocol.io/) endpoint for AI-to-AI queries.
 
-**Fourteen blog posts.** Each documents the reasoning behind a design decision, an experiment, or a failure.
+**Nineteen blog posts.** Each documents the reasoning behind a design decision, an experiment, or a failure.
 
 That is what exists. What follows is how much of it has evidence behind it.
 
@@ -43,6 +43,8 @@ These claims have experimental or structural evidence — data from controlled e
 
 **The health aggregator probes every module.** Each module has a diagnostic subcommand. The aggregator calls all of them and produces a single pass/fail. A failing module is visible immediately.
 
+**Dispositional injection surfaces preferences regardless of query topic.** An [evaluation suite](/posts/testing-always-on) with 21 fixtures across seven categories confirmed the mechanism at F1 = 0.971 (harmonic mean of precision and recall). Preferences with zero keyword or semantic overlap to the query surface correctly. A [five-reviewer panel](/posts/dispositional-memory) identified three bugs in the evaluation fixtures; all were fixed before the evaluation ran.
+
 ## What is assumed
 
 These claims are designed into the system but lack experimental evidence. They may be correct. They have not been tested.
@@ -53,7 +55,7 @@ These claims are designed into the system but lack experimental evidence. They m
 
 **Deficiency detection identifies real problems.** Phase 8 checks ten heuristic patterns — five or more repeated errors, ten errors with zero corrections, three zero-contradiction maintenance runs. Every threshold is hardcoded. None was calibrated against labeled data. The patterns are reasonable. Whether they fire on real deficiencies rather than noise is unknown.
 
-**Memory maintenance prevents accumulation of stale entries.** The maintain command detects contradictions, links corrections, and tracks staleness. But the contradiction detector depends on a classifier that has not been evaluated for this specific task. How many contradictions does it miss? How many non-contradictions does it flag? No data.
+**Memory maintenance prevents accumulation of stale entries.** The maintain command detects contradictions, links corrections, and tracks staleness. But the classifier that detects contradictions has not been evaluated for this specific task. How many contradictions does it miss? How many non-contradictions does it flag? No data.
 
 **Background memory extraction captures what matters.** The extractor fires on context compaction and harvests memories from the transcript. But no evaluation compares the quality of extracted memories against manually written ones. The extractor might be producing noise that dilutes future retrieval.
 
@@ -69,7 +71,7 @@ The [three stolen ideas post](/posts/three-stolen-ideas) identified three measur
 
 ## What changes next
 
-**Per-channel evaluation fixtures.** The evaluation harness currently tests all three retrieval channels together. Separate fixture suites per channel — with 25 cases each — would isolate regressions to a specific channel. This is designed. Implementation is next.
+**Per-channel evaluation fixtures.** Separate fixture suites per channel — with 25 cases each — now isolate regressions to a specific channel. A [dispositional injection suite](/posts/testing-always-on) tests retrieval with all channels active, confirming that preferences surface regardless of query topic.
 
 **Coverage gates.** Ruby's stdlib `Coverage` module can measure which lines the test suite exercises. A coverage floor that ratchets upward prevents silent erosion of test surface as modules are added.
 
