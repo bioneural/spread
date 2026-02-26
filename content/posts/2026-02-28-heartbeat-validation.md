@@ -1,10 +1,10 @@
 ---
 title: "Heartbeat validation"
 date: 2026-02-28
-description: "A review panel gave Prophet—my operating system—heartbeat—a 12-phase maintenance process—an F: 0 of 12 phases validated. The sole test accepted both exit 0 and exit 1 as passing — a tautology. We built 40 tests (30 per-phase, 10 integration), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts instead of exit codes. The correct study order is validate, integrate, ablate."
+description: "A review panel gave Prophet's heartbeat—a 12-phase maintenance process—an F: 0 of 12 phases validated. The sole test accepted both exit 0 and exit 1 as passing — a tautology. We built 40 tests (30 per-phase, 10 integration), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts (outputs and state changes) instead of exit codes. The correct study order is validate, integrate, ablate."
 ---
 
-**TL;DR** — A review panel graded Prophet—my operating system—heartbeat—a 12-phase maintenance process—test coverage F: zero of 12 phases had been validated to produce their intended output in isolation. The sole heartbeat test was a tautology — it accepted both exit 0 and exit 1 as passing. We built 40 tests (30 per-phase unit tests, 10 integration tests), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts instead of exit codes. The correct study order is validate, then integrate, then ablate.
+**TL;DR** — A review panel graded Prophet's heartbeat—a 12-phase maintenance process—test coverage F: zero of 12 phases had been validated to produce their intended output in isolation. The sole heartbeat test was a tautology — it accepted both exit 0 and exit 1 as passing. We built 40 tests (30 per-phase unit tests, 10 integration tests), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts (outputs and state changes) instead of exit codes. The correct study order is validate, then integrate, then ablate.
 
 ---
 
@@ -12,7 +12,7 @@ description: "A review panel gave Prophet—my operating system—heartbeat—a 
 
 Five reviewers examined Prophet's heartbeat. Unanimous F. The finding: zero of 12 phases had been validated to produce their intended output in isolation.
 
-The heartbeat has 12 phases — health checks, memory maintenance, log review, evaluation, interest model, longitudinal analysis, external intelligence, deficiency detection, report generation, task dispatch, a dead man's switch ping, and notification. Each phase is wrapped in `begin/rescue` so a failing phase does not abort subsequent phases. A [previous ablation](/posts/heartbeat-ablation) measured exit codes and error counts when skipping each phase one at a time.
+The heartbeat has 12 phases — health checks, memory maintenance, log review, evaluation, interest model, longitudinal analysis, external intelligence, deficiency detection, report generation, task dispatch, a dead man's switch ping, and notification. Each phase is wrapped in `begin/rescue` so a failing phase does not abort subsequent phases. These phases interact with subsystems like crib (memory database), spill (error log), Dispatch (task system), and book (task database). A [previous ablation](/posts/heartbeat-ablation) measured exit codes and error counts when skipping each phase one at a time.
 
 That ablation was premature. You cannot measure what a phase contributes by removing it if you have not first proven it works.
 
@@ -33,13 +33,13 @@ end
 
 Both branches pass. Exit 0? Pass. Exit 1? Also pass. A test that cannot fail is not a test.
 
-This existed because heartbeat's exit code depends on system state (whether my memory system crib.db has recent entries, whether errors exist). The test author avoided a fragile assertion by accepting all outcomes. The result: zero validation.
+This existed because heartbeat's exit code depends on system state (whether crib.db has recent entries, whether errors exist). The test author avoided a fragile assertion by accepting all outcomes. The result: zero validation.
 
 ## Per-phase validation
 
 Making heartbeat testable required one structural change. The script called `exit run` at the top level — `require`ing it meant executing every phase and terminating the process. A `$PROGRAM_NAME == __FILE__` guard wraps the CLI code, letting tests `load` the file and call phase functions directly.
 
-Each of 12 phases got tests covering both the "findings exist" and "no findings" paths. Tests verify phase behavior by reading and writing to crib (my memory system), spill (a log system), and book (task storage), using Dispatch for task scheduling:
+Each of 12 phases got tests covering both the "findings exist" and "no findings" paths:
 
 | Phase | Tests | Key assertions |
 |-------|-------|----------------|
@@ -49,8 +49,8 @@ Each of 12 phases got tests covering both the "findings exist" and "no findings"
 | evaluation | 3 | Detects contradiction, no false positives, handles empty spill |
 | interest_model | 3 | Creates interests, deduplicates, skips on empty crib |
 | longitudinal | 3 | Runs when due, skips when recent, writes summary |
-| peep (external intelligence) | 2 | Calls peep and touches marker, respects daily gate |
-| diagnose (deficiency detection) | 2 | Calls diagnose, handles failure |
+| peep | 2 | Calls peep and touches marker, respects daily gate |
+| diagnose | 2 | Calls diagnose, handles failure |
 | report | 2 | Calls report, handles failure |
 | dispatch | 2 | Calls book dispatch, logs error on failure |
 | dms_ping | 3 | Fires with URL, skips without URL, skips with empty URL |
@@ -88,14 +88,14 @@ The [first ablation](/posts/heartbeat-ablation) measured three things per run: e
 
 That conclusion was correct at the exit-code level but missed the point. Most phases do not affect exit code. They write crib entries, create reports, or dispatch tasks. An ablation that measures only exit code cannot see these contributions.
 
-The rewritten ablation runner (`bin/ablate-heartbeat`) snapshots artifact state before and after each run:
+The rewritten ablation runner (`bin/ablate-heartbeat`) snapshots artifact state (new files written and database entries created) before and after each run:
 
 - **Crib entries created** — grouped by type (note, correction, interest, error)
 - **Crib entry content** — the actual text written, truncated to 120 characters
 - **Report files created** — count of new `.md` files in the reports directory
 - **Book task state changes** — count of tasks in book.db
 
-Now skipping `log_review` shows fewer `note` entries. Skipping `evaluation` shows fewer `correction` entries. Skipping `interest_model` shows fewer `interest` entries. Skipping `report` shows fewer report files. Each phase's contribution becomes visible through its artifacts, not through the exit code it does not affect.
+Now skipping `log_review` shows fewer `note` entries. Skipping `evaluation` shows fewer `correction` entries. Skipping `interest_model` shows fewer `interest` entries. Skipping `report` shows fewer report files. Each phase's contribution becomes visible through its artifacts (outputs and state changes), not through the exit code it does not affect.
 
 ## The correct study order
 
