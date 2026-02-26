@@ -1,16 +1,16 @@
 ---
 title: "Heartbeat ablation"
 date: 2026-02-27
-description: "Prophet's heartbeat — a scheduled maintenance cycle — has 11 phases. Skipping any one of them in isolation produces the same exit code and error count as the baseline — except the health check. Removing the health check is the only change that flips the exit code from 1 to 0, because it silently lets task dispatch run on unhealthy state. The health check is load-bearing. Everything else is additive."
+description: "Prophet, an operating system, has a heartbeat (a scheduled maintenance cycle) with 11 phases. Skipping any one of them in isolation produces the same exit code and error count as the baseline — except health_checks (a validation phase). Removing health_checks is the only change that flips the exit code from 1 to 0, because it silently lets dispatch (task dispatch) run on unhealthy state. The health check is load-bearing. Everything else is additive."
 ---
 
-**TL;DR** — Prophet's heartbeat runs 11 phases in sequence. An ablation — one baseline run plus 11 single-skip runs — reveals that only one phase changes the exit code when removed: `health_checks`. Every other phase can be individually skipped without changing the outcome. Skipping `health_checks` flips exit 1 to exit 0 by leaving the `issues` array (the list of detected problems) empty, which lets the dispatch phase run on a stale database. The health check is load-bearing. The other 10 phases are additive — they contribute work but do not gate correctness.
+**TL;DR** — Prophet, an operating system, has a heartbeat (a scheduled maintenance cycle) that runs 11 phases in sequence. An ablation — one baseline run plus 11 single-skip runs — reveals that only one phase changes the exit code when removed: `health_checks` (a validation phase). Every other phase can be individually skipped without changing the outcome. Skipping `health_checks` flips exit 1 to exit 0 by leaving the `issues` array (a list of detected problems) empty, which lets `dispatch` (task dispatch) run on a stale database. The health check is load-bearing. The other 10 phases are additive — they contribute work but do not gate correctness.
 
 ---
 
 ## The gap
 
-Prophet's [heartbeat](/posts/closing-the-loop) is a scheduled maintenance cycle with 11 phases: health checks, memory maintenance, log review, evaluation, interest model update, longitudinal analysis, external intelligence (peep), deficiency detection (diagnose), report generation, task dispatch, and a dead man's switch ping. Each phase is wrapped in `begin/rescue` — a failing phase logs to spill (the error database) and does not abort subsequent phases.
+Prophet's [heartbeat](/posts/closing-the-loop) is a scheduled maintenance cycle with 11 phases: health checks, memory maintenance, log review, evaluation, interest model update, longitudinal analysis, external intelligence (peep), deficiency detection (diagnose), report generation, task dispatch, and a dead man's switch ping. Each phase is wrapped in `begin/rescue` — a failing phase logs to spill and does not abort subsequent phases.
 
 This independence is a design choice. But independence alone does not answer the question: which phases are load-bearing? A phase is load-bearing if removing it changes the system's behavior. A phase that runs successfully but whose absence changes nothing is additive — it contributes data but does not gate decisions.
 
@@ -27,7 +27,7 @@ A Ruby script (`bin/ablate-heartbeat`) automates 12 runs:
 
 Each run records exit code, wall time, and error count (queried from the temp spill database after each run).
 
-The isolation is imperfect by design. Marker files for peep (daily) and longitudinal (weekly) live in the production state directory, not the temp directory. This means the baseline's peep run touches the marker, and all subsequent runs skip peep due to the marker check. This is a confound but also a realistic picture: in production, peep only runs once daily regardless of heartbeat frequency.
+The isolation is imperfect by design. Marker files for peep (daily) and longitudinal (weekly)—tracking when these tasks last ran—live in the production state directory, not the temp directory. This means the baseline's peep run touches the marker, and all subsequent runs skip peep due to the marker check. This is a confound but also a realistic picture: in production, peep only runs once daily regardless of heartbeat frequency.
 
 ## Results
 
@@ -52,7 +52,7 @@ Every run except `skip:health_checks` exits 1 with exactly one error: "no memory
 
 `skip:health_checks` is the only run that exits 0.
 
-The mechanism: heartbeat's `health_checks` phase populates an `issues` array. If issues exist, `dispatch` and `dms_ping` are gated — they do not run. If `health_checks` is skipped, `issues` defaults to an empty array. An empty `issues` array means: no problems detected. Dispatch runs. The dead man's switch pings.
+The mechanism: heartbeat's `health_checks` phase populates an `issues` array—a list of detected problems. If issues exist, `dispatch` and `dms_ping` are gated — they do not run. If `health_checks` is skipped, `issues` defaults to an empty array. An empty `issues` array means: no problems detected. Dispatch runs. The dead man's switch pings.
 
 This is the answer to the plan's central question: does skipping `health_checks` silently let `dispatch` run on unhealthy state? Yes. The `issues` array defaults to empty, and empty is indistinguishable from healthy.
 

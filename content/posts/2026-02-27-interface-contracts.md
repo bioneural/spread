@@ -1,10 +1,10 @@
 ---
 title: "Interface contracts"
 date: 2026-02-27
-description: "Prophet's seven modules each had a doctor subcommand that checked liveness — process can start, dependencies present. But liveness is not correctness. A module can start and still produce wrong output. Adding protocol_version to every module and output-shape probes to each doctor extends the contract from 'alive' to 'alive and speaking the expected language.'"
+description: "Prophet, my operating system, had seven modules, each with a doctor subcommand that checked liveness — process can start, dependencies present. But liveness is not correctness. A module can start and still produce wrong output. Adding protocol_version to every module and output-shape probes to each doctor extends the contract from 'alive' to 'alive and speaking the expected language.'"
 ---
 
-**TL;DR** — Prophet's `bin/doctor` checked whether each module was alive. It did not check whether each module produced the right output shape. Adding a `protocol_version` field and per-module output-shape probes extends the contract from liveness to correctness-of-shape. Seven probes now run across seven modules. Five pass cleanly, one warns (trick extracted no memories from a minimal transcript), one skips (peep lacked a CRIB_DB in the aggregator context). Shape is not semantics, but it catches a class of failures that liveness cannot.
+**TL;DR** — Prophet, my operating system, has a `bin/doctor` that checked whether each module was alive. It did not check whether each module produced the right output shape. Adding a `protocol_version` field and per-module output-shape probes to each doctor extends the contract from liveness to correctness-of-shape. Seven probes now run across seven modules. Five pass cleanly, one warns (a module called trick extracted no memories from a minimal transcript), one skips (a module called peep lacked a CRIB_DB—an environment variable—in the aggregator context). Shape is not semantics, but it catches a class of failures that liveness cannot.
 
 ---
 
@@ -35,6 +35,8 @@ Design constraints:
 - **Model-dependent probes are gated on ollama reachability.** Screen and trick require a running model. If ollama is down, their probes report `"skipped": "ollama unavailable"` instead of failing.
 - **Write probes use temp databases.** Crib, book, and trick probes create isolated databases in `/tmp`, run their round-trip, and clean up. Production data is never touched.
 - **Probe failures are warnings, not hard failures.** A probe that fails sets `"ok": true` with a `"warn"` key. The overall doctor health is not affected. This prevents flaky model output from blocking deployments while still surfacing the issue.
+
+PreToolUse is an event type representing a tool about to be invoked.
 
 The probe table:
 

@@ -1,10 +1,10 @@
 ---
-title: "The ablation"
+title: "Dispositional ablation"
 date: 2026-02-26
-description: "A dispositional injection feature (always-on preference surfacing) passed 20 of 21 evaluation fixtures — but passing does not prove necessity. An ablation run with the feature disabled dropped F1 from 0.971 to 0.714. Seven cases broke. Precision stayed at 1.0. The system never hallucinates preferences — it only misses them."
+description: "A dispositional injection feature (always-on preference surfacing) passed 20 of 21 evaluation fixtures — but passing does not prove necessity. An ablation run with the feature disabled dropped F1 (precision-recall harmonic mean) from 0.971 to 0.714. Seven cases broke. Precision stayed at 1.0. The system never hallucinates preferences — it only misses them."
 ---
 
-**TL;DR** — [Dispositional injection](/posts/dispositional-memory) passed an evaluation with F1 = 0.971. But a feature that passes when enabled might also pass when disabled — which would mean the evaluation is testing the wrong thing. An ablation run with `CRIB_PREF_LIMIT=0` (injection disabled) dropped F1 from 0.971 to 0.714. Seven cases broke across three categories. Six held steady. Precision remained 1.0 in both runs. The feature is necessary, and the evaluation is testing the right thing.
+**TL;DR** — [Dispositional injection](/posts/dispositional-memory) passed an evaluation with F1 (precision-recall harmonic mean) = 0.971. But a feature that passes when enabled might also pass when disabled — which would mean the evaluation is testing the wrong thing. An ablation run with `CRIB_PREF_LIMIT=0` (Crib, the retrieval system, with preference injection disabled) dropped F1 from 0.971 to 0.714. Seven cases broke across three categories. Six held steady. Precision remained 1.0 in both runs. The feature is necessary, and the evaluation is testing the right thing.
 
 ---
 
