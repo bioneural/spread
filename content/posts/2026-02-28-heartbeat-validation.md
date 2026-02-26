@@ -1,10 +1,10 @@
 ---
 title: "Heartbeat validation"
 date: 2026-02-28
-description: "A review panel gave Prophet's heartbeat—a 12-phase maintenance process—an F: 0 of 12 phases validated. The sole test accepted both exit 0 and exit 1 as passing — a tautology. We built 42 tests (32 per-phase, 10 integration), found 4 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts instead of exit codes. The correct study order is validate, integrate, ablate."
+description: "A review panel gave Prophet—my operating system—heartbeat—a 12-phase maintenance process—an F: 0 of 12 phases validated. The sole test accepted both exit 0 and exit 1 as passing — a tautology. We built 40 tests (30 per-phase, 10 integration), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts instead of exit codes. The correct study order is validate, integrate, ablate."
 ---
 
-**TL;DR** — A review panel graded Prophet's heartbeat—a 12-phase maintenance process—test coverage F: zero of 12 phases had been validated to produce their intended output in isolation. The sole heartbeat test was a tautology — it accepted both exit 0 and exit 1 as passing. We built 42 tests (32 per-phase unit tests, 10 integration tests), found 4 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts instead of exit codes. The correct study order is validate, then integrate, then ablate.
+**TL;DR** — A review panel graded Prophet—my operating system—heartbeat—a 12-phase maintenance process—test coverage F: zero of 12 phases had been validated to produce their intended output in isolation. The sole heartbeat test was a tautology — it accepted both exit 0 and exit 1 as passing. We built 40 tests (30 per-phase unit tests, 10 integration tests), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts instead of exit codes. The correct study order is validate, then integrate, then ablate.
 
 ---
 
@@ -33,13 +33,13 @@ end
 
 Both branches pass. Exit 0? Pass. Exit 1? Also pass. A test that cannot fail is not a test.
 
-This existed because heartbeat's exit code depends on system state (whether crib.db has recent entries, whether errors exist). The test author avoided a fragile assertion by accepting all outcomes. The result: zero validation.
+This existed because heartbeat's exit code depends on system state (whether my memory system crib.db has recent entries, whether errors exist). The test author avoided a fragile assertion by accepting all outcomes. The result: zero validation.
 
 ## Per-phase validation
 
 Making heartbeat testable required one structural change. The script called `exit run` at the top level — `require`ing it meant executing every phase and terminating the process. A `$PROGRAM_NAME == __FILE__` guard wraps the CLI code, letting tests `load` the file and call phase functions directly.
 
-Each of 12 phases got tests covering both the "findings exist" and "no findings" paths:
+Each of 12 phases got tests covering both the "findings exist" and "no findings" paths. Tests verify phase behavior by reading and writing to crib (my memory system), spill (a log system), and book (task storage), using Dispatch for task scheduling:
 
 | Phase | Tests | Key assertions |
 |-------|-------|----------------|
@@ -49,28 +49,26 @@ Each of 12 phases got tests covering both the "findings exist" and "no findings"
 | evaluation | 3 | Detects contradiction, no false positives, handles empty spill |
 | interest_model | 3 | Creates interests, deduplicates, skips on empty crib |
 | longitudinal | 3 | Runs when due, skips when recent, writes summary |
-| peep | 2 | Calls peep and touches marker, respects daily gate |
-| diagnose | 2 | Calls diagnose, handles failure |
+| peep (external intelligence) | 2 | Calls peep and touches marker, respects daily gate |
+| diagnose (deficiency detection) | 2 | Calls diagnose, handles failure |
 | report | 2 | Calls report, handles failure |
 | dispatch | 2 | Calls book dispatch, logs error on failure |
 | dms_ping | 3 | Fires with URL, skips without URL, skips with empty URL |
-| notify | 3 | Fires on issues, fires on unacked threshold, skips when clean |
+| notify | 1 | No-op — no notification channels configured yet |
 
-32 tests. Each creates temp SQLite databases with controlled rows, calls a phase function directly, and asserts specific outcomes — crib entries written, Dispatch calls made, markers touched, or nothing happening when nothing should happen.
+30 tests. Each creates temp SQLite databases with controlled rows, calls a phase function directly, and asserts specific outcomes — crib entries written, Dispatch calls made, markers touched, or nothing happening when nothing should happen.
 
 The "nothing written" tests are the ones the previous suite completely lacked. A phase that silently does nothing on every run is indistinguishable from a phase that works, unless you test the positive path.
 
-## Four bugs
+## Three bugs
 
-Per-phase validation revealed four bugs:
+Per-phase validation revealed three bugs:
 
 **1. log_review always writes a note.** Line 196 unconditionally appended a trend finding (`"error trend: stable (0 recent vs 0 previous 6h)"`) to the findings array. Even when no errors existed and no anomalies were detected, `findings` was never empty. Every heartbeat run wrote a `[log-review]` note to crib — noise that obscured real findings. Fix: only append the trend line when the trend is not stable or when other findings exist.
 
 **2. longitudinal touches a marker on nil DBs.** The longitudinal phase runs weekly, gated by a marker file. The marker touch lived outside the `if findings.any?` block. When both databases were nil (files missing), findings was empty, but the marker was still touched — preventing a retry when databases became available. Fix: move the marker touch inside the findings check.
 
 **3. dms_ping ignores curl's exit status.** `Open3.capture2` returns both output and a status object, but the status was discarded. A failing curl (network error, DNS failure, timeout) was indistinguishable from a successful ping. Fix: check `status.success?` and log a warning on failure.
-
-**4. notify has an AppleScript injection.** The notification message was interpolated into an AppleScript string without escaping double quotes. A health issue containing `"` would break the AppleScript command or, worse, inject arbitrary AppleScript. Fix: escape backslashes and double quotes before interpolation.
 
 ## Integration validation
 
@@ -82,7 +80,7 @@ Ten integration tests verify that phases compose correctly:
 - **Mode gating**: MVP mode skips 7 full-only phases; full mode runs all.
 - **Exit code**: empty issues returns 0, non-empty returns 1.
 - **Bug fix verification**: stable trend with no findings writes nothing; nil DBs do not touch the longitudinal marker.
-- **End-to-end**: health_checks issues flow correctly into notify.
+- **End-to-end**: health_checks issues pass through to notify (currently a no-op awaiting channel configuration).
 
 ## What changed in ablation
 
