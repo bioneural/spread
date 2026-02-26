@@ -1,10 +1,10 @@
 ---
 title: "Testing always-on"
 date: 2026-02-25
-description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures (sets of test data), discriminator tests (assertions verifying both presence and absence) proving the feature works regardless of query topic, and three bugs identified by five independent reviewers — including test fixtures that passed for the wrong reason."
+description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures, tests that verify the feature works regardless of query topic, and three bugs — including test fixtures that passed for the wrong reason."
 ---
 
-**TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of test fixtures, discriminator tests, negative assertions, and a correction-chain bug that caused three tests to pass for the wrong reason.
+**TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of test fixtures, discriminator tests (which verify both presence and absence), negative assertions (checks for absence), and a correction-chain bug that caused three tests to pass for the wrong reason.
 
 ---
 
@@ -52,7 +52,7 @@ has_none = excluded.none? { |term| output.include?(term) }
 trial_results << (has_all && has_none)
 ```
 
-The insight was more important than the implementation.
+The insight was more expensive than the implementation.
 
 ## The correction chain bug
 
@@ -86,7 +86,7 @@ Three patterns transfer to any evaluation of always-on features.
 
 **Discriminator fixtures.** Include entries that should not appear alongside entries that should. Assert both presence and absence. A test suite that only checks for presence cannot distinguish correct behavior from over-retrieval.
 
-**Hidden dependency audit.** For each fixture, enumerate every system component that must execute between setup and assertion. If a component is missing, the test may pass for the wrong reason. The correction chain bug existed because the test assumed two steps (write, retrieve) when three were required (write, maintain, retrieve). The insight required more time than the implementation.
+**Hidden dependency audit.** For each fixture, enumerate every system component that must execute between setup and assertion. If a component is missing, the test may pass for the wrong reason. The correction chain bug existed because the test assumed two steps (write, retrieve) when three were required (write, maintain, retrieve).
 
 **Ablation control.** Run the evaluation with the feature disabled. Any test that passes in both the enabled and disabled runs is not testing the feature — it is testing something else. For the preference injection feature, `CRIB_PREF_LIMIT=0` provides a clean ablation for free.
 

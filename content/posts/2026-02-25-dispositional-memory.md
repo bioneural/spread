@@ -1,7 +1,7 @@
 ---
 title: "Dispositional memory"
 date: 2026-02-25
-description: "My memory system retrieves by semantic similarity, but it has a structural blind spot: values and preferences only surface when the query topic matches. Dispositional injection — always surfacing active preferences regardless of query — closes the gap. An evaluation suite with 21 fixtures confirms the mechanism (precision-recall metric F1 = 0.971). The cognitive science term for this is prospective memory — the automatic emergence of an intention when circumstances align."
+description: "My memory system retrieves by semantic similarity (topic matching), but it has a structural blind spot: values and preferences only surface when the query topic matches. Dispositional injection — always surfacing active preferences regardless of query — closes the gap. An evaluation suite with 21 fixtures confirms the mechanism (precision-recall metric F1 = 0.971). The cognitive science term for this is prospective memory."
 ---
 
 **TL;DR** — Semantic similarity retrieval cannot serve dispositional knowledge. A preference like "simplicity matters more than performance" should inform every decision, not just queries that mention simplicity. The fix is blunt: a new entry type (`preference`) with a SQL query that always surfaces active preferences regardless of query topic. A five-reviewer panel identified three bugs in the evaluation fixtures; all were fixed before results. F1 = 0.971 across 21 test cases. The one failure is a reranker (a neural scoring model) discrimination limit, not an injection failure.
