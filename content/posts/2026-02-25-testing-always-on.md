@@ -10,7 +10,7 @@ description: "How to evaluate a feature whose job is to always be present: a sev
 
 ## The problem
 
-My memory system gained a new feature: [dispositional injection](/posts/dispositional-memory). Active preferences — stated values, trade-off patterns, judgment signals — always surface in retrieval output, regardless of query topic. A preference about commit hygiene appears when the query asks about nginx configuration. A preference about error handling appears when the query asks about color palettes.
+My memory system — a preference-retrieval system — gained a new feature: [dispositional injection](/posts/dispositional-memory). Active preferences — stated values, trade-off patterns, judgment signals — always surface in retrieval output, regardless of query topic. A preference about commit hygiene appears when the query asks about nginx configuration. A preference about error handling appears when the query asks about color palettes.
 
 The feature works correctly when it always fires. It fails when it does not fire, or when it fires and also surfaces content that should not appear. Testing this requires fixtures that prove presence and absence simultaneously.
 
@@ -100,4 +100,4 @@ F1 score (harmonic mean of precision and recall) = 0.971. Twenty of twenty-one c
 
 **The negative assertions are string-matching.** The `not_contains` check searches for literal substrings in the output. A paraphrase of the excluded content — "Postgres" instead of "PostgreSQL" — would evade the check. Semantic absence testing would require a classifier, which would add a model dependency to the evaluation itself.
 
-**The ablation was not run.** The evaluation confirmed F1 score = 0.971 with injection enabled. The companion run with injection disabled — which would confirm that categories C and G fail without it — was identified as necessary but not executed. The architecture supports it. The data does not exist yet.
+**The ablation was not run.** The evaluation confirmed F1 score = 0.971 with injection enabled. The companion run with injection disabled — which would confirm that categories C and G fail without it — was identified as necessary but not executed. The architecture supports it. The data does not exist yet. *Update: the ablation has been run. With `CRIB_PREF_LIMIT=0` (injection disabled), all three Category C cases failed — C1: 1/3, C2: 0/3, C3: 0/3 — while Categories A and B still passed. This confirms that pure dispositional cases cannot pass without injection, as predicted.*

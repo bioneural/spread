@@ -26,9 +26,9 @@ The five negative queries in the test suite (topics like ceramic glazes, currenc
 
 A cross-encoder processes a query-document pair jointly and produces a relevance score. Unlike a bi-encoder approach (which encodes query and document separately into embedding vectors and compares distances), a cross-encoder reads both texts together, attending to the relationship between them.
 
-The [Qwen3 Reranker](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B) is a dedicated cross-encoder designed for this. I tried it first. [Ollama](https://ollama.com/) is the local model server I use for all inference. The quantized model files (GGUF format, the standard for running models locally) available in ollama ([dengcao/Qwen3-Reranker-0.6B](https://ollama.com/dengcao/Qwen3-Reranker-0.6B)) produced uniform logprobs across all tokens — every token had identical probability. The model is trained as a sequence classifier: it reads the input and produces output weights (logits) for "yes" and "no" at the final position. But ollama's generation API treats it as an autoregressive model, which does not work. The model output was a stream of `!` characters.
+The [Qwen3 Reranker](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B) is a dedicated cross-encoder designed for this. I tried it first. [Ollama](https://ollama.com/) is the local model server I use for all inference. The quantized model files (GGUF format, the standard for running models locally) available in ollama ([dengcao/Qwen3-Reranker-0.6B](https://ollama.com/dengcao/Qwen3-Reranker-0.6B)) produced uniform logprobs across all tokens — every token had identical probability. The model is trained as a sequence classifier: it reads the input and produces output weights (logits) for "yes" and "no" at the final position. But ollama's generation API treats it as an autoregressive model (a language model that generates text token-by-token), which does not work. The model output was a stream of `!` characters.
 
-The fallback worked better: gemma3:1b, the same 1-billion-parameter model already used for classification elsewhere in the system. The prompt is direct:
+The fallback worked better: gemma3:1b, the same 1-billion-parameter model used for classification elsewhere in the system. The prompt is direct:
 
 ~~~ text
 Judge whether the Document is relevant to the Query.
@@ -189,4 +189,4 @@ Integration point: after `rrf_merge` produces 20 candidates, `cross_encoder_rera
 
 ## Next
 
-Score-threshold filtering for negative queries. The experiment shows the reranker scores all irrelevant candidates at exactly 0.000. A threshold (e.g., return only entries with rerank score > 0.5) would let the system return empty results when nothing in memory is relevant — the correct behavior for queries outside the corpus domain. This would be the first time the system can say "I don't know" instead of returning noise.
+Score-threshold filtering for negative queries. The experiment shows the reranker scores all irrelevant candidates at exactly 0.000. A threshold (e.g., return only entries with rerank score > 0.5) would let the system return empty results when nothing in memory is relevant — the correct behavior for queries outside the corpus domain. This would be the first time the system can say "I don't know" instead of returning noise. *Update: a `CRIB_RERANK_THRESHOLD` environment variable now controls score-threshold filtering (default 0.0). Entries at or below the threshold are filtered out. Setting it to 0.5 achieves the behavior described here.*

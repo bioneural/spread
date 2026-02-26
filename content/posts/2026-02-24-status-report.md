@@ -19,7 +19,7 @@ Prophet as of today:
 
 **Twelve heartbeat phases.** Six run by default every thirty minutes (1. health checks, 2. memory maintenance, 3. log review, 4. report generation, 5. dead man's switch (automated escalation if checks fail), 6. notification). Six more run on demand (7. evaluation, 8. interest extraction, 9. longitudinal analysis, 10. external intelligence, 11. deficiency detection, 12. task dispatch).
 
-**An evaluation harness.** Measures retrieval, classification, and extraction quality using YAML fixtures with majority voting across trials.
+**An evaluation harness.** Measures retrieval, classification, and extraction quality using fixtures (test case collections) defined in YAML with majority voting across trials.
 
 **Three interaction surfaces.** A command-line status tool. A web dashboard on port 7700, accessible via [Tailscale](https://tailscale.com/). A [Model Context Protocol](https://modelcontextprotocol.io/) endpoint for AI-to-AI queries.
 
@@ -71,13 +71,13 @@ The [three stolen ideas post](/posts/three-stolen-ideas) identified three measur
 
 ## What changes next
 
-**Per-channel evaluation fixtures.** Separate fixture suites per channel — with 25 cases each — now isolate regressions to a specific channel. A [dispositional injection suite](/posts/testing-always-on) tests retrieval with all channels active, confirming that preferences surface regardless of query topic.
+**Per-channel evaluation fixtures.** Separate fixture suites per channel — with 25 cases each — now isolate regressions to a specific channel. A [dispositional injection suite](/posts/testing-always-on) tests retrieval with all channels active, confirming that preferences surface regardless of query topic. *Done. Six fixture files totaling 109 cases: 25 FTS, 25 vector, 25 triples, 21 intent, 8 classification, 5 extraction.*
 
-**Coverage gates.** Ruby's stdlib `Coverage` module can measure which lines the test suite exercises. A coverage floor that ratchets upward prevents silent erosion of test surface as modules are added.
+**Coverage gates.** Ruby's stdlib `Coverage` module can measure which lines the test suite exercises. A coverage floor that ratchets upward prevents silent erosion of test surface as modules are added. *Done. `PROPHET_COVERAGE=1` enables collection during smoke tests. A 50% floor rejects runs that drop below it. Results persist to `.state/coverage/report.json`.*
 
-**Interface contracts.** Each module's diagnostic subcommand currently checks liveness — "is the process alive and responsive?" Extending it to probe output shape — "does the output match what callers expect?" — converts implicit contracts into explicit checks.
+**Interface contracts.** Each module's diagnostic subcommand currently checks liveness — "is the process alive and responsive?" Extending it to probe output shape — "does the output match what callers expect?" — converts implicit contracts into explicit checks. *Still pending. Diagnostic subcommands check liveness only. Output shape probes have not been added.*
 
-**Ablation studies for heartbeat phases.** The heartbeat's `--skip` flag already exists. A systematic evaluation — run the heartbeat with and without each analytical phase, measure the downstream effect on memory quality and deficiency detection rate — would provide the evidence the analytical phases currently lack. This requires the measurement instruments above.
+**Ablation studies for heartbeat phases.** The heartbeat's `--skip` flag already exists. A systematic evaluation — run the heartbeat with and without each analytical phase, measure the downstream effect on memory quality and deficiency detection rate — would provide the evidence the analytical phases currently lack. This requires the measurement instruments above. *Infrastructure exists (the `--skip` flag accepts comma-separated phase names). Systematic ablation runs across all phases have not been executed.*
 
 ## Limits
 

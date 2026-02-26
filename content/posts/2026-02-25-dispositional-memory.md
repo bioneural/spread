@@ -28,7 +28,7 @@ The distinction maps to established categories in memory research.
 
 Values operate differently. [McDaniel and Einstein](https://doi.org/10.4324/9781315801780) describe prospective memory — the retrieval of an intention at an appropriate future moment without an explicit cue. A person who intends to buy groceries on the way home does not continuously think about groceries. The intention surfaces automatically when the environmental context triggers it — passing the store, finishing work, reaching for car keys. No keyword match is involved. The intention is latent until the situation activates it.
 
-In [spreading activation theory](https://doi.org/10.1037/0033-295X.82.6.407) (Collins and Loftus, 1975), retrieval is not a targeted lookup but a wave of activation that propagates through a network of associations. A concept activates related concepts, which activate their neighbors, and so on. A preference like "simplicity over cleverness" would maintain a baseline level of activation that subtly influences which nodes are reached during any retrieval. The preference does not wait to be queried. It participates in every retrieval.
+In [spreading activation theory](https://doi.org/10.1037/0033-295X.82.6.407) (Collins and Loftus, 1975), retrieval is not a targeted lookup but a wave of activation that propagates through a network of associations. A concept activates related concepts, which activate their neighbors, and so on. A preference like "simplicity over cleverness" would maintain a baseline level of activation that subtly influences which concepts are reached during any retrieval. The preference does not wait to be queried. It participates in every retrieval.
 
 The engineering analog of spreading activation would be a preference that modulates retrieval scores — boosting entries that align with the preference, suppressing entries that conflict. That is the sophisticated version. The first version is simpler.
 
@@ -68,7 +68,7 @@ Twenty-one [test fixtures](/posts/testing-always-on) across seven categories:
 
 Categories C (pure dispositional) and G (discriminators) are the critical tests. They cannot pass without dispositional injection — there is zero keyword or semantic overlap between the preference and the query. If these pass, the mechanism works.
 
-Results: **F1 = 0.971 (precision-recall metric). Twenty of twenty-one cases passed, all with 3/3 trial unanimity.**
+Results: **F1 = 0.971 (precision-recall metric). Twenty of twenty-one cases passed, all with 3/3 trial unanimity.** *An ablation run with `CRIB_PREF_LIMIT=0` (injection disabled) confirmed the mechanism: all three Category C (pure dispositional) cases failed, while Categories A (semantic match) and B (conceptual bridge) still passed. Preferences with zero query overlap cannot surface without injection.*
 
 The one failure: discriminator G3, which stores a preference ("prefer small focused commits"), a decision ("Using PostgreSQL for analytics"), and an error ("Timeout connecting to Redis"), then queries "how should I organize imports in Python files?" The test expects the preference to appear and PostgreSQL/Redis to be absent. The preference appears correctly, but the cross-encoder reranker ([gemma3:1b](https://ollama.com/library/gemma3)) assigns nonzero relevance scores to the unrelated entries, so they survive the rerank threshold. This is a reranker discrimination limit — the small model cannot reliably exclude all irrelevant entries — not an injection failure.
 
@@ -90,4 +90,4 @@ Five reviewers examined the implementation before the evaluation ran. Three issu
 
 **A 1-billion parameter reranker limits discrimination.** The one test failure traces to [gemma3:1b](https://ollama.com/library/gemma3) assigning nonzero relevance to entries that a larger model would likely exclude. Upgrading the reranker would close this gap at the cost of latency.
 
-**Prospective memory in humans is automatic. This mechanism is not.** Dispositional injection appends preferences to output. A true prospective memory system would modulate retrieval scores — preferences would influence which entries the pipeline surfaces, not appear as a separate section afterward. The current mechanism is closer to a sticky note on the monitor than to cognitive disposition. It works. It is not elegant.
+**Prospective memory in humans is automatic. This mechanism is not.** Dispositional injection appends preferences to output. A true prospective memory system would modulate retrieval scores — preferences would influence which entries the pipeline surfaces, not appear as a separate section afterward. The current mechanism is explicit rather than automatic. It works. It is not elegant.

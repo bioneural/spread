@@ -13,7 +13,7 @@ description: "Prophet — an AI agent's operating system — had no way to prove
 
 The [previous post](/posts/closing-the-loop) described a cognitive loop: a heartbeat fires, memory surfaces, actions execute, results store. The loop had evaluation (cross-referencing logs against memory claims), maintenance (contradiction detection, correction linking), and diagnostics (deficiency detection, escalation scoring, status reports).
 
-What it lacked was instrumentation. The operator could read reports — bounded markdown summaries — but could not query system state interactively. There was no way to search memory directly, no way to see which policy decisions fired on a given prompt, no way to verify that retrieval quality had not degraded after a model change. The system logged everything but exposed nothing.
+What it lacked was instrumentation. The operator could read reports — bounded markdown summaries — but could not query system state interactively. There was no way to search memory directly, no way to see which policies were applied on a given prompt, no way to verify that retrieval quality had not degraded after a model change. The system logged everything but exposed nothing.
 
 This is a common failure mode in autonomous systems: internal state is rich, but the external interface is a file dump. The operator either trusts the system or reads raw databases. Neither scales.
 
@@ -49,7 +49,7 @@ Three surfaces now expose system state to different consumers.
 
 **Command-line tools** provide quick checks: a single-line health summary (heartbeat age, memory count, pending tasks, recent errors) and a configuration lister (all governing documents and policy files).
 
-**A web interface** runs on a stdlib-only HTTP server — no framework, no external dependencies, no JavaScript. It serves seven pages: a dashboard with health status and recent activity; a reports view with acknowledgment controls; a task manager; a review queue for human-in-the-loop policy decisions; a memory search interface; an objectives editor; and a policy audit trail showing which hooks fired and why.
+**A web interface** runs on a stdlib-only HTTP server — no framework, no external dependencies, no JavaScript. It serves seven pages: a dashboard with health status and recent activity; a reports view with acknowledgment controls; a task manager; a review queue for human-in-the-loop policy decisions; a memory search interface; an objectives editor; and a policy audit trail showing which hooks (policy execution points) fired and why.
 
 The server binds to all interfaces on port 7700, which means it is accessible via [Tailscale](https://tailscale.com/) from any device on the tailnet. A 60-second auto-refresh keeps the dashboard current. The operator can check system health from a phone without SSH.
 
@@ -59,7 +59,7 @@ All three surfaces read from a shared data access layer, described below.
 
 ## Health aggregator
 
-A constitution section requires every module to have a diagnostic subcommand. A health aggregator calls each one and merges the results into a single JSON object with a top-level pass/fail boolean.
+The design requires every module to have a diagnostic subcommand. A health aggregator calls each one and merges the results into a single JSON object with a top-level pass/fail boolean.
 
 The aggregator checks prerequisites (Ruby version, required gems, ollama and claude binaries), verifies that all sibling repositories are present and their diagnostic subcommands respond, validates policy syntax, checks heartbeat cron entries, probes the web server's health endpoint, and confirms Tailscale is running.
 
@@ -77,8 +77,8 @@ Previously, each surface wrote its own SQL. The data access layer eliminates tha
 
 ## Limits
 
-**No historical evaluation tracking.** The evaluation harness prints results to stdout and exits. There is no persistence — no way to compare today's retrieval F1 against last week's. Regression detection requires the operator to remember previous scores.
+**No historical evaluation tracking.** The evaluation harness prints results to stdout and exits. There is no persistence — no way to compare today's retrieval F1 against last week's. Regression detection requires the operator to remember previous scores. *Update: a `history.jsonl` file now persists every evaluation run (timestamp, git SHA, model, per-suite F1). A regression detector compares the current run against previous results and fails if F1 drops by more than 0.1. This gap is closed.*
 
-**No coverage measurement.** The test suite validates behavior end-to-end but does not measure code coverage. There is no floor — no way to detect that a new module was added without corresponding tests. Ruby's stdlib `Coverage` module could provide this without adding a dependency, but it has not been integrated.
+**No coverage measurement.** The test suite validates behavior end-to-end but does not measure code coverage. There is no floor — no way to detect that a new module was added without corresponding tests. Ruby's stdlib `Coverage` module could provide this without adding a dependency, but it has not been integrated. *Update: `PROPHET_COVERAGE=1` enables Ruby's stdlib `Coverage` module during smoke tests. A 50% floor rejects runs that drop below it. Results persist to `.state/coverage/report.json`. This gap is closed.*
 
-Two gaps remain — historical tracking and coverage measurement. Per-channel isolation was addressed by [separate fixture suites per retrieval channel](/posts/three-stolen-ideas) and a [dispositional injection suite](/posts/testing-always-on) that tests retrieval with all channels active.
+Both gaps identified above — historical tracking and coverage measurement — have been addressed. Per-channel isolation was addressed by [separate fixture suites per retrieval channel](/posts/three-stolen-ideas) and a [dispositional injection suite](/posts/testing-always-on) that tests retrieval with all channels active. The remaining open item from this post is interface contracts: diagnostic subcommands still check liveness only, not output shape.
