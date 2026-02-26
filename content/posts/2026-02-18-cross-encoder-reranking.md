@@ -2,7 +2,7 @@
 title: "Cross-encoder reranking"
 date: 2026-02-18
 order: 4
-description: "A memory module merges keyword search and vector similarity
+description: "My memory system merges keyword search and vector similarity
   results using a formula called Reciprocal Rank Fusion, but the formula
   cannot filter noise — it faithfully promotes whatever the channels return.
   A small language model reading each query-document pair produces a relevance
@@ -10,7 +10,7 @@ description: "A memory module merges keyword search and vector similarity
   every irrelevant result at zero."
 ---
 
-**TL;DR** — [Rank fusion](/posts/reciprocal-rank-fusion) improved retrieval precision in a memory module from 2.7/10 to 4.8/10, but it cannot filter noise — negative queries get the same confident-looking results as real ones. I added a reranking step after fusion: a small language model (gemma3:1b) reads each query-document pair and produces a continuous relevance score from its logprobs. On a 120-entry corpus, mean precision improved from 4.80/10 to 5.20/10 for direct queries. No query regressed. The real finding: every candidate returned for five irrelevant queries scored exactly 0.000. The reranker can distinguish noise from signal in a way that rank fusion cannot.
+**TL;DR** — [Rank fusion](/posts/reciprocal-rank-fusion) improved retrieval precision in a memory module from 2.7/10 to 4.8/10, but it cannot filter noise — negative queries get the same confident-looking results as real ones. I added a reranking step after fusion: a small language model (gemma3:1b) reads each query-document pair and produces a continuous relevance score. On a 120-entry corpus, mean precision improved from 4.80/10 to 5.20/10 for direct queries. No query regressed. The real finding: every candidate returned for five irrelevant queries scored exactly 0.000. The reranker can distinguish noise from signal in a way that rank fusion cannot.
 
 ---
 
@@ -26,9 +26,9 @@ The five negative queries in the test suite (topics like ceramic glazes, currenc
 
 A cross-encoder processes a query-document pair jointly and produces a relevance score. Unlike a bi-encoder approach (which encodes query and document separately into embedding vectors and compares distances), a cross-encoder reads both texts together, attending to the relationship between them.
 
-The [Qwen3 Reranker](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B) is a dedicated cross-encoder designed for this. I tried it first. [Ollama](https://ollama.com/) is the local model server I use for all inference. The quantized model files (GGUF format, the standard for running models locally) available in ollama ([dengcao/Qwen3-Reranker-0.6B](https://ollama.com/dengcao/Qwen3-Reranker-0.6B)) produced uniform logprobs across all tokens — every token had identical probability. The model is trained as a sequence classifier: it reads the input and produces output weights (logits) for "yes" and "no" at the final position. But ollama's generation API treats it as an autoregressive model (a language model that generates text token-by-token), which does not work. The model output was a stream of `!` characters.
+The [Qwen3 Reranker](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B) is a dedicated cross-encoder designed for this. I tried it first. [Ollama](https://ollama.com/) is the local model server I use for all inference. The quantized model files (GGUF format, the standard for running models locally) available in ollama ([dengcao/Qwen3-Reranker-0.6B](https://ollama.com/dengcao/Qwen3-Reranker-0.6B)) produced uniform logprobs across all tokens — every token had identical probability. The model is trained as a sequence classifier: it reads the input and produces output weights (logits) for "yes" and "no" at the final position. But ollama's generation API treats it as an autoregressive model, which does not work. The model output was a stream of `!` characters.
 
-The fallback worked better: gemma3:1b, the same 1-billion-parameter model used for classification elsewhere in the system. The prompt is direct:
+The fallback worked better: gemma3:1b, the same 1-billion-parameter model already used for classification elsewhere in the system. The prompt is direct:
 
 ~~~ text
 Judge whether the Document is relevant to the Query.

@@ -1,7 +1,7 @@
 ---
 title: "Dispositional memory"
 date: 2026-02-25
-description: "My memory system retrieves by semantic similarity, but it has a structural blind spot: values and preferences only surface when the query topic matches. Dispositional injection — always surfacing active preferences regardless of query — closes the gap. An evaluation suite with 21 fixtures confirms the mechanism (precision-recall metric F1 = 0.971). The cognitive science term for this is prospective memory."
+description: "My memory system retrieves by semantic similarity, but it has a structural blind spot: values and preferences only surface when the query topic matches. Dispositional injection — always surfacing active preferences regardless of query — closes the gap. An evaluation suite with 21 fixtures confirms the mechanism (precision-recall metric F1 = 0.971). The cognitive science term for this is prospective memory — the automatic emergence of an intention when circumstances align."
 ---
 
 **TL;DR** — Semantic similarity retrieval cannot serve dispositional knowledge. A preference like "simplicity matters more than performance" should inform every decision, not just queries that mention simplicity. The fix is blunt: a new entry type (`preference`) with a SQL query that always surfaces active preferences regardless of query topic. A five-reviewer panel identified three bugs in the evaluation fixtures; all were fixed before results. F1 = 0.971 across 21 test cases. The one failure is a reranker (a neural scoring model) discrimination limit, not an injection failure.
@@ -68,7 +68,7 @@ Twenty-one [test fixtures](/posts/testing-always-on) across seven categories:
 
 Categories C (pure dispositional) and G (discriminators) are the critical tests. They cannot pass without dispositional injection — there is zero keyword or semantic overlap between the preference and the query. If these pass, the mechanism works.
 
-Results: **F1 = 0.971 (precision-recall metric). Twenty of twenty-one cases passed, all with 3/3 trial unanimity.** *An ablation run with `CRIB_PREF_LIMIT=0` (injection disabled) confirmed the mechanism: all three Category C (pure dispositional) cases failed, while Categories A (semantic match) and B (conceptual bridge) still passed. Preferences with zero query overlap cannot surface without injection.*
+Results: **F1 = 0.971 (precision-recall metric). Twenty of twenty-one cases passed, all with 3/3 trial unanimity.** *An ablation run with `CRIB_PREF_LIMIT=0` (injection disabled) confirmed the mechanism: F1 dropped from 0.971 to 0.714. Categories C (pure dispositional), F (multiple preferences), and G (discriminators) failed, while A, B, D, and E were unaffected. Precision remained 1.0 — every failure was a recall miss, not a false positive.*
 
 The one failure: discriminator G3, which stores a preference ("prefer small focused commits"), a decision ("Using PostgreSQL for analytics"), and an error ("Timeout connecting to Redis"), then queries "how should I organize imports in Python files?" The test expects the preference to appear and PostgreSQL/Redis to be absent. The preference appears correctly, but the cross-encoder reranker ([gemma3:1b](https://ollama.com/library/gemma3)) assigns nonzero relevance scores to the unrelated entries, so they survive the rerank threshold. This is a reranker discrimination limit — the small model cannot reliably exclude all irrelevant entries — not an injection failure.
 

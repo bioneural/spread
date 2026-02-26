@@ -1,7 +1,7 @@
 ---
 title: "Testing always-on"
 date: 2026-02-25
-description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures, discriminator tests that prove the feature works independently of semantic similarity, and three bugs identified by five independent reviewers — including test fixtures that passed for the wrong reason."
+description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures (sets of test data), discriminator tests (assertions verifying both presence and absence) proving the feature works regardless of query topic, and three bugs identified by five independent reviewers — including test fixtures that passed for the wrong reason."
 ---
 
 **TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of test fixtures, discriminator tests, negative assertions, and a correction-chain bug that caused three tests to pass for the wrong reason.
@@ -52,7 +52,7 @@ has_none = excluded.none? { |term| output.include?(term) }
 trial_results << (has_all && has_none)
 ```
 
-The insight was more expensive than the implementation.
+The insight was more important than the implementation.
 
 ## The correction chain bug
 
@@ -86,7 +86,7 @@ Three patterns transfer to any evaluation of always-on features.
 
 **Discriminator fixtures.** Include entries that should not appear alongside entries that should. Assert both presence and absence. A test suite that only checks for presence cannot distinguish correct behavior from over-retrieval.
 
-**Hidden dependency audit.** For each fixture, enumerate every system component that must execute between setup and assertion. If a component is missing, the test may pass for the wrong reason. The correction chain bug existed because the test assumed two steps (write, retrieve) when three were required (write, maintain, retrieve).
+**Hidden dependency audit.** For each fixture, enumerate every system component that must execute between setup and assertion. If a component is missing, the test may pass for the wrong reason. The correction chain bug existed because the test assumed two steps (write, retrieve) when three were required (write, maintain, retrieve). The insight required more time than the implementation.
 
 **Ablation control.** Run the evaluation with the feature disabled. Any test that passes in both the enabled and disabled runs is not testing the feature — it is testing something else. For the preference injection feature, `CRIB_PREF_LIMIT=0` provides a clean ablation for free.
 
@@ -100,4 +100,4 @@ F1 score (harmonic mean of precision and recall) = 0.971. Twenty of twenty-one c
 
 **The negative assertions are string-matching.** The `not_contains` check searches for literal substrings in the output. A paraphrase of the excluded content — "Postgres" instead of "PostgreSQL" — would evade the check. Semantic absence testing would require a classifier, which would add a model dependency to the evaluation itself.
 
-**The ablation was not run.** The evaluation confirmed F1 score = 0.971 with injection enabled. The companion run with injection disabled — which would confirm that categories C and G fail without it — was identified as necessary but not executed. The architecture supports it. The data does not exist yet. *Update: the ablation has been run. With `CRIB_PREF_LIMIT=0` (injection disabled), all three Category C cases failed — C1: 1/3, C2: 0/3, C3: 0/3 — while Categories A and B still passed. This confirms that pure dispositional cases cannot pass without injection, as predicted.*
+**The ablation was not run.** The evaluation confirmed F1 score = 0.971 with injection enabled. The companion run with injection disabled — which would confirm that categories C and G fail without it — was identified as necessary but not executed. The architecture supports it. The data does not exist yet. *Update: the ablation has been run. With `CRIB_PREF_LIMIT=0` (injection disabled), F1 dropped from 0.971 to 0.714. All three Category C (pure dispositional) cases failed, all three Category F (multiple preferences) cases failed, and one Category G (discriminator) case failed. Categories A, B, D, and E were unaffected. Precision remained 1.0 in both runs — the system never hallucinates preferences, it only misses them.*

@@ -13,7 +13,7 @@ description: "Prophet — an AI agent's operating system — had no way to prove
 
 The [previous post](/posts/closing-the-loop) described a cognitive loop: a heartbeat fires, memory surfaces, actions execute, results store. The loop had evaluation (cross-referencing logs against memory claims), maintenance (contradiction detection, correction linking), and diagnostics (deficiency detection, escalation scoring, status reports).
 
-What it lacked was instrumentation. The operator could read reports — bounded markdown summaries — but could not query system state interactively. There was no way to search memory directly, no way to see which policies were applied on a given prompt, no way to verify that retrieval quality had not degraded after a model change. The system logged everything but exposed nothing.
+What it lacked was instrumentation. The operator could read reports — bounded markdown summaries — but could not query system state interactively. There was no way to search memory directly, no way to see which policy decisions fired on a given prompt, no way to verify that retrieval quality had not degraded after a model change. The system logged everything but exposed nothing.
 
 This is a common failure mode in autonomous systems: internal state is rich, but the external interface is a file dump. The operator either trusts the system or reads raw databases. Neither scales.
 
@@ -49,7 +49,7 @@ Three surfaces now expose system state to different consumers.
 
 **Command-line tools** provide quick checks: a single-line health summary (heartbeat age, memory count, pending tasks, recent errors) and a configuration lister (all governing documents and policy files).
 
-**A web interface** runs on a stdlib-only HTTP server — no framework, no external dependencies, no JavaScript. It serves seven pages: a dashboard with health status and recent activity; a reports view with acknowledgment controls; a task manager; a review queue for human-in-the-loop policy decisions; a memory search interface; an objectives editor; and a policy audit trail showing which hooks (policy execution points) fired and why.
+**A web interface** runs on a stdlib-only HTTP server — no framework, no external dependencies, no JavaScript. It serves seven pages: a dashboard with health status and recent activity; a reports view with acknowledgment controls; a task manager; a review queue for human-in-the-loop policy decisions; a memory search interface; an objectives editor; and a policy audit trail showing which hooks fired and why.
 
 The server binds to all interfaces on port 7700, which means it is accessible via [Tailscale](https://tailscale.com/) from any device on the tailnet. A 60-second auto-refresh keeps the dashboard current. The operator can check system health from a phone without SSH.
 
@@ -59,9 +59,9 @@ All three surfaces read from a shared data access layer, described below.
 
 ## Health aggregator
 
-The design requires every module to have a diagnostic subcommand. A health aggregator calls each one and merges the results into a single JSON object with a top-level pass/fail boolean.
+A constitution section — a design requirement — requires every module to have a diagnostic subcommand. A health aggregator calls each one and merges the results into a single JSON object with a top-level pass/fail boolean.
 
-The aggregator checks prerequisites (Ruby version, required gems, ollama and claude binaries), verifies that all sibling repositories are present and their diagnostic subcommands respond, validates policy syntax, checks heartbeat cron entries, probes the web server's health endpoint, and confirms Tailscale is running.
+The aggregator checks prerequisites (Ruby version, required packages, ollama and claude binaries), verifies that all sibling repositories are present and their diagnostic subcommands respond, validates policy syntax, checks heartbeat cron entries, probes the web server's health endpoint, and confirms Tailscale is running.
 
 A cron job can call the aggregator and alert if the exit code is nonzero. Before this existed, verifying system health required manually checking each component.
 
