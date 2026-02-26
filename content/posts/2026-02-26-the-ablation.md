@@ -1,10 +1,10 @@
 ---
 title: "Dispositional ablation"
 date: 2026-02-26
-description: "A dispositional injection feature (always-on preference surfacing) passed 20 of 21 evaluation fixtures — but passing does not prove necessity. An ablation run with the feature disabled dropped F1 (precision-recall harmonic mean) from 0.971 to 0.714. Seven cases broke. Precision stayed at 1.0. The system never hallucinates preferences — it only misses them."
+description: "A dispositional injection feature (always-on preference surfacing) passed 20 of 21 evaluation fixtures — but passing does not prove necessity. An ablation run with the feature disabled dropped F1 (precision: fraction of returned results that were correct; recall: fraction of available results returned) from 0.971 to 0.714. Seven cases broke. Precision stayed at 1.0. The system never hallucinates preferences — it only misses them."
 ---
 
-**TL;DR** — [Dispositional injection](/posts/dispositional-memory) passed an evaluation with F1 (precision-recall harmonic mean) = 0.971. But a feature that passes when enabled might also pass when disabled — which would mean the evaluation is testing the wrong thing. An ablation run with `CRIB_PREF_LIMIT=0` (Crib, the retrieval system, with preference injection disabled) dropped F1 from 0.971 to 0.714. Seven cases broke across three categories. Six held steady. Precision remained 1.0 in both runs. The feature is necessary, and the evaluation is testing the right thing.
+**TL;DR** — [Dispositional injection](/posts/dispositional-memory) passed an evaluation with F1 = 0.971 (combining precision and recall). But a feature that passes when enabled might also pass when disabled — which would mean the evaluation is testing the wrong thing. An ablation run with `CRIB_PREF_LIMIT=0` (injection disabled) dropped F1 from 0.971 to 0.714. Seven cases broke across three categories. Six held steady. Precision (the fraction of returned results that were correct) remained 1.0 in both runs. The feature is necessary, and the evaluation is testing the right thing.
 
 ---
 
@@ -25,7 +25,7 @@ Two runs of the same 21-fixture evaluation suite (`retrieval-intent.yml`), three
 1. **Baseline.** Default configuration. Dispositional injection enabled (limit = 5 preferences).
 2. **Ablation.** `CRIB_PREF_LIMIT=0`. Injection disabled. All other retrieval channels remain active.
 
-The ablation isolates one variable: the SQL query that unconditionally surfaces preferences. Everything else — embedding, reranking, correction chains, negative filtering — operates identically.
+The ablation isolates one variable: the SQL query that unconditionally surfaces preferences. Everything else — vector embedding, result reranking, preference correction chains, and negative filtering — operates identically.
 
 All other retrieval channels (full-text search, vector similarity, entity-graph lookup (knowledge graph retrieval), [cross-encoder reranking](/posts/cross-encoder-reranking)) remain active.
 
@@ -65,7 +65,7 @@ Three categories broke completely. One degraded. Three were unaffected.
 | C2: surfaces on infrastructure query | PASS (3/3) | FAIL | 0/3 |
 | C3: surfaces on documentation query | PASS (3/3) | FAIL | 0/3 |
 
-C1 passed one trial — likely a single lucky vector hit. C2 and C3 failed unanimously.
+C1 passed one trial — likely an incidental vector similarity match. C2 and C3 failed unanimously.
 
 **Category F — Multiple preferences** (five or more active preferences):
 

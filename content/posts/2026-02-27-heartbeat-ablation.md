@@ -1,10 +1,10 @@
 ---
 title: "Heartbeat ablation"
 date: 2026-02-27
-description: "Prophet, an operating system, has a heartbeat (a scheduled maintenance cycle) with 11 phases. Skipping any one of them in isolation produces the same exit code and error count as the baseline — except health_checks (a validation phase). Removing health_checks is the only change that flips the exit code from 1 to 0, because it silently lets dispatch (task dispatch) run on unhealthy state. The health check is load-bearing. Everything else is additive."
+description: "Prophet, an operating system, has a heartbeat with 11 phases. Skipping any one of them in isolation produces the same exit code and error count as the baseline — except health_checks, a problem-detection phase. Removing health_checks is the only change that flips the exit code from 1 to 0, because it silently lets the dispatch phase run without detecting problems. The health check is load-bearing. Everything else is additive."
 ---
 
-**TL;DR** — Prophet, an operating system, has a heartbeat (a scheduled maintenance cycle) that runs 11 phases in sequence. An ablation — one baseline run plus 11 single-skip runs — reveals that only one phase changes the exit code when removed: `health_checks` (a validation phase). Every other phase can be individually skipped without changing the outcome. Skipping `health_checks` flips exit 1 to exit 0 by leaving the `issues` array (a list of detected problems) empty, which lets `dispatch` (task dispatch) run on a stale database. The health check is load-bearing. The other 10 phases are additive — they contribute work but do not gate correctness.
+**TL;DR** — Prophet, an operating system, has a heartbeat that runs 11 phases in sequence. An ablation — one baseline run plus 11 single-skip runs — reveals that only one phase changes the exit code when removed: `health_checks`, which detects system problems. Every other phase can be individually skipped without changing the outcome. Skipping `health_checks` flips exit 1 to exit 0 by leaving the `issues` array (detected problems) empty, which lets `dispatch` (task dispatch) run on a stale database. The health check is load-bearing. The other 10 phases are additive — they contribute work but do not gate correctness.
 
 ---
 
@@ -20,7 +20,7 @@ No data existed on which phases were load-bearing.
 
 A Ruby script (`bin/ablate-heartbeat`) automates 12 runs:
 
-1. Copy production databases (crib, book, spill) to a temp directory
+1. Copy production databases (crib, book, spill—Prophet's primary data stores) to a temp directory
 2. Unset `HEARTBEAT_URL` to prevent dead man's switch pings
 3. Run `bin/heartbeat --full` with no skips (baseline)
 4. For each of 11 phases, run `bin/heartbeat --full --skip <phase>` with fresh DB copies

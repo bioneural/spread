@@ -4,7 +4,7 @@ date: 2026-02-27
 description: "Prophet, my operating system, had seven modules, each with a doctor subcommand that checked liveness — process can start, dependencies present. But liveness is not correctness. A module can start and still produce wrong output. Adding protocol_version to every module and output-shape probes to each doctor extends the contract from 'alive' to 'alive and speaking the expected language.'"
 ---
 
-**TL;DR** — Prophet, my operating system, has a `bin/doctor` that checked whether each module was alive. It did not check whether each module produced the right output shape. Adding a `protocol_version` field and per-module output-shape probes to each doctor extends the contract from liveness to correctness-of-shape. Seven probes now run across seven modules. Five pass cleanly, one warns (a module called trick extracted no memories from a minimal transcript), one skips (a module called peep lacked a CRIB_DB—an environment variable—in the aggregator context). Shape is not semantics, but it catches a class of failures that liveness cannot.
+**TL;DR** — Prophet, my operating system, had a `bin/doctor` that checked whether each module was alive. It did not check whether each module produced the right output shape. Adding a `protocol_version` field and per-module output-shape probes to each doctor extended the contract from liveness to correctness-of-shape. Seven probes now run across seven modules. Five pass cleanly, one warns (a module called trick extracted no memories from a minimal transcript), one skips (a module called peep lacked the CRIB_DB environment variable (crib database) in the aggregator context). Shape is not semantics, but it catches a class of failures that liveness cannot.
 
 ---
 
@@ -22,7 +22,7 @@ Two things were missing: a version contract (does this module speak the same pro
 
 ### Protocol version
 
-Prophet's aggregator already declared an expected protocol version per module (version 1 for all seven) and checked each doctor's response for a `protocol_version` field. No module reported one. Every module doctor produced a warning: `no protocol_version reported`.
+Prophet's aggregator, the central module health orchestrator, already declared an expected protocol version per module (version 1 for all seven) and checked each doctor's response for a `protocol_version` field. No module reported one. Every module doctor produced a warning: `no protocol_version reported`.
 
 Fix: one line per module. `report['protocol_version'] = 1` before the `report['ok']` calculation. Seven files, seven one-line changes.
 
@@ -32,18 +32,16 @@ Each module's doctor gained a `--probe` flag. When present, the doctor runs a se
 
 Design constraints:
 
-- **Model-dependent probes are gated on ollama reachability.** Screen and trick require a running model. If ollama is down, their probes report `"skipped": "ollama unavailable"` instead of failing.
+- **Model-dependent probes are gated on ollama (an inference server) reachability.** Screen and trick require a running model. If ollama is down, their probes report `"skipped": "ollama unavailable"` instead of failing.
 - **Write probes use temp databases.** Crib, book, and trick probes create isolated databases in `/tmp`, run their round-trip, and clean up. Production data is never touched.
 - **Probe failures are warnings, not hard failures.** A probe that fails sets `"ok": true` with a `"warn"` key. The overall doctor health is not affected. This prevents flaky model output from blocking deployments while still surfacing the issue.
-
-PreToolUse is an event type representing a tool about to be invoked.
 
 The probe table:
 
 | Module | Probe | Validates |
 |--------|-------|-----------|
-| crib | Write to temp DB, retrieve via FTS | Output contains `<memory context_time=` |
-| hooker | Pipe minimal PreToolUse event | Exit 0; if output present, JSON with `hookSpecificOutput` key |
+| crib | Write to temp DB, retrieve via FTS (full-text search) | Output contains `<memory context_time=` |
+| hooker | Pipe minimal PreToolUse event (policy evaluation input) | Exit 0; if output present, JSON with `hookSpecificOutput` key |
 | screen | Feed trivially true classification | Exactly `yes` or `no` on stdout |
 | book | Init temp DB, add task, call `next` | JSON with `id` and `description` keys |
 | spill | Query last 5 log entries | Each entry is JSON-serializable |

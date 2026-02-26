@@ -1,10 +1,10 @@
 ---
 title: "Cross-model validation"
 date: 2026-02-27
-description: "Prophet's eval suite has only ever run against one model: gemma3:1b. Running the same 109 cases against gemma3:4b reveals which capabilities are model-dependent and which are infrastructure-dependent. Of six suites, only one changes: entity-triple retrieval improves from F1 0.895 to 0.976. The other five suites produce identical scores. Most of Prophet's retrieval quality comes from infrastructure — full-text search indexing, entity extraction, and prepended preferences — not from the model."
+description: "Prophet's eval suite has only ever run against one model: gemma3:1b. Running the same 109 cases against gemma3:4b reveals which capabilities are model-dependent and which are infrastructure-dependent. Of six suites, only one changes: entity-triple retrieval (extracting entity relationships for retrieval) improves from F1 0.895 to 0.976. The other five suites produce identical scores. Most of Prophet's retrieval quality comes from infrastructure — full-text search, entity extraction, preference injection (prepending preferences) — not from the model."
 ---
 
-**TL;DR** — Prophet's eval suite (109 cases across 6 suites) has only ever run against gemma3:1b. Running the same suite against gemma3:4b reveals that five of six suites produce identical scores. Only entity-triple retrieval improves (F1 0.895 to 0.976). Extraction remains at F1 0.0 on both models. The result is clear: most of Prophet's retrieval quality comes from infrastructure — full-text search indexing, entity graphs, and prepended preferences — not from model quality. A larger model helps entity extraction at the margin but does not move the dominant mechanisms.
+**TL;DR** — Prophet's eval suite (109 cases across 6 suites) has only ever run against gemma3:1b. Running the same suite against gemma3:4b reveals that five of six suites produce identical scores. Only entity-triple retrieval (extracting entity relationships for retrieval) improves (F1 0.895 to 0.976). Memory extraction remains at F1 0.0 on both models. The result is clear: most of Prophet's retrieval quality comes from infrastructure — full-text search, entity graphs (extracted entity networks), preference injection (prepending preferences) — not from model quality. A larger model helps entity extraction at the margin but does not move the dominant suites.
 
 ---
 
