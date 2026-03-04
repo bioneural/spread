@@ -91,12 +91,17 @@ def load_posts
     slug = filename.sub(/\A\d{4}-\d{2}-\d{2}-/, '')
     date = meta['date']
     date = Date.parse(date.to_s) unless date.is_a?(Date)
+    desc = meta['description']
+    if desc && desc =~ /\[.+?\]\(.+?\)|[*]{2}.+?[*]{2}|`.+?`/
+      abort "spread: error: description in #{filename} contains markdown — descriptions must be plain text"
+    end
+
     {
       title: meta['title'] || slug,
       date: date,
       order: meta['order'] || 0,
       slug: slug,
-      description: meta['description'],
+      description: desc,
       body: Kramdown::Document.new(parsed[:body_md]).to_html,
       path: path
     }
