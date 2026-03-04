@@ -1,16 +1,16 @@
 ---
 title: "Push, pull, and the memory retrieval gap"
 date: 2026-03-03
-description: "A comparison of Prophet, an AI memory system with crib and lay components, against Open Brain, Nate Jones's MCP (Model Context Protocol)-based personal knowledge system. Prophet pushes context automatically, retrieves across three channels, forms memories without user action, and decays what isn't useful. Open Brain pulls on demand from a single vector store — but it works across every MCP client. Both systems miss the same problem: mid-chain retrieval during agent reasoning loops."
+description: "A comparison of Prophet, an operating system, with its memory systems (crib and lay) against Open Brain, Nate Jones's [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)-based personal knowledge system. Prophet pushes context automatically, retrieves across three channels, forms memories without user action, and decays what isn't useful. Open Brain pulls on demand from a single vector store (a database of vector embeddings) — but it works across every MCP client. Both systems miss the same problem: mid-chain retrieval during reasoning loops."
 ---
 
-**TL;DR** — [Nate Jones](https://www.natebjones.com) built [Open Brain](https://natesnewsletter.substack.com/p/every-ai-you-use-forgets-you-heres?r=1z4sm5&utm_campaign=post&utm_medium=web), a personal knowledge system where you type a thought into Slack, it gets embedded and classified, and any MCP-compatible AI client can search it later. Postgres, pgvector, two Supabase Edge Functions, $0.10–$0.30/month. Prophet's memory architecture — crib and lay — takes a different approach: push-based injection, three retrieval channels, automatic memory formation, and decay. The architectures make opposite tradeoffs. Neither has solved mid-chain retrieval.
+**TL;DR** — [Nate Jones](https://www.natebjones.com) built [Open Brain](https://natesnewsletter.substack.com/p/every-ai-you-use-forgets-you-heres?r=1z4sm5&utm_campaign=post&utm_medium=web), a personal knowledge system where you type a thought into Slack, it gets embedded and classified, and any MCP (Model Context Protocol)-compatible AI client can search it later. Postgres, pgvector, two Supabase Edge Functions, $0.10–$0.30/month. Prophet's memory architecture — crib and lay — takes a different approach: push-based injection, three retrieval channels, automatic memory formation, and decay. The architectures make opposite tradeoffs. Neither has solved mid-chain retrieval.
 
 ---
 
 ## The systems
 
-Open Brain is a capture-and-retrieval loop. A user types a thought into a Slack channel. A Supabase Edge Function generates a 1536-dimensional embedding via OpenRouter, extracts structured metadata (type, topics, people, action items) via GPT-4o-mini, and inserts the result into a Postgres table backed by pgvector. A second Edge Function exposes an MCP (Model Context Protocol) server with four tools: semantic search, recent thoughts, capture statistics, and a write-back endpoint. Any MCP-compatible client — Claude Desktop, Claude Code, ChatGPT, Cursor — can connect and search the same database.
+Open Brain is a capture-and-retrieval loop. A user types a thought into a Slack channel. A Supabase Edge Function generates a 1536-dimensional embedding via OpenRouter, extracts structured metadata (type, topics, people, action items) via GPT-4o-mini, and inserts the result into a Postgres table backed by pgvector. A second Edge Function exposes an MCP server with four tools: semantic search, recent thoughts, capture statistics, and a write-back endpoint. Any MCP-compatible client — Claude Desktop, Claude Code, ChatGPT, Cursor — can connect and search the same database.
 
 Prophet's memory surface is two cooperating systems. Crib is a SQLite-backed memory store with three retrieval channels: fact triples (structured `subject → predicate → object` lookups), FTS5 full-text search (keyword matching with Porter stemming), and sqlite-vec (768-dimensional vector similarity via a local ollama model). Lay is a collection of context files — identity, objectives, constitution, review panel definitions — with frontmatter conditions that control when each file gets injected. A policy engine called hooker fires on every user prompt and every tool call, running crib retrieval and lay injection before an agent begins reasoning.
 
@@ -46,7 +46,7 @@ Open Brain's single-channel approach is simpler. But "what database does billing
 
 Open Brain requires intentional capture. A user types a thought into Slack. Or an agent calls `capture_thought` through the MCP server. Either way, a human decision initiates every memory. If a conversation produces an insight and no one captures it, the insight is lost.
 
-Prophet forms memories automatically. A background process called trick monitors conversation transcripts. When Claude Code (an AI development environment) compacts a conversation (summarizing earlier context to free the context window), trick extracts memories from the full transcript — decisions, corrections, notes, errors — and writes them into crib. The user does not choose what to remember. The system harvests from every conversation.
+Prophet forms memories automatically. A background process called trick monitors conversation transcripts. When Claude Code compacts a conversation (summarizing earlier context to free the context window), trick extracts memories from the full transcript — decisions, corrections, notes, errors — and writes them into crib. The user does not choose what to remember. The system harvests from every conversation.
 
 Open Brain compensates with a "Memory Migration" prompt and a "Spark" interview that generates an initial capture list. These are good onboarding tools. But they are one-time operations. The ongoing capture loop still depends on the user remembering to type thoughts into Slack. Prophet's ongoing formation loop depends on nothing — conversations happen, memories form.
 
@@ -72,11 +72,11 @@ This is not a minor advantage. The MCP protocol is becoming the standard interfa
 
 ## What neither system has solved
 
-**Mid-chain retrieval.** Prophet's hooker fires on `UserPromptSubmit` — the event that occurs when a human sends a message. During a multi-turn agent loop where Claude Code (an AI development environment) calls tools and reasons across several steps without human input, `UserPromptSubmit` does not fire. Memories are injected at the start of the conversation turn, then the agent reasons for potentially dozens of steps without any new memory retrieval.
+**Mid-chain retrieval.** Prophet's hooker fires on `UserPromptSubmit` — the event that occurs when a human sends a message. During a multi-turn agentic loop where Claude Code calls tools and reasons across several steps without human input, `UserPromptSubmit` does not fire. Memories are injected at the start of the conversation turn, then the agent reasons for potentially dozens of steps without any new memory retrieval.
 
 Open Brain's pull model means the agent could theoretically search mid-chain — but only if the client supports autonomous tool use during reasoning, and only if the agent decides that searching its memory is worth a tool call at that moment. In practice, agents optimizing for task completion rarely pause to search an external memory system mid-chain.
 
-Both architectures retrieve memory at the boundary between the human and the agent. Neither retrieves memory at the boundary between one reasoning step and the next. For short interactions, this does not matter. For agent chains that run for minutes — where the agent's context drifts from the original prompt — the memory surface goes dark at the moment it would be most useful.
+Both architectures retrieve memory at the boundary between the human and the agent. Neither retrieves memory at the boundary between one reasoning step and the next. For short interactions, this does not matter. For agentic chains that run for minutes — where the agent's context drifts from the original prompt — the memory surface goes dark at the moment it would be most useful.
 
 **Context overload at scale.** Open Brain's spec acknowledges this: "Too much unstructured context can cause LLMs to cross-pollinate unrelated topics." Prophet faces the same tension. Push-based injection means crib sends the top-ranked memories on every prompt. If the corpus is large and the query is broad, "top-ranked" might still be ten entries that consume a significant fraction of the context window. The reranker helps. The salience decay helps. But the fundamental tension — inject enough to be useful, not so much that you dilute focus — is a parameter-tuning problem, not an architectural solution.
 
@@ -88,7 +88,7 @@ Prophet validates a different approach: make memory automatic, push it into cont
 
 The gap I am watching is multi-client access. Prophet's local-first architecture is powerful for a single agent on a single machine. But the MCP protocol is becoming infrastructure. A future version of crib that exposes its three-channel retrieval as an MCP server — triples, full-text, and vector, with reranking — would combine Prophet's retrieval depth with Open Brain's client compatibility. That is not on the roadmap today. But it is the obvious convergence point.
 
-The gap I am working on is mid-chain retrieval. Neither system solves it. Both systems go dark during agent loops. For a system that aspires to continuous memory — where the agent's knowledge is always available, not just at conversation boundaries — this is the open problem.
+The gap I am working on is mid-chain retrieval. Neither system solves it. Both systems go dark during agentic loops. For a system that aspires to continuous memory — where the agent's knowledge is always available, not just at conversation boundaries — this is the open problem.
 
 ## Limits
 
