@@ -1,16 +1,16 @@
 ---
 title: "Your reranker is a no-op"
 date: 2026-03-07
-description: "A cross-encoder reranker that appeared to work for three weeks was silently broken. The gemma3:1b model answered no to every relevance query with 99.9999 percent confidence, including a document containing the exact query term. The system ran on fallback code the entire time. Switching the reranker and extraction model to the gemma3:4b model fixed both retrieval scoring and preference classification. The deeper lesson: a system that degrades gracefully can degrade so gracefully that you never notice the core component is dead."
+description: "A cross-encoder reranker (a machine learning model that scores document relevance) that appeared to work for three weeks was silently broken. The model, gemma3:1b, answered no to every relevance query with 99.9999 percent confidence, including a document containing the exact query term. The system ran on fallback code the entire time. Switching the reranker and extraction model to gemma3:4b (a larger version) fixed both retrieval scoring and memory classification. The deeper lesson: a system that degrades gracefully can degrade so gracefully that you never notice the core component is dead."
 ---
 
-**TL;DR** — The [cross-encoder reranker](/posts/cross-encoder-reranking) that I evaluated three weeks ago was broken in production the entire time. gemma3:1b answered "no" to every relevance query — including "bananaphone" vs. "bananaphone" — with 99.9999% confidence. Every rerank score was 0.000. The system ran on a rescue clause that returned all candidates unfiltered. Switching both the reranker and the extraction model from gemma3:1b to gemma3:4b fixed retrieval scoring (1.0 relevant, 0.0 irrelevant) and memory classification (4/4 eval scenarios correct). A system designed to degrade gracefully can degrade so gracefully that the failure becomes invisible.
+**TL;DR** — The [cross-encoder reranker](/posts/cross-encoder-reranking) that I evaluated three weeks ago was broken in production the entire time. gemma3:1b (a language model) answered "no" to every relevance query — including "bananaphone" vs. "bananaphone" — with 99.9999% confidence. Every rerank score was 0.000. The system ran on a rescue clause, a fallback that returned all candidates unfiltered. Switching both the reranker and the extraction model from gemma3:1b to gemma3:4b (a larger language model) fixed retrieval scoring (1.0 relevant, 0.0 irrelevant) and memory classification (4/4 eval scenarios correct). A system designed to degrade gracefully can degrade so gracefully that the failure becomes invisible.
 
 ---
 
 ## What happened
 
-I went looking for a signal-to-noise problem. For the query "Why did we choose Ruby?", crib (my memory store) returned 17 entries (3,137 bytes) when the useful answer was 3 entries (~200 bytes). Two causes were obvious:
+I went looking for a signal-to-noise problem. For the query "Why did we choose Ruby?", crib (my memory storage system) returned 17 entries (3,137 bytes) when the useful answer was 3 entries (~200 bytes). Two causes were obvious:
 
 1. The background extractor ([trick](https://github.com/bioneural/trick)) was classifying debugging observations as preferences. "Avoid using relative paths to CRIB_DB" is not a durable behavioral directive. It is something that happened once during debugging.
 
@@ -18,11 +18,11 @@ I went looking for a signal-to-noise problem. For the query "Why did we choose R
 
 The fixes were straightforward: tighten the extraction prompt, run preferences through the same reranker as regular entries, delete 17 garbage preferences from the database. I wrote the code, ran the smoke tests, and the tests passed. Then I tried to raise the rerank threshold from 0.0 to 0.5.
 
-The FTS (Full-Text Search) round-trip test — the most basic retrieval test in the suite — failed. Writing "bananaphone" and retrieving "bananaphone" returned nothing.
+The full-text search (FTS) round-trip test — the most basic retrieval test in the suite — failed. Writing "bananaphone" and retrieving "bananaphone" returned nothing.
 
 ## The reranker was dead
 
-I checked the raw ollama (local inference server) API response for the reranker query "Is this document about bananaphone relevant to a query about bananaphone?"
+I checked the raw ollama (a local language model runtime) API response for the reranker query "Is this document about bananaphone relevant to a query about bananaphone?"
 
 ```
 answer: no
@@ -82,7 +82,7 @@ The same gemma3:1b model powered memory extraction in trick. I had tightened the
 
 The debugging scenario failed every trial. The user said "That fixed it, thanks" after resolving a path issue. The model extracted "User prefers absolute paths for file paths." The prompt said "NOT debugging fixes." The model ignored the constraint and inferred a preference from behavior.
 
-A 1B model cannot reliably distinguish "user adopted a fix" from "user stated a standing rule." The nuance exceeds the model's capacity.
+A 1-billion parameter model cannot reliably distinguish "user adopted a fix" from "user stated a standing rule." The nuance exceeds the model's capacity.
 
 ## gemma3:4b
 
