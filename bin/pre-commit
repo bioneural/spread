@@ -21,9 +21,8 @@ fi
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
 identity=""
-if [ -f "$REPO_ROOT/../prophet/context/identity.md" ]; then
-  # Strip YAML frontmatter (between --- delimiters) to get just the content
-  identity=$(sed '1{/^---$/!q;};1,/^---$/d' "$REPO_ROOT/../prophet/context/identity.md")
+if [ -f "$REPO_ROOT/.identity.md" ]; then
+  identity=$(cat "$REPO_ROOT/.identity.md")
 fi
 
 tmpdir=$(mktemp -d)

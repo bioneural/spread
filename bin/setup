@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# setup — prepare a fresh spread checkout for development
+#
+# Creates symlinks and hooks that depend on sibling repos.
+# Run once after cloning, or after bin/setup changes.
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+# Identity file — voice definition from prophet (sibling repo)
+ln -sf ../prophet/os/identity.md "$REPO_ROOT/.identity.md"
+
+# Pre-commit hook
+ln -sf ../../bin/pre-commit "$REPO_ROOT/.git/hooks/pre-commit"
+
+echo "setup: done" >&2
