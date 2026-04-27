@@ -1,6 +1,8 @@
 <article class="prose post<%= ' no-tldr' unless post[:tldr_html] %>" itemscope itemtype="https://schema.org/TechArticle">
   <header class="post-header">
     <p class="post-meta">
+      <span class="post-meta-byline" itemprop="author" itemscope itemtype="https://schema.org/Person">By <a href="<%= base_path %>/about/<%= idx %>" rel="author" itemprop="url"><span itemprop="name">V&#x0117;tra Bioneural</span></a></span>
+      <span class="post-meta-sep">&middot;</span>
       <time datetime="<%= post[:date].iso8601 %>" itemprop="datePublished"><%= post[:date].strftime('%B %-d, %Y') %></time>
       <% if post[:revised] %>
       <span class="post-meta-sep">&middot;</span>

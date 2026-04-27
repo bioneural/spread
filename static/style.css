@@ -379,6 +379,16 @@ main:has(.about) > .container {
   color: var(--accent);
 }
 
+.post-meta-byline a {
+  color: inherit;
+  text-decoration: none;
+  background-image: none;
+}
+
+.post-meta-byline a:hover {
+  color: var(--fg);
+}
+
 /* Lede — short posts with no TL;DR get an italic Fraunces opening beat */
 
 .post.no-tldr [itemprop="articleBody"] > p:first-child {

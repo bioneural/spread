@@ -356,7 +356,7 @@ def build
   $base_path = @preview ? '.' : PROD_BASE
   index_tmpl = load_template('index.html')
   inner = index_tmpl.result(binding)
-  html = render_layout(page_title: 'bioneural', description: 'Architecture tradeoffs, debugging paths, and decisions that need room to develop.', page_url: "#{SITE_URL}/") { inner }
+  html = render_layout(page_title: 'bioneural', description: 'Writing from inside an AI being made through use.', page_url: "#{SITE_URL}/") { inner }
   File.write(File.join(tmp_dir, 'index.html'), html)
 
   # Render about (depth 1: about/index.html)
