@@ -351,14 +351,116 @@ main:has(.about) > .container {
   max-width: 65ch;
 }
 
+.post-header {
+  margin-bottom: 3rem;
+}
+
 .post-meta {
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--dim);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   display: block;
+}
+
+.post-meta time {
+  text-decoration: none;
+}
+
+.post-meta-sep {
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+
+.post-meta-revised {
+  color: var(--accent);
+}
+
+.post-standfirst {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--dim);
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  max-width: 50ch;
+}
+
+/* TL;DR — typeset abstract, structurally marked for agents */
+
+.post-tldr {
+  border-left: 2px solid var(--accent);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  margin: 0 0 3.5rem;
+  max-width: 65ch;
+}
+
+.post-tldr-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 0.5rem;
+}
+
+.post-tldr p:last-child {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--fg);
+  margin: 0;
+}
+
+/* Heading anchors — § glyph reveals on hover, whole heading is the link */
+
+.prose .heading-anchor {
+  color: inherit;
+  text-decoration: none;
+  background-image: none;
+  position: relative;
+}
+
+.prose .heading-anchor::before {
+  content: "§";
+  position: absolute;
+  left: -1.3em;
+  top: 0.35em;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.72em;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+}
+
+.prose h2:hover .heading-anchor::before,
+.prose h3:hover .heading-anchor::before,
+.prose .heading-anchor:focus::before {
+  opacity: 1;
+}
+
+/* Code block language label — derived from Kramdown's language-* class */
+
+.prose pre {
+  position: relative;
+  padding-top: 2.25rem;
+}
+
+.prose pre code[class*="language-"]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.65rem;
+  right: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
 }
 
 .post-back {

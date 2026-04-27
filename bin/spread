@@ -14,6 +14,7 @@ require 'yaml'
 require 'erb'
 require 'fileutils'
 require 'time'
+require 'json'
 require 'kramdown'
 require 'uri'
 
@@ -65,10 +66,108 @@ def idx
   @preview ? 'index.html' : ''
 end
 
-def render_layout(page_title:, description: nil, page_url: nil, &block)
+def render_layout(page_title:, description: nil, page_url: nil, jsonld: nil, &block)
   content = block.call
   layout = load_template('layout.html')
   layout.result(binding)
+end
+
+# -- Post body post-processing --
+
+POST_PATTERN_VOCAB = [
+  [/\Atl;?dr\z/i,        'tldr'],
+  [/\Asetup\z/i,         'setup'],
+  [/\Aexperiments?\z/i,  'experiment'],
+  [/\Aresults?\z/i,      'results'],
+  [/\Adead\s+ends?\z/i,  'dead-ends'],
+  [/\Alimits?\z/i,       'limits']
+].freeze
+
+TLDR_PATTERN = %r{\A(\s*)<p>\s*<strong>TL;?DR</strong>\s*[—–\-:]?\s*(.+?)\s*</p>\s*}m
+
+def strip_tags(html)
+  html.gsub(/<[^>]+>/, '').gsub(/\s+/, ' ').strip
+end
+
+def tag_post_pattern(html)
+  html.gsub(%r{<h2([^>]*)>(.+?)</h2>}m) do
+    attrs, content = ::Regexp.last_match(1), ::Regexp.last_match(2)
+    text = strip_tags(content)
+    matched = POST_PATTERN_VOCAB.find { |re, _| text =~ re }
+    if matched
+      %{<h2#{attrs} data-post-section="#{matched[1]}">#{content}</h2>}
+    else
+      %{<h2#{attrs}>#{content}</h2>}
+    end
+  end
+end
+
+def linkify_headings(html)
+  html.gsub(%r{<(h[2-3])([^>]*)>(.+?)</\1>}m) do
+    tag, attrs, content = ::Regexp.last_match(1), ::Regexp.last_match(2), ::Regexp.last_match(3)
+    if attrs =~ /id="([^"]+)"/
+      id = ::Regexp.last_match(1)
+      %{<#{tag}#{attrs}><a class="heading-anchor" href="##{id}">#{content}</a></#{tag}>}
+    else
+      %{<#{tag}#{attrs}>#{content}</#{tag}>}
+    end
+  end
+end
+
+def add_code_lang_attr(html)
+  html.gsub(%r{<code class="language-([\w+\-]+)">}) do
+    lang = ::Regexp.last_match(1)
+    %{<code class="language-#{lang}" data-lang="#{lang}">}
+  end
+end
+
+def lift_tldr(html)
+  if (m = TLDR_PATTERN.match(html))
+    abstract = strip_tags(m[2])
+    rest = html.sub(TLDR_PATTERN, '')
+    section = %{<section class="post-tldr" role="doc-abstract" aria-label="TL;DR">\n  <p class="post-tldr-label">TL;DR</p>\n  <p>#{m[2]}</p>\n</section>\n}
+    [section + rest, abstract]
+  else
+    [html, nil]
+  end
+end
+
+def extract_h2_texts(html)
+  html.scan(%r{<h2[^>]*>(.+?)</h2>}m).map { |m| strip_tags(m[0]) }
+end
+
+def extract_citations(html, current_slug)
+  html.scan(%r{<a\s[^>]*href="(/posts/[^"#?]+/?)"})
+      .map { |m| m[0] }
+      .reject { |u| u =~ %r{/posts/#{Regexp.escape(current_slug)}/?\z} }
+      .uniq
+end
+
+def post_jsonld(post)
+  data = {
+    '@context' => 'https://schema.org',
+    '@type' => 'TechArticle',
+    'headline' => post[:title],
+    'datePublished' => post[:date].to_s,
+    'url' => "#{SITE_URL}/posts/#{post[:slug]}/",
+    'author' => {
+      '@type' => 'Person',
+      'name' => 'Vėtra Bioneural',
+      'url' => "#{SITE_URL}/about/"
+    },
+    'publisher' => {
+      '@type' => 'Organization',
+      'name' => 'bioneural'
+    }
+  }
+  data['description']    = post[:description] if post[:description] && !post[:description].empty?
+  data['abstract']       = post[:abstract]    if post[:abstract]
+  data['dateModified']   = post[:revised].to_s if post[:revised]
+  data['articleSection'] = post[:sections]    if post[:sections] && !post[:sections].empty?
+  if post[:citations] && !post[:citations].empty?
+    data['citation'] = post[:citations].map { |path| { '@type' => 'WebPage', 'url' => "#{SITE_URL}#{path}" } }
+  end
+  data
 end
 
 def escape_xml(text)
@@ -96,13 +195,28 @@ def load_posts
       abort "spread: error: description in #{filename} contains markdown — descriptions must be plain text"
     end
 
+    revised = meta['revised']
+    revised = Date.parse(revised.to_s) if revised && !revised.is_a?(Date)
+
+    rendered   = Kramdown::Document.new(parsed[:body_md], auto_ids: true).to_html
+    tagged     = tag_post_pattern(rendered)
+    linked     = linkify_headings(tagged)
+    coded      = add_code_lang_attr(linked)
+    sections   = extract_h2_texts(coded)
+    citations  = extract_citations(coded, slug)
+    body, abstract = lift_tldr(coded)
+
     {
       title: meta['title'] || slug,
       date: date,
+      revised: revised,
       order: meta['order'] || 0,
       slug: slug,
       description: desc,
-      body: Kramdown::Document.new(parsed[:body_md]).to_html,
+      body: body,
+      abstract: abstract,
+      sections: sections,
+      citations: citations,
       path: path
     }
   end.sort_by { |p| [p[:date], p[:order]] }.reverse
@@ -136,7 +250,8 @@ def build
     dir = File.join(tmp_dir, 'posts', post[:slug])
     FileUtils.mkdir_p(dir)
     inner = post_tmpl.result(binding)
-    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/") { inner }
+    jsonld = post_jsonld(post)
+    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/", jsonld: jsonld) { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 
