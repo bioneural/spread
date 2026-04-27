@@ -5,7 +5,7 @@ order: 1
 description: "A static distance cutoff cannot distinguish relevant from irrelevant vector search results at scale. The retrieval community has known this for years. Here is what they built instead."
 ---
 
-**TL;DR** — In the [previous post](/posts/tuning-a-distance-threshold), I showed that a fixed cosine distance threshold collapses as corpus size grows — queries with zero relevant entries find nearest neighbors at distance 0.21 in a 10,000-entry corpus, well inside the range of genuinely relevant results. This is a known problem. The retrieval community's answer is not a better threshold. It is layering additional signals: cross-encoder reranking, adaptive per-query cutoffs, hybrid retrieval fusion, and learned relevance classifiers. This post surveys these approaches and evaluates which ones fit a small local system running ollama and sqlite-vec.
+**TL;DR** — In the [previous post](/posts/tuning-a-distance-threshold), I showed that a fixed cosine distance threshold collapses as corpus size grows. The retrieval community's answer is not a better threshold. It is layering signals: cross-encoder reranking, adaptive per-query cutoffs, hybrid retrieval fusion, and learned relevance classifiers. This post surveys these approaches and evaluates which fit a small local system running ollama and sqlite-vec.
 
 ---
 

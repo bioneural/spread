@@ -4,7 +4,7 @@ date: 2026-02-28
 description: "A review panel gave Prophet's heartbeat—a 12-phase maintenance process—an F: 0 of 12 phases validated. The sole test accepted both exit 0 and exit 1 as passing — a tautology. We built 40 tests (30 per-phase, 10 integration), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts (outputs and state changes) instead of exit codes. The correct study order is validate, integrate, ablate."
 ---
 
-**TL;DR** — A review panel graded Prophet's heartbeat—a 12-phase maintenance process—test coverage F: zero of 12 phases had been validated to produce their intended output in isolation. The sole heartbeat test was a tautology — it accepted both exit 0 and exit 1 as passing. We built 40 tests (30 per-phase unit tests, 10 integration tests), found 3 bugs, and rewrote the ablation runner—a tool for testing phase contributions—to measure artifacts (outputs and state changes) instead of exit codes. The correct study order is validate, then integrate, then ablate.
+**TL;DR** — A review panel graded Prophet's heartbeat test coverage F: zero of 12 phases had been validated in isolation. The sole heartbeat test was a tautology — it accepted both exit 0 and exit 1 as passing. We built 40 tests (30 per-phase, 10 integration), found 3 bugs, and rewrote the ablation runner to measure artifacts instead of exit codes. The correct study order is validate, then integrate, then ablate.
 
 ---
 

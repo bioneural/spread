@@ -10,7 +10,7 @@ description: "My memory system merges keyword search and vector similarity
   every irrelevant result at zero."
 ---
 
-**TL;DR** — [Rank fusion](/posts/reciprocal-rank-fusion) improved retrieval precision in a memory module from 2.7/10 to 4.8/10, but it cannot filter noise — negative queries get the same confident-looking results as real ones. I added a reranking step after fusion: a small language model (gemma3:1b) reads each query-document pair and produces a continuous relevance score. On a 120-entry corpus, mean precision improved from 4.80/10 to 5.20/10 for direct queries. No query regressed. The real finding: every candidate returned for five irrelevant queries scored exactly 0.000. The reranker can distinguish noise from signal in a way that rank fusion cannot.
+**TL;DR** — [Rank fusion](/posts/reciprocal-rank-fusion) improved retrieval precision from 2.7/10 to 4.8/10 but cannot filter noise — negative queries get the same confident results as real ones. I added a reranking step: a small language model (gemma3:1b) reads each query-document pair and produces a relevance score. Mean precision improved to 5.20/10. No query regressed. The real finding: every candidate returned for five irrelevant queries scored exactly 0.000. The reranker distinguishes noise from signal in a way fusion cannot.
 
 ---
 

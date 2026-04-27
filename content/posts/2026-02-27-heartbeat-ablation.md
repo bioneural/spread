@@ -4,7 +4,7 @@ date: 2026-02-27
 description: "Prophet, an operating system, has a heartbeat with 11 phases. Skipping any one of them in isolation produces the same exit code and error count as the baseline — except health_checks, a problem-detection phase. Removing health_checks is the only change that flips the exit code from 1 to 0, because it silently lets the dispatch phase run without detecting problems. The health check is load-bearing. Everything else is additive."
 ---
 
-**TL;DR** — Prophet, an operating system, has a heartbeat that runs 11 phases in sequence. An ablation — one baseline run plus 11 single-skip runs — reveals that only one phase changes the exit code when removed: `health_checks`, which detects system problems. Every other phase can be individually skipped without changing the outcome. Skipping `health_checks` flips exit 1 to exit 0 by leaving the `issues` array (detected problems) empty, which lets `dispatch` (task dispatch) run on a stale database. The health check is load-bearing. The other 10 phases are additive — they contribute work but do not gate correctness.
+**TL;DR** — Prophet's heartbeat runs 11 phases in sequence. An ablation — one baseline plus 11 single-skip runs — reveals that only `health_checks` changes the exit code when removed. Every other phase can be skipped without changing the outcome. Skipping `health_checks` flips exit 1 to exit 0 by leaving the `issues` array empty, which lets `dispatch` run on a stale database. The health check is load-bearing. The other 10 phases are additive.
 
 ---
 

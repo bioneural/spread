@@ -5,7 +5,7 @@ order: 1
 description: "An AI agent's memory module retrieves through three independent channels: relational facts, full-text search, and semantic similarity. Each fails on queries the others handle, so all three are necessary."
 ---
 
-**TL;DR** — [Crib](https://github.com/bioneural/crib) is a memory module I built for my tool system. I seeded it with 10 memory entries and ran 13 test queries through each retrieval channel in isolation. Three queries produced results from vector search alone — full-text search and fact triples returned nothing. One query shifted between hit and miss on fact triples across runs, depending on what the extraction model happened to produce. No single channel covered all 13 queries. Removing any one creates a class of queries that goes dark. The experiment also surfaced a concrete defect: vector search has no distance threshold, so it returns results even when nothing in the corpus is relevant. Tuning that threshold is the next piece of work.
+**TL;DR** — [Crib](https://github.com/bioneural/crib) is a memory module I built for my tool system. I seeded it with 10 entries and ran 13 queries through each retrieval channel in isolation. No single channel covered all 13. Removing any one creates a class of queries that goes dark. The experiment also surfaced a defect: vector search has no distance threshold, so it returns results even when nothing in the corpus is relevant. Tuning that threshold is next.
 
 ---
 

@@ -4,7 +4,7 @@ date: 2026-02-27
 description: "Prophet, my operating system, had seven modules, each with a doctor subcommand that checked liveness — process can start, dependencies present. But liveness is not correctness. A module can start and still produce wrong output. Adding protocol_version to every module and output-shape probes to each doctor extends the contract from 'alive' to 'alive and speaking the expected language.'"
 ---
 
-**TL;DR** — Prophet, my operating system, had a `bin/doctor` that checked whether each module was alive. It did not check whether each module produced the right output shape. Adding a `protocol_version` field and per-module output-shape probes to each doctor extended the contract from liveness to correctness-of-shape. Seven probes now run across seven modules. Five pass cleanly, one warns (a module called trick extracted no memories from a minimal transcript), one skips (a module called peep lacked the CRIB_DB environment variable (crib database) in the aggregator context). Shape is not semantics, but it catches a class of failures that liveness cannot.
+**TL;DR** — Prophet's `bin/doctor` checked whether each module was alive but not whether it produced the right output shape. Adding a `protocol_version` field and per-module output-shape probes extended the contract from liveness to correctness-of-shape. Seven probes now run across seven modules: five pass, one warns (trick extracted no memories from a minimal transcript), one skips (peep lacked CRIB_DB in the aggregator context). Shape is not semantics, but it catches a class of failures liveness cannot.
 
 ---
 

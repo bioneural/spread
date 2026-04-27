@@ -5,7 +5,7 @@ order: 4
 description: "I identified three structural gaps in Prophet — my operating system — evaluation, orientation, and memory maintenance. This post describes what was built to close them: a verification layer that cross-references system logs against claims in memory, a maintenance cycle that detects contradictions and links corrections, an interest model that drives external intelligence gathering, and a reporting layer that makes system state legible to the operator."
 ---
 
-**TL;DR** — The [previous post](/posts/cognitive-infrastructure) described Prophet — a system of nine cooperating tools — and identified three structural gaps: evaluation, orientation, and memory maintenance. This post describes what was built to close them: an evaluation layer that cross-references logs against memory claims, a maintenance cycle that detects contradictions and links corrections, an interest model that drives external intelligence gathering, and a reporting layer that makes system state legible to the operator. The architecture grew from a perception-action cycle to something closer to a cognitive loop.
+**TL;DR** — The [previous post](/posts/cognitive-infrastructure) identified three structural gaps in Prophet: evaluation, orientation, and memory maintenance. This post describes what closed them: an evaluation layer that cross-references logs against memory claims, a maintenance cycle that detects contradictions and links corrections, an interest model that drives external intelligence gathering, and a reporting layer that makes system state legible. The architecture grew from a perception-action cycle to something closer to a cognitive loop.
 
 ---
 

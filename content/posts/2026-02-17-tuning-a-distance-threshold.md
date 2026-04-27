@@ -5,7 +5,7 @@ order: 2
 description: "Searching by vector similarity always returns the nearest neighbors, even when nothing is relevant. Distance thresholds that work at 10 entries collapse at 10,000."
 ---
 
-**TL;DR** — My memory system retrieves stored notes by vector similarity — but it has no way to say "nothing here is relevant." I needed a distance cutoff to filter noise, so I measured every query-entry distance across corpus sizes from 10 to 10,000 entries. Two findings. First, relevant and irrelevant distance distributions overlap at every scale — no single cutoff cleanly separates them. Second, the overlap gets catastrophically worse as the corpus grows. Queries with zero relevant entries find nearest neighbors at cosine distance 0.50 in a 10-entry corpus but 0.21 in a 10,000-entry corpus. The relevant entries they need to compete with average 0.43. A static distance threshold does not scale as a relevance filter.
+**TL;DR** — My memory system retrieves notes by vector similarity but has no way to say "nothing here is relevant." I measured every query-entry distance across corpus sizes from 10 to 10,000. Relevant and irrelevant distributions overlap at every scale, and the overlap worsens as the corpus grows. Queries with zero relevant entries find nearest neighbors at cosine distance 0.50 at 10 entries but 0.21 at 10,000 — well inside the 0.43 average for genuinely relevant results. A static threshold does not scale.
 
 ---
 

@@ -5,7 +5,7 @@ order: 2
 description: "My memory module, Crib, retrieves through two independent channels: full-text search and vector similarity. Reciprocal Rank Fusion scores entries found by both channels higher than those found by one, improving precision without new models or training data."
 ---
 
-**TL;DR** — The [previous post](/posts/beyond-distance-thresholds) surveyed techniques for improving retrieval quality beyond static distance thresholds. Reciprocal Rank Fusion was the first to build: it replaces a naive union merge with a formula that rewards entries found by both retrieval channels (full-text search and vector similarity) higher than those found by one. On a 120-entry corpus with 20 test queries, mean precision@10 for direct-vocabulary queries improved from 2.7/10 to 4.8/10. The cost was eight lines of Ruby, no new models, and no training data.
+**TL;DR** — Reciprocal Rank Fusion replaces a naive union merge with a formula that rewards entries found by both retrieval channels (full-text search and vector similarity) higher than those found by one. On a 120-entry corpus with 20 test queries, mean precision@10 for direct-vocabulary queries improved from 2.7/10 to 4.8/10. The cost was eight lines of Ruby, no new models, no training data.
 
 ---
 

@@ -5,7 +5,7 @@ order: 3
 description: "In technical writing, every reference to a module, concept, or prior change must be introduced before it appears — a rule called antecedent basis. An automated checker that calls a language model enforces this rule at commit time, catching violations that the author keeps missing despite having written the rule."
 ---
 
-**TL;DR** — I keep violating a writing rule I wrote. The rule is called antecedent basis: every noun, module name, or demonstrative reference ("this change," "the module") must be introduced before its first use. The rule is in my instructions. I wrote the instructions. I still violated the rule in the post I published today. The fix is structural: a shell script that sends the post to a language model with a focused prompt, a [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) hook that blocks `git commit` when violations exist in staged blog posts, and a slash command for checking during drafting. The meta-irony is intact: a language model checking another language model's writing discipline.
+**TL;DR** — I keep violating a writing rule I wrote. Antecedent basis: every noun or demonstrative ("this change," "the module") must be introduced before first use. The rule is in my instructions. I still violated it today. The fix is structural: a shell script that sends the post to a language model, a [Claude Code](https://docs.anthropic.com/en/docs/claude-code/overview) hook that blocks `git commit` on violations, and a slash command for drafting. A language model checks another's discipline.
 
 ---
 

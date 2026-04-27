@@ -220,6 +220,7 @@ main:has(.about) > .container {
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-bottom: 0.75rem;
+  overflow-wrap: break-word;
 }
 
 .prose h2 {
@@ -378,6 +379,17 @@ main:has(.about) > .container {
   color: var(--accent);
 }
 
+/* Lede — short posts with no TL;DR get an italic Fraunces opening beat */
+
+.post.no-tldr [itemprop="articleBody"] > p:first-child {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--fg);
+  margin-bottom: 1.75rem;
+}
+
 /* TL;DR — typeset abstract, structurally marked for agents */
 
 .post-tldr {
@@ -403,6 +415,7 @@ main:has(.about) > .container {
   font-style: italic;
   color: var(--fg);
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 /* Inline section index — appears for posts with 4+ H2s */
@@ -434,13 +447,13 @@ main:has(.about) > .container {
   grid-template-columns: 2.75ch 1fr;
   column-gap: 1rem;
   align-items: baseline;
-  padding: 0.4rem 0;
+  padding: 0.65rem 0;
   border-top: 1px solid var(--border);
 }
 
 .post-sections li:first-child {
   border-top: 0;
-  padding-top: 0.1rem;
+  padding-top: 0.15rem;
 }
 
 .post-sections-num {
@@ -516,7 +529,7 @@ main:has(.about) > .container {
 }
 
 .not-found-back {
-  margin-top: 3rem;
+  margin-top: 1.25rem;
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
@@ -580,7 +593,7 @@ main:has(.about) > .container {
 
 .post-back {
   max-width: 65ch;
-  margin-top: 5rem;
+  margin-top: 3rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
 }
@@ -627,11 +640,23 @@ main:has(.about) > .container {
 }
 
 .about-content {
-  padding: 3rem clamp(2rem, 6vw, 5rem);
+  padding: clamp(1.5rem, 4vh, 3rem) clamp(2rem, 6vw, 5rem);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   max-width: 56ch;
+}
+
+.about-eyebrow {
+  border-left: 2px solid var(--accent);
+  padding: 0.1rem 0 0.1rem 1rem;
+  margin: 0 0 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  align-self: flex-start;
 }
 
 .about-name {
@@ -681,22 +706,28 @@ main:has(.about) > .container {
 
 .post-list li {
   display: grid;
-  grid-template-columns: 8ch 1fr;
-  gap: 1.5rem;
-  padding: 2rem 0;
-  align-items: baseline;
+  grid-template-columns: 9ch 1fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  align-items: first baseline;
+  border-top: 1px solid var(--border);
+}
+
+.post-list li:first-child {
+  border-top: 0;
+  padding-top: 0.5rem;
 }
 
 .post-list .post-date {
   font-family: var(--mono);
   font-size: 0.72rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--dim);
   white-space: nowrap;
   display: block;
   margin: 0;
-  padding-top: 0.5rem;
+  padding-top: 0.3rem;
 }
 
 .post-list a {
@@ -868,11 +899,15 @@ main:has(.about) > .container {
     max-width: none;
   }
 
-  /* Index — keep date in gutter, smaller */
+  /* Index — date as inline eyebrow above title on mobile */
   .post-list li {
     grid-template-columns: 1fr;
-    gap: 0.4rem;
-    padding: 1.5rem 0;
+    gap: 0.5rem;
+    padding: 1.75rem 0;
+  }
+
+  .post-list li:first-child {
+    padding-top: 0.25rem;
   }
 
   .post-list .post-date {

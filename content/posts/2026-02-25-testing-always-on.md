@@ -4,7 +4,7 @@ date: 2026-02-25
 description: "How to evaluate a feature whose job is to always be present: a seven-category taxonomy of test fixtures, tests that verify the feature works regardless of query topic, and three bugs — including test fixtures that passed for the wrong reason."
 ---
 
-**TL;DR** — An always-on feature — one that should produce output regardless of input — inverts the normal testing problem. Instead of "does the right thing appear when the right query arrives?" the question becomes "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of test fixtures, discriminator tests (which verify both presence and absence), negative assertions (checks for absence), and a correction-chain bug that caused three tests to pass for the wrong reason.
+**TL;DR** — An always-on feature inverts the normal testing problem. The question shifts from "does the right thing appear when the right query arrives?" to "does the right thing appear when an unrelated query arrives, and does the wrong thing stay absent?" A seven-category taxonomy of fixtures, discriminator tests, negative assertions, and a correction-chain bug that caused three tests to pass for the wrong reason.
 
 ---
 

@@ -5,7 +5,7 @@ order: 5
 description: "Prophet — an AI agent's operating system — had no way to prove it was working correctly. Five additions — an evaluation harness (testing framework), a central dispatch module (infrastructure consolidation), interaction surfaces (user-facing interfaces), a health aggregator (system health monitor), and a shared data layer (unified data access) — transformed it from a black box into an instrument panel."
 ---
 
-**TL;DR** — Prophet, described in [previous posts](/posts/closing-the-loop), had a structural blind spot: no way for the operator to verify that anything was working correctly without reading databases directly. Five additions address this: an offline evaluation harness that measures retrieval, classification, and extraction quality with majority voting across trials; a central dispatch module that consolidates infrastructure and enables test isolation; three interaction surfaces (command-line, web, and Model Context Protocol); a health aggregator that probes every module's diagnostic subcommand; and a shared data access layer that keeps all surfaces consistent. The theme is observability — not as an afterthought, but as a design requirement.
+**TL;DR** — Prophet had a structural blind spot: no way for the operator to verify correctness without reading databases directly. Five additions address this: an offline evaluation harness with majority voting across trials; a central dispatch module that enables test isolation; three interaction surfaces (CLI, web, MCP); a health aggregator that probes every module's diagnostic subcommand; and a shared data access layer that keeps all surfaces consistent. Observability as a design requirement, not an afterthought.
 
 ---
 
