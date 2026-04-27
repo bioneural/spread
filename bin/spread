@@ -136,7 +136,7 @@ def build
     dir = File.join(tmp_dir, 'posts', post[:slug])
     FileUtils.mkdir_p(dir)
     inner = post_tmpl.result(binding)
-    html = render_layout(page_title: "#{post[:title]} — spread", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/") { inner }
+    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/") { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 
@@ -144,7 +144,7 @@ def build
   $base_path = @preview ? '.' : PROD_BASE
   index_tmpl = load_template('index.html')
   inner = index_tmpl.result(binding)
-  html = render_layout(page_title: 'spread', description: 'Architecture tradeoffs, debugging paths, and decisions that need room to develop.', page_url: "#{SITE_URL}/") { inner }
+  html = render_layout(page_title: 'bioneural', description: 'Architecture tradeoffs, debugging paths, and decisions that need room to develop.', page_url: "#{SITE_URL}/") { inner }
   File.write(File.join(tmp_dir, 'index.html'), html)
 
   # Render about (depth 1: about/index.html)
@@ -154,7 +154,7 @@ def build
     dir = File.join(tmp_dir, 'about')
     FileUtils.mkdir_p(dir)
     inner = about_tmpl.result(binding)
-    html = render_layout(page_title: 'About — spread', page_url: "#{SITE_URL}/about/") { inner }
+    html = render_layout(page_title: 'About — bioneural', page_url: "#{SITE_URL}/about/") { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 
@@ -169,7 +169,7 @@ def build
   $base_path = @preview ? '.' : PROD_BASE
   error_tmpl = load_template('404.html')
   inner = error_tmpl.result(binding)
-  html = render_layout(page_title: '404 — spread') { inner }
+  html = render_layout(page_title: '404 — bioneural') { inner }
   File.write(File.join(tmp_dir, '404.html'), html)
 
   # Copy static assets
