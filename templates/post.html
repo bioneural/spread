@@ -15,10 +15,14 @@
   <% end %>
 
   <% if post[:sections] && post[:sections].length >= 4 %>
-  <nav class="post-sections" aria-label="Sections">
+  <nav class="post-sections" role="doc-toc" aria-label="Contents">
+    <p class="post-sections-label">Contents</p>
     <ol>
-    <% post[:sections].each do |section| %>
-      <li><a href="#<%= section[:id] %>"><%= section[:text] %></a></li>
+    <% post[:sections].each_with_index do |section, i| %>
+      <li>
+        <span class="post-sections-num"><%= format('%02d', i + 1) %></span>
+        <a href="#<%= section[:id] %>"><%= section[:text] %></a>
+      </li>
     <% end %>
     </ol>
   </nav>
