@@ -415,6 +415,96 @@ main:has(.about) > .container {
   margin: 0;
 }
 
+/* Inline section index — appears for posts with 4+ H2s */
+
+.post-sections {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--dim);
+  margin: 0 0 4rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  max-width: 65ch;
+}
+
+.post-sections ol {
+  list-style: decimal;
+  padding-left: 2.5ch;
+  margin: 0;
+}
+
+.post-sections li {
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.post-sections a {
+  color: var(--dim);
+  text-decoration: none;
+  background-image: none;
+}
+
+.post-sections a:hover {
+  color: var(--fg);
+}
+
+/* 404 page */
+
+.not-found {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 65ch;
+}
+
+.not-found-code {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 1rem;
+}
+
+.not-found-message {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--fg);
+  margin: 0;
+  position: relative;
+  padding-bottom: 0.6rem;
+}
+
+.not-found-message::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+}
+
+.not-found-back {
+  margin-top: 3rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+  background-image: none;
+}
+
+.not-found-back:hover {
+  color: var(--fg);
+}
+
 /* Heading anchors — § glyph reveals on hover, whole heading is the link */
 
 .prose .heading-anchor {

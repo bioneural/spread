@@ -66,7 +66,7 @@ def idx
   @preview ? 'index.html' : ''
 end
 
-def render_layout(page_title:, description: nil, page_url: nil, jsonld: nil, &block)
+def render_layout(page_title:, description: nil, page_url: nil, jsonld: nil, og_image: nil, og_type: nil, &block)
   content = block.call
   layout = load_template('layout.html')
   layout.result(binding)
@@ -125,15 +125,21 @@ def lift_tldr(html)
   if (m = TLDR_PATTERN.match(html))
     abstract = strip_tags(m[2])
     rest = html.sub(TLDR_PATTERN, '')
-    section = %{<section class="post-tldr" role="doc-abstract" aria-label="TL;DR">\n  <p class="post-tldr-label">TL;DR</p>\n  <p>#{m[2]}</p>\n</section>\n}
-    [section + rest, abstract]
+    section = %{<section class="post-tldr" role="doc-abstract" aria-label="TL;DR">\n  <p class="post-tldr-label">TL;DR</p>\n  <p>#{m[2]}</p>\n</section>}
+    [rest, section, abstract]
   else
-    [html, nil]
+    [html, nil, nil]
   end
 end
 
-def extract_h2_texts(html)
-  html.scan(%r{<h2[^>]*>(.+?)</h2>}m).map { |m| strip_tags(m[0]) }
+def extract_h2_index(html)
+  results = []
+  html.scan(%r{<h2([^>]*)>(.+?)</h2>}m).each do |attrs, content|
+    id = attrs =~ /\sid="([^"]+)"/ ? ::Regexp.last_match(1) : nil
+    next unless id
+    results << { id: id, text: strip_tags(content) }
+  end
+  results
 end
 
 def extract_citations(html, current_slug)
@@ -163,7 +169,7 @@ def post_jsonld(post)
   data['description']    = post[:description] if post[:description] && !post[:description].empty?
   data['abstract']       = post[:abstract]    if post[:abstract]
   data['dateModified']   = post[:revised].to_s if post[:revised]
-  data['articleSection'] = post[:sections]    if post[:sections] && !post[:sections].empty?
+  data['articleSection'] = post[:sections].map { |s| s[:text] } if post[:sections] && !post[:sections].empty?
   if post[:citations] && !post[:citations].empty?
     data['citation'] = post[:citations].map { |path| { '@type' => 'WebPage', 'url' => "#{SITE_URL}#{path}" } }
   end
@@ -202,9 +208,9 @@ def load_posts
     tagged     = tag_post_pattern(rendered)
     linked     = linkify_headings(tagged)
     coded      = add_code_lang_attr(linked)
-    sections   = extract_h2_texts(coded)
+    sections   = extract_h2_index(coded)
     citations  = extract_citations(coded, slug)
-    body, abstract = lift_tldr(coded)
+    body, tldr_html, abstract = lift_tldr(coded)
 
     {
       title: meta['title'] || slug,
@@ -214,6 +220,7 @@ def load_posts
       slug: slug,
       description: desc,
       body: body,
+      tldr_html: tldr_html,
       abstract: abstract,
       sections: sections,
       citations: citations,
@@ -227,6 +234,92 @@ def load_about
   return nil unless File.exist?(path)
   parsed = parse_file(path)
   { body: Kramdown::Document.new(parsed[:body_md]).to_html }
+end
+
+# -- Sitemap --
+
+def write_sitemap(out_dir, posts, about)
+  urls = []
+  index_lastmod = (posts.map { |p| p[:revised] || p[:date] }.max || Date.today).iso8601
+  urls << { loc: "#{SITE_URL}/", lastmod: index_lastmod, changefreq: 'weekly', priority: '1.0' }
+  urls << { loc: "#{SITE_URL}/about/", lastmod: nil, changefreq: 'monthly', priority: '0.8' } if about
+  posts.each do |post|
+    lastmod = (post[:revised] || post[:date]).iso8601
+    urls << { loc: "#{SITE_URL}/posts/#{post[:slug]}/", lastmod: lastmod, changefreq: 'monthly', priority: '0.7' }
+  end
+
+  xml = +"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+  xml << "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n"
+  urls.each do |u|
+    xml << "  <url>\n"
+    xml << "    <loc>#{u[:loc]}</loc>\n"
+    xml << "    <lastmod>#{u[:lastmod]}</lastmod>\n" if u[:lastmod]
+    xml << "    <changefreq>#{u[:changefreq]}</changefreq>\n"
+    xml << "    <priority>#{u[:priority]}</priority>\n"
+    xml << "  </url>\n"
+  end
+  xml << "</urlset>\n"
+
+  File.write(File.join(out_dir, 'sitemap.xml'), xml)
+end
+
+# -- OG cards --
+
+CHROME_PATHS = [
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/Applications/Chromium.app/Contents/MacOS/Chromium',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser'
+].freeze
+
+def find_chrome
+  ENV['CHROME_BIN'] || CHROME_PATHS.find { |p| File.executable?(p) }
+end
+
+def generate_og_cards(force: false)
+  require 'tempfile'
+  require 'cgi'
+  chrome = find_chrome
+  abort 'spread: error: no chrome/chromium binary found (set CHROME_BIN)' unless chrome
+
+  posts = load_posts
+  og_dir = File.join(STATIC_DIR, 'og')
+  FileUtils.mkdir_p(og_dir)
+
+  tmpl_path = File.join(TMPL_DIR, 'og-card.html')
+  tmpl = ERB.new(File.read(tmpl_path))
+
+  posts.each do |post|
+    out_path = File.join(og_dir, "#{post[:slug]}.png")
+    if !force && File.exist?(out_path) && File.mtime(out_path) >= File.mtime(post[:path]) && File.mtime(out_path) >= File.mtime(tmpl_path)
+      next
+    end
+
+    title       = CGI.escapeHTML(post[:title])
+    description = CGI.escapeHTML(post[:description].to_s)
+    date        = post[:date].strftime('%Y.%m.%d')
+
+    html = tmpl.result(binding)
+
+    Tempfile.create(['og-card', '.html']) do |f|
+      f.write(html)
+      f.flush
+      cmd = [
+        chrome,
+        '--headless=new',
+        '--disable-gpu',
+        '--hide-scrollbars',
+        '--no-sandbox',
+        '--window-size=1200,630',
+        "--screenshot=#{out_path}",
+        "file://#{f.path}"
+      ]
+      system(*cmd, out: File::NULL, err: File::NULL)
+    end
+
+    log "og: generated #{post[:slug]}.png"
+  end
 end
 
 # -- Build --
@@ -251,7 +344,9 @@ def build
     FileUtils.mkdir_p(dir)
     inner = post_tmpl.result(binding)
     jsonld = post_jsonld(post)
-    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/", jsonld: jsonld) { inner }
+    og_card_path = File.join(STATIC_DIR, 'og', "#{post[:slug]}.png")
+    og_image_url = File.exist?(og_card_path) ? "#{SITE_URL}/og/#{post[:slug]}.png" : nil
+    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/", jsonld: jsonld, og_image: og_image_url, og_type: 'article') { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 
@@ -279,6 +374,9 @@ def build
   feed_tmpl = load_template('feed.xml')
   feed = feed_tmpl.result(binding)
   File.write(File.join(tmp_dir, 'feed.xml'), feed)
+
+  # Generate sitemap.xml (always uses absolute URLs)
+  write_sitemap(tmp_dir, posts, about)
 
   # Render 404 page (depth 0)
   $base_path = @preview ? '.' : PROD_BASE
@@ -374,7 +472,9 @@ when 'new'
     exit 1
   end
   new_post(title)
+when 'og'
+  generate_og_cards(force: ARGV.include?('--force'))
 else
-  $stderr.puts 'usage: bin/spread [build|preview|new "title"]'
+  $stderr.puts 'usage: bin/spread [build|preview|new "title"|og [--force]]'
   exit 1
 end

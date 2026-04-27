@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 600;
+  src: url('file://<%= File.join(SPREAD_ROOT, "static/fonts/fraunces-roman-latin.woff2") %>') format('woff2'),
+       url('file://<%= File.join(SPREAD_ROOT, "static/fonts/fraunces-roman-latin-ext.woff2") %>') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  src: url('file://<%= File.join(SPREAD_ROOT, "static/fonts/fraunces-italic-latin.woff2") %>') format('woff2'),
+       url('file://<%= File.join(SPREAD_ROOT, "static/fonts/fraunces-italic-latin-ext.woff2") %>') format('woff2');
+}
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400 600;
+  src: url('file://<%= File.join(SPREAD_ROOT, "static/fonts/intertight-latin.woff2") %>') format('woff2');
+}
+
+:root {
+  --bg: #0a0c10;
+  --fg: #e7e9ee;
+  --dim: #8b94a3;
+  --accent: #1f5fff;
+  --serif: 'Fraunces', serif;
+  --sans: 'Inter Tight', sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 1200px;
+  height: 630px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  padding: 80px 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 36px;
+  letter-spacing: -0.005em;
+  position: relative;
+  padding-bottom: 14px;
+  display: inline-block;
+}
+
+.mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 1000px;
+}
+
+.title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 76px;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  position: relative;
+  padding-bottom: 22px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+}
+
+.description {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--dim);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+</style>
+</head>
+<body>
+<div class="mark">bioneural</div>
+<div class="body">
+  <h1 class="title"><%= title %></h1>
+  <% if description && !description.empty? %>
+  <p class="description"><%= description %></p>
+  <% end %>
+</div>
+<div class="foot">
+  <span><%= date %></span>
+  <span>by V&#x0117;tra Bioneural</span>
+</div>
+</body>
+</html>

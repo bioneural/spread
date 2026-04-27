@@ -36,17 +36,20 @@
   <link rel="apple-touch-icon" sizes="180x180" href="<%= base_path %>/apple-touch-icon.png">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="<%= base_path %>/fonts/fraunces-roman-latin.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="<%= base_path %>/fonts/intertight-latin.woff2">
+  <% if defined?(page_url) && page_url %>
+  <link rel="canonical" href="<%= page_url %>">
+  <% end %>
   <meta property="og:site_name" content="bioneural">
   <meta property="og:title" content="<%= page_title %>">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="<%= SITE_URL %>/avatar.jpg">
+  <meta property="og:type" content="<%= (defined?(og_type) && og_type) ? og_type : 'website' %>">
+  <meta property="og:image" content="<%= (defined?(og_image) && og_image) ? og_image : "#{SITE_URL}/avatar.jpg" %>">
   <% if defined?(page_url) && page_url %>
   <meta property="og:url" content="<%= page_url %>">
   <% end %>
   <% if defined?(description) && description %>
   <meta property="og:description" content="<%= description %>">
   <% end %>
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="<%= (defined?(og_image) && og_image) ? 'summary_large_image' : 'summary' %>">
   <link rel="stylesheet" href="<%= base_path %>/style.css">
   <link rel="alternate" type="application/rss+xml" title="bioneural" href="<%= base_path %>/feed.xml">
   <% if defined?(jsonld) && jsonld %>
