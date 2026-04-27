@@ -770,33 +770,12 @@ main:has(.about) > .container {
   border-top: 1px solid var(--border);
   font-family: var(--mono);
   font-size: 0.72rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.12em;
   color: var(--dim);
 }
 
 .site-footer .container {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.site-footer .author-mark {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: block;
-}
-
-.site-footer a {
-  color: var(--fg);
-  text-decoration: none;
-}
-
-.site-footer a:hover {
-  color: var(--accent);
-  text-decoration: none;
+  text-transform: uppercase;
 }
 
 /* Theme toggle */
