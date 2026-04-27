@@ -8,9 +8,6 @@
       <% end %>
     </p>
     <h1 itemprop="headline"><%= post[:title] %></h1>
-    <% if post[:description] && !post[:description].empty? %>
-    <p class="post-standfirst"><%= post[:description] %></p>
-    <% end %>
   </header>
 
   <% if post[:tldr_html] %>

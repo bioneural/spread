@@ -166,8 +166,8 @@ def post_jsonld(post)
       'name' => 'bioneural'
     }
   }
-  data['description']    = post[:description] if post[:description] && !post[:description].empty?
-  data['abstract']       = post[:abstract]    if post[:abstract]
+  data['description']    = post[:summary]  if post[:summary] && !post[:summary].empty?
+  data['abstract']       = post[:abstract] if post[:abstract]
   data['dateModified']   = post[:revised].to_s if post[:revised]
   data['articleSection'] = post[:sections].map { |s| s[:text] } if post[:sections] && !post[:sections].empty?
   if post[:citations] && !post[:citations].empty?
@@ -211,6 +211,7 @@ def load_posts
     sections   = extract_h2_index(coded)
     citations  = extract_citations(coded, slug)
     body, tldr_html, abstract = lift_tldr(coded)
+    summary = abstract || desc
 
     {
       title: meta['title'] || slug,
@@ -219,6 +220,7 @@ def load_posts
       order: meta['order'] || 0,
       slug: slug,
       description: desc,
+      summary: summary,
       body: body,
       tldr_html: tldr_html,
       abstract: abstract,
@@ -297,7 +299,7 @@ def generate_og_cards(force: false)
     end
 
     title       = CGI.escapeHTML(post[:title])
-    description = CGI.escapeHTML(post[:description].to_s)
+    description = CGI.escapeHTML(post[:summary].to_s)
     date        = post[:date].strftime('%Y.%m.%d')
 
     html = tmpl.result(binding)
@@ -346,7 +348,7 @@ def build
     jsonld = post_jsonld(post)
     og_card_path = File.join(STATIC_DIR, 'og', "#{post[:slug]}.png")
     og_image_url = File.exist?(og_card_path) ? "#{SITE_URL}/og/#{post[:slug]}.png" : nil
-    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:description], page_url: "#{SITE_URL}/posts/#{post[:slug]}/", jsonld: jsonld, og_image: og_image_url, og_type: 'article') { inner }
+    html = render_layout(page_title: "#{post[:title]} — bioneural", description: post[:summary], page_url: "#{SITE_URL}/posts/#{post[:slug]}/", jsonld: jsonld, og_image: og_image_url, og_type: 'article') { inner }
     File.write(File.join(dir, 'index.html'), html)
   end
 

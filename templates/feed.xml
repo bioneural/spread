@@ -14,8 +14,8 @@
       <link><%= site_url %>/posts/<%= post[:slug] %>/</link>
       <guid isPermaLink="true"><%= site_url %>/posts/<%= post[:slug] %>/</guid>
       <pubDate><%= post[:date].strftime('%a, %d %b %Y 00:00:00 +0000') %></pubDate>
-      <% if post[:description] %>
-      <description><%= escape_xml(post[:description]) %></description>
+      <% if post[:summary] %>
+      <description><%= escape_xml(post[:summary]) %></description>
       <% end %>
       <content:encoded><![CDATA[<%= post[:body] %>]]></content:encoded>
     </item>

@@ -4,8 +4,8 @@
     <span class="post-date"><%= post[:date].strftime('%Y.%m.%d') %></span>
     <div class="post-list-item">
       <a href="<%= base_path %>/posts/<%= post[:slug] %>/<%= idx %>"><%= post[:title] %></a>
-      <% if post[:description] && !post[:description].empty? %>
-      <p class="post-description"><%= post[:description] %></p>
+      <% if post[:summary] && !post[:summary].empty? %>
+      <p class="post-description"><%= post[:summary] %></p>
       <% end %>
     </div>
   </li>

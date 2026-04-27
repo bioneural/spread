@@ -378,16 +378,6 @@ main:has(.about) > .container {
   color: var(--accent);
 }
 
-.post-standfirst {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  line-height: 1.45;
-  color: var(--dim);
-  margin-top: 1.25rem;
-  margin-bottom: 0;
-  max-width: 50ch;
-}
-
 /* TL;DR — typeset abstract, structurally marked for agents */
 
 .post-tldr {
