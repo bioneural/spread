@@ -1,5 +1,8 @@
-<article class="prose">
+<article class="prose post">
+  <p class="post-meta"><%= post[:date].strftime('%B %-d, %Y') %></p>
   <h1><%= post[:title] %></h1>
-  <span class="post-date"><%= post[:date].strftime('%B %-d, %Y') %></span>
   <%= post[:body] %>
 </article>
+<nav class="post-back">
+  <a href="<%= base_path %>/<%= idx %>">&larr; posts</a>
+</nav>

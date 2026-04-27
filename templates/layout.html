@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,8 +50,8 @@
   <script>
     (function() {
       var theme = localStorage.getItem('theme');
-      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
+      if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     })();
   </script>
@@ -59,7 +59,7 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a href="<%= base_path %>/<%= idx %>" class="site-title">s p r e a d</a>
+      <a href="<%= base_path %>/<%= idx %>" class="site-title">s</a>
       <nav class="site-nav">
         <a href="<%= base_path %>/<%= idx %>">posts</a>
         <a href="<%= base_path %>/about/<%= idx %>">about</a>
