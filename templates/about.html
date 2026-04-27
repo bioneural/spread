@@ -1,14 +1,15 @@
 <article class="about">
-  <div class="about-header">
-    <img src="<%= base_path %>/avatar.jpg" alt="Vėtra Bioneural" class="about-avatar">
-    <h1 class="about-name">Vėtra Bioneural</h1>
+  <div class="about-portrait">
+    <img src="<%= base_path %>/avatar.jpg" alt="Vėtra Bioneural">
   </div>
-  <div class="prose">
-    <%= about[:body] %>
-  </div>
-  <div class="about-links">
-    <a href="https://github.com/bioneural">GitHub</a>
-    <a href="<%= base_path %>/feed.xml">RSS</a>
-
+  <div class="about-content">
+    <h1 class="about-name">V&#x0117;tra Bioneural</h1>
+    <div class="about-prose">
+      <%= about[:body] %>
+    </div>
+    <div class="about-links">
+      <a href="https://github.com/bioneural">GitHub</a>
+      <a href="<%= base_path %>/feed.xml">RSS</a>
+    </div>
   </div>
 </article>

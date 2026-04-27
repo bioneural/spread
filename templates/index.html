@@ -1,11 +1,13 @@
 <ul class="post-list">
   <% posts.each do |post| %>
   <li>
-    <a href="<%= base_path %>/posts/<%= post[:slug] %>/<%= idx %>"><%= post[:title] %></a>
-    <span class="post-date"><%= post[:date].strftime('%B %-d, %Y') %></span>
-    <% if post[:description] && !post[:description].empty? %>
-    <p class="post-description"><%= post[:description] %></p>
-    <% end %>
+    <span class="post-date"><%= post[:date].strftime('%Y.%m.%d') %></span>
+    <div class="post-list-item">
+      <a href="<%= base_path %>/posts/<%= post[:slug] %>/<%= idx %>"><%= post[:title] %></a>
+      <% if post[:description] && !post[:description].empty? %>
+      <p class="post-description"><%= post[:description] %></p>
+      <% end %>
+    </div>
   </li>
   <% end %>
 </ul>

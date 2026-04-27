@@ -1,26 +1,85 @@
-/* spread — design system */
+/* bioneural — design system */
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/fraunces-roman-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/fraunces-roman-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/fraunces-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/fraunces-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/intertight-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('fonts/intertight-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 :root {
-  --bg: #ffffff;
-  --fg: #0f0f0f;
-  --muted: #f5f5f5;
-  --border: #e5e5e5;
-  --link: #1d4ed8;
-  --link-hover: #1e40af;
-  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  /* Dark default */
+  --bg: #0a0c10;
+  --fg: #e7e9ee;
+  --muted: #12151b;
+  --border: #1e232c;
+  --dim: #8b94a3;
+  --accent: #1f5fff;
+  --accent-soft: rgba(31, 95, 255, 0.22);
+
+  --font: 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  --serif: 'Fraunces', ui-serif, Charter, 'Iowan Old Style', 'Apple Garamond',
+    Baskerville, 'Times New Roman', Times, serif;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
     'Liberation Mono', monospace;
 }
 
-[data-theme="dark"] {
-  --bg: #0f0f0f;
-  --fg: #fafafa;
-  --muted: #1a1a1a;
-  --border: #2a2a2a;
-  --link: #93bbfc;
-  --link-hover: #b4d0fd;
+[data-theme="light"] {
+  --bg: #ffffff;
+  --fg: #0f1216;
+  --muted: #f4f5f7;
+  --border: #e5e7ea;
+  --dim: #6b7380;
+  --accent-soft: rgba(31, 95, 255, 0.15);
 }
 
 *,
@@ -37,7 +96,6 @@ html {
   line-height: 1.6;
   color: var(--fg);
   background: var(--bg);
-  transition: color 0.3s, background-color 0.3s;
 }
 
 body {
@@ -46,46 +104,67 @@ body {
   flex-direction: column;
 }
 
+::selection {
+  background: var(--accent-soft);
+  color: var(--fg);
+}
+
+/* Links: soft cobalt underline that solidifies on hover */
 a {
-  color: var(--link);
-  text-decoration: none;
-  transition: color 0.3s;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--accent-soft);
 }
 
 a:hover {
-  color: var(--link-hover);
-  text-decoration: underline;
+  text-decoration-color: var(--accent);
 }
 
 /* Container */
 
 .container {
-  max-width: 1000px;
+  max-width: 880px;
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
 }
 
-/* Header */
+/* Header — left mark, right nav */
 
 .site-header {
-  padding: 2.5rem 0;
+  padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
-  transition: border-color 0.3s;
 }
 
 .site-header .container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 }
 
 .site-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1;
   color: var(--fg);
-  letter-spacing: 0.2em;
-  text-transform: lowercase;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 0.4rem;
+}
+
+.site-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--accent);
 }
 
 .site-title:hover {
@@ -94,18 +173,20 @@ a:hover {
 
 .site-nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .site-nav a {
-  color: var(--fg);
-  font-size: 0.875rem;
-  letter-spacing: 0.04em;
-  transition: color 0.3s;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--dim);
 }
 
 .site-nav a:hover {
-  color: var(--link);
+  color: var(--fg);
   text-decoration: none;
 }
 
@@ -113,7 +194,17 @@ a:hover {
 
 main {
   flex: 1;
-  padding: 3.5rem 0;
+  padding: 4rem 0;
+}
+
+/* Strip main padding when the about page is rendered */
+main:has(.about) {
+  padding: 0;
+}
+
+main:has(.about) > .container {
+  max-width: none;
+  padding: 0;
 }
 
 /* Prose */
@@ -123,30 +214,35 @@ main {
 }
 
 .prose h1 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 2.85rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
 }
 
 .prose h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 3rem;
+  font-family: var(--serif);
+  font-size: 1.65rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-top: 4.5rem;
   margin-bottom: 0.75rem;
   line-height: 1.3;
 }
 
 .prose h3 {
+  font-family: var(--serif);
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 2.5rem;
   margin-bottom: 0.5rem;
 }
 
 .prose p {
   margin-bottom: 1.5rem;
+  line-height: 1.65;
 }
 
 .prose ul,
@@ -156,16 +252,14 @@ main {
 }
 
 .prose li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
 }
 
 .prose blockquote {
-  border-left: 2px solid var(--border);
+  border-left: 2px solid var(--accent);
   padding-left: 1.25rem;
   margin-bottom: 1.5rem;
-  color: var(--fg);
-  opacity: 0.8;
-  transition: border-color 0.3s;
+  color: var(--dim);
 }
 
 .prose code {
@@ -173,17 +267,16 @@ main {
   font-size: 0.875em;
   background: var(--muted);
   padding: 0.15em 0.4em;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s;
+  border-radius: 2px;
 }
 
 .prose pre {
   background: var(--muted);
+  border-left: 1px solid var(--accent);
   padding: 1.25rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 2px;
   overflow-x: auto;
   margin-bottom: 1.5rem;
-  transition: background-color 0.3s;
 }
 
 .prose pre code {
@@ -196,7 +289,7 @@ main {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1.5rem;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
 }
 
 .prose th,
@@ -204,16 +297,13 @@ main {
   padding: 0.6rem 0.75rem;
   text-align: left;
   border-bottom: 1px solid var(--border);
-  transition: border-color 0.3s;
 }
 
 .prose th {
-  font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
   color: var(--fg);
-  opacity: 0.6;
 }
 
 .prose thead th {
@@ -227,63 +317,144 @@ main {
 .prose hr {
   border: none;
   border-top: 1px solid var(--border);
-  margin: 3rem 0;
-  transition: border-color 0.3s;
+  margin: 5rem 0;
 }
 
 .prose img {
   max-width: 100%;
   height: auto;
-  border-radius: 0.5rem;
+  border-radius: 2px;
 }
 
-/* About page */
+/* Recurring identity mark — 2.5rem cobalt rule under post h1 + about name */
 
-.about {
+.post h1,
+.about-name {
+  position: relative;
+  padding-bottom: 0.6rem;
+}
+
+.post h1::after,
+.about-name::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
+}
+
+/* Post page */
+
+.post {
   max-width: 65ch;
 }
 
-.about-header {
-  text-align: center;
-  margin-bottom: 2.5rem;
+.post-meta {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 1rem;
+  display: block;
 }
 
-.about-avatar {
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50%;
-  margin-bottom: 1rem;
+.post-back {
+  max-width: 65ch;
+  margin-top: 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.post-back a {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+}
+
+.post-back a:hover {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+/* About page — 50/50 portrait/text split */
+
+.about {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 10rem);
+}
+
+.about-portrait {
+  position: relative;
+  border-right: 1px solid var(--accent);
+  background: #000;
+  overflow: hidden;
+}
+
+.about-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.about-content {
+  padding: 3rem clamp(2rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 56ch;
 }
 
 .about-name {
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-  margin-bottom: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.about-content .prose p,
+.about-prose p {
+  margin-bottom: 1.25rem;
+}
+
+.about-prose {
+  color: var(--fg);
 }
 
 .about-links {
   display: flex;
   gap: 1.5rem;
-  margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-  font-size: 0.9rem;
-  transition: border-color 0.3s;
+  margin-top: 2rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-/* Post meta */
+.about-links a {
+  color: var(--dim);
+  text-decoration: none;
+}
 
-.post-date {
-  font-size: 0.875rem;
+.about-links a:hover {
   color: var(--fg);
-  opacity: 0.6;
-  margin-bottom: 2.5rem;
-  display: block;
 }
 
-/* Post list (index) */
+/* Index — ledger layout */
 
 .post-list {
   list-style: none;
@@ -292,41 +463,56 @@ main {
 }
 
 .post-list li {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
-  transition: border-color 0.3s;
-}
-
-.post-list li:first-child {
-  padding-top: 0;
-}
-
-.post-list li:last-child {
-  border-bottom: none;
-}
-
-.post-list a {
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: var(--fg);
-  transition: color 0.3s;
-}
-
-.post-list a:hover {
-  color: var(--link);
-  text-decoration: none;
+  display: grid;
+  grid-template-columns: 8ch 1fr;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  align-items: baseline;
 }
 
 .post-list .post-date {
-  margin-bottom: 0;
-  margin-top: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+  display: block;
+  margin: 0;
+  padding-top: 0.5rem;
+}
+
+.post-list a {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-decoration: none;
+  position: relative;
+  display: inline;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 140ms ease-out;
+  padding-bottom: 2px;
+}
+
+.post-list a:hover {
+  background-size: 100% 1px;
+  text-decoration: none;
 }
 
 .post-list .post-description {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  opacity: 0.65;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--dim);
   line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Footer */
@@ -334,17 +520,35 @@ main {
 .site-footer {
   padding: 2rem 0;
   border-top: 1px solid var(--border);
-  font-size: 0.8rem;
-  opacity: 0.65;
-  transition: border-color 0.3s;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--dim);
+}
+
+.site-footer .container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.site-footer .author-mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: block;
 }
 
 .site-footer a {
   color: var(--fg);
+  text-decoration: none;
 }
 
 .site-footer a:hover {
-  color: var(--link);
+  color: var(--accent);
+  text-decoration: none;
 }
 
 /* Theme toggle */
@@ -353,8 +557,8 @@ main {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid var(--border);
   border-radius: 50%;
   background: var(--bg);
@@ -362,45 +566,99 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, border-color 0.3s;
   z-index: 100;
 }
 
 .theme-toggle:hover {
-  background: var(--muted);
+  border-color: var(--accent);
 }
 
 .theme-icon {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: var(--fg);
-  transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-[data-theme="dark"] .theme-icon {
-  background: transparent;
-  box-shadow: inset -4px -2px 0 0 var(--fg);
+  width: 1px;
+  height: 0.85rem;
+  background: linear-gradient(to bottom, var(--fg) 0 50%, var(--accent) 50% 100%);
 }
 
 /* Responsive */
 
 @media (max-width: 768px) {
-  .site-header .container {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-
   .site-header {
-    padding: 1.5rem 0;
+    padding: 1.25rem 0;
   }
 
-  .prose h1 {
-    font-size: 1.75rem;
+  .site-header .container {
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  .site-nav {
+    gap: 1rem;
+  }
+
+  .site-nav a {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
   }
 
   main {
     padding: 2.5rem 0;
+  }
+
+  .prose h1,
+  .post h1 {
+    font-size: 1.85rem;
+  }
+
+  /* About — stack with capped portrait so name + first line clear the fold */
+  .about {
+    display: block;
+    min-height: 0;
+  }
+
+  .about-portrait {
+    aspect-ratio: 4 / 5;
+    max-height: calc(78vh - 4rem);
+    border-right: none;
+    position: relative;
+  }
+
+  .about-portrait img {
+    object-position: center 20%;
+  }
+
+  .about-portrait::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 55%, var(--bg) 96%);
+    pointer-events: none;
+  }
+
+  /* Cobalt tick — extends the accent-rule vocabulary downward as a scroll cue */
+  .about-portrait::before {
+    content: "";
+    position: absolute;
+    left: 1.5rem;
+    bottom: 0.75rem;
+    width: 2px;
+    height: 1.25rem;
+    background: var(--accent);
+    z-index: 1;
+  }
+
+  .about-content {
+    padding: 1.25rem 1.5rem 3rem;
+    max-width: none;
+  }
+
+  /* Index — keep date in gutter, smaller */
+  .post-list li {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    padding: 1.5rem 0;
+  }
+
+  .post-list .post-date {
+    padding-top: 0;
   }
 }
