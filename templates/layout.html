@@ -30,7 +30,10 @@
   <% if defined?(description) && description %>
   <meta name="description" content="<%= description %>">
   <% end %>
-  <link rel="icon" href="<%= base_path %>/avatar.jpg">
+  <link rel="icon" type="image/x-icon" href="<%= base_path %>/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= base_path %>/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= base_path %>/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= base_path %>/apple-touch-icon.png">
   <meta property="og:site_name" content="spread">
   <meta property="og:title" content="<%= page_title %>">
   <meta property="og:type" content="website">
